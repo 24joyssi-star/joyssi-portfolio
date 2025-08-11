@@ -12,7 +12,7 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif}
 
-  /* Header */
+  /* Header (sans burger) */
   .header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid rgba(0,0,0,.08)}
   .wrap{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
   .brand{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:-.04em;
@@ -35,17 +35,17 @@
   }
   .rule{height:1px;background:rgba(0,0,0,.08);margin:36px 0}
 
-  /* Hero */
+  /* Hero (Accueil) */
   .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
   @media(max-width:900px){.hero{grid-template-columns:1fr}}
   .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;
-              line-height:.9;font-size:min(14vw,120px);animation:none !important;color:#000;margin:0}
+              line-height:.9;font-size:min(14vw,120px);color:#000;margin:0}
   .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
   .cta{
     display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
     background:#fff;color:#000;border-radius:16px;cursor:pointer;
     font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.02em;
-    border:2px solid var(--majorelle)
+    border:2px solid var(--majorelle); text-decoration:none
   }
   .hero-fig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .hero-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#f2f2f2}
@@ -58,14 +58,15 @@
   .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:20px}
   @media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
   @media(min-width:992px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
-  .card{border:1px solid rgba(0,0,0,.12);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;cursor:pointer}
+  .card{border:1px solid rgba(0,0,0,.12);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+  .card:link,.card:visited{color:inherit;text-decoration:none}
   .thumb{aspect-ratio:4/5;width:100%;object-fit:cover;background:#f2f2f2}
   .card-body{padding:12px}
   .roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
   .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
   .collab{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.15);font-size:13px}
 
-  /* Contact boutons */
+  /* A propos + Contact boutons */
   .links a{
     display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;
     border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700;background:#fff
@@ -73,12 +74,12 @@
   .links a + a{margin-left:10px}
   .links svg{width:18px;height:18px}
 
-  /* Blink (logo header seulement) */
+  /* Blink (logo header uniquement) */
   @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--majorelle)}}
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
   @media(prefers-reduced-motion:reduce){.blink{animation:none}}
 
-  /* Soulignement animé */
+  /* Soulignement animé du logo */
   @keyframes underlineSweep {
     0%{ transform: translateX(-110%); opacity:0 }
     10%{ opacity:1 } 50%{ transform: translateX(0%); opacity:1 }
@@ -91,7 +92,7 @@
     animation: underlineSweep 3s ease-in-out infinite;
   }
 
-  /* ===== DÉTAIL PROJET : vignettes 300x600 ===== */
+  /* ===== Page DÉTAIL : galerie 300x600 centrée ===== */
   .detail{max-width:1200px;margin:0 auto;padding:56px 20px;display:none}
   .back{
     display:inline-flex;align-items:center;gap:8px;
@@ -100,9 +101,7 @@
     font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;cursor:pointer
   }
   .detail-title{font-size:28px;font-weight:900;letter-spacing:-.01em}
-  .gallery{
-    display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:14px;
-  }
+  .gallery{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:14px}
   .gallery img{
     width:300px; height:600px; object-fit:cover;
     border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#f2f2f2;
@@ -141,7 +140,7 @@
         <p id="featureTitle" style="font-weight:800;margin:0 0 6px">—</p>
         <p id="featureDesc" style="opacity:.9;margin:0 0 14px">—</p>
 
-        <button class="cta" id="seeAll" data-i18n="feature.cta">Voir les projets</button>
+        <a class="cta" id="seeAll" href="#/projets" data-i18n="feature.cta">Voir les projets</a>
       </div>
       <div class="hero-fig" id="featureImages"></div>
     </div>
@@ -212,7 +211,7 @@
       </a>
     </p>
 
-    <!-- Fallback email (Windows, webmail, copier) -->
+    <!-- Fallback email (Windows/web) -->
     <div id="emailMenu" style="display:none; position:fixed; right:20px; bottom:72px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12);">
       <div style="font-weight:800; margin-bottom:8px;">Ouvrir avec</div>
       <div style="display:flex;flex-direction:column;gap:6px;">
@@ -335,27 +334,30 @@ function applyI18n(){
   $("#frBtn").classList.toggle('active',lang==='fr');
   $("#enBtn").classList.toggle('active',lang==='en');
 
-  // Texte du bouton retour
+  // Texte bouton retour
   $("#backBtn").lastChild.nodeValue = " " + (lang==='fr'?STRINGS.fr.detail.back:STRINGS.en.detail.back);
 }
 $("#frBtn").addEventListener('click',()=>{lang='fr';localStorage.setItem('lang','fr');applyI18n();});
 $("#enBtn").addEventListener('click',()=>{lang='en';localStorage.setItem('lang','en');applyI18n();});
 
-/* ===== Accueil : dernier projet ===== */
+/* ===== Accueil : dernier projet (images cliquables en <a>) ===== */
 function populateFeature(){
   const latest=[...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
   const holder=$("#featureImages"); holder.innerHTML="";
   latest.images.slice(0,2).forEach((src,i)=>{
-    const img=new Image(); img.loading="lazy"; img.alt=latest.title+" "+(i+1); img.src=src;
+    const link=document.createElement('a');
+    link.href = `#/projets/${latest.slug}`;
+    const img=new Image();
+    img.loading="lazy"; img.alt=latest.title+" "+(i+1); img.src=src;
     img.onerror=function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG'); } };
     img.style.cursor="pointer";
-    img.addEventListener('click',()=>{ location.hash=`#/projets/${latest.slug}`; });
-    holder.appendChild(img);
+    link.appendChild(img);
+    holder.appendChild(link);
   });
-  $("#seeAll").onclick=()=>{ location.hash="#/projets"; setTimeout(()=>{ $("#projectFilter").value=""; renderGrid(); },0); };
+  $("#seeAll").addEventListener('click',(e)=>{ /* lien <a>, pas besoin d'empêcher */ setTimeout(setRoute,0); });
 }
 
-/* ===== Liste : filtres + cartes cliquables ===== */
+/* ===== Liste : filtres + cartes cliquables (en <a>) ===== */
 function buildFilter(){
   const select=$("#projectFilter");
   select.innerHTML=`<option value="">${lang==='fr'?STRINGS.fr.filter.all:STRINGS.en.filter.all}</option>`;
@@ -373,10 +375,10 @@ function renderGrid(){
   grid.innerHTML="";
   if(list.length===0){const p=document.createElement('p');p.textContent=(lang==='fr'?'Aucun résultat.':'No results.');p.style.opacity=.7;grid.appendChild(p);return;}
   list.forEach(p=>{
-    const fig=document.createElement('figure'); fig.className="card"; fig.addEventListener('click',()=>{ location.hash=`#/projets/${p.slug}`; });
+    const card=document.createElement('a'); card.className="card"; card.href=`#/projets/${p.slug}`;
     const img=new Image(); img.className="thumb"; img.loading="lazy"; img.src=p.images[0]; img.alt=p.title;
     img.onerror=function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG'); } };
-    const cap=document.createElement('figcaption'); cap.className="card-body";
+    const cap=document.createElement('div'); cap.className="card-body";
     const title=document.createElement('div'); title.style.fontWeight="800"; title.textContent=p.title;
     const desc=document.createElement('p'); desc.style.margin="6px 0 0"; desc.style.opacity=.9; desc.textContent=(lang==='fr'?p.description_fr:p.description_en);
     const roles=document.createElement('div'); roles.className="roles"; p.roles.forEach(r=>{const b=document.createElement('span'); b.className="role"; b.textContent=r; roles.appendChild(b);});
@@ -386,14 +388,14 @@ function renderGrid(){
       col.textContent=(lang==='fr'?STRINGS.fr.detail.with:STRINGS.en.detail.with)+p.collaborators.join(' • ');
       cap.appendChild(col);
     }
-    fig.appendChild(img); fig.appendChild(cap); grid.appendChild(fig);
+    card.appendChild(img); card.appendChild(cap); grid.appendChild(card);
   });
 }
 
-/* ===== Détail projet : vignettes 300x600 ===== */
+/* ===== Détail projet : galerie 300x600 centrée + badges si erreur ===== */
 function renderDetail(slug){
   const p=PROJECTS.find(x=>x.slug===slug);
-  if(!p){ location.hash="#/projets"; return; }
+  if(!p){ location.hash="#/projets"; setRoute(); return; }
 
   $("#dTitle").textContent=p.title;
 
@@ -414,27 +416,43 @@ function renderDetail(slug){
   } else { collab.style.display="none"; collab.textContent=""; }
 
   const g=$("#dGallery"); g.innerHTML="";
-  p.images.forEach((src,i)=>{
-    const img=new Image();
-    img.loading="lazy";
-    img.alt=`${p.title} — ${i+1}`;
-    img.src=src;
-    img.onerror=function(){
-      if(!img.dataset.swap && img.src.endsWith('.jpg')){
-        img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG');
-      }
-    };
-    // dimensions fixes 300x600 (couvert)
-    img.style.width="300px";
-    img.style.height="600px";
-    img.style.objectFit="cover";
-    img.style.borderRadius="12px";
-    img.style.border="1px solid rgba(0,0,0,.12)";
-    img.style.background="#f2f2f2";
-    g.appendChild(img);
-  });
+  if(!p.images || p.images.length===0){
+    const msg=document.createElement('p');
+    msg.textContent = (lang==='fr'?'Aucune image pour ce projet.':'No images for this project.');
+    msg.style.opacity=.7; g.appendChild(msg);
+  } else {
+    p.images.forEach((src,i)=>{
+      const wrap=document.createElement('div');
+      const img=new Image();
+      img.loading="lazy";
+      img.alt=`${p.title} — ${i+1}`;
+      img.src=src;
+      img.style.width="300px";
+      img.style.height="600px";
+      img.style.objectFit="cover";
+      img.style.borderRadius="12px";
+      img.style.border="1px solid rgba(0,0,0,.12)";
+      img.style.background="#f2f2f2";
 
-  $("#backBtn").onclick=()=>{ location.hash="#/projets"; };
+      img.onerror=function(){
+        if(!img.dataset.swap && img.src.endsWith('.jpg')){
+          img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG');
+        } else {
+          const badge=document.createElement('div');
+          badge.textContent="Image introuvable : "+src;
+          badge.style.maxWidth="300px";
+          badge.style.fontSize="12px";
+          badge.style.color="#900";
+          badge.style.marginTop="6px";
+          wrap.appendChild(badge);
+        }
+      };
+      wrap.appendChild(img);
+      g.appendChild(wrap);
+    });
+  }
+
+  $("#backBtn").onclick=()=>{ location.hash="#/projets"; setRoute(); };
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -453,11 +471,15 @@ function renderDetail(slug){
 /* ===== Init ===== */
 function init(){
   $("#goHome").addEventListener('click',()=>{ location.hash="#home"; window.scrollTo({top:0,behavior:"smooth"}); });
+
   populateFeature();
   buildFilter(); renderGrid();
+
   $("#q").addEventListener('input', renderGrid);
   $("#projectFilter").addEventListener('change', renderGrid);
-  applyI18n(); setRoute();
+
+  applyI18n();
+  setRoute(); // route initiale
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
