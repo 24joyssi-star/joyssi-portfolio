@@ -11,11 +11,11 @@
   *{box-sizing:border-box} html,body{height:100%}
   body{margin:0;background:var(--black);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif}
 
-  /* ---- Fond marbre texturé + vignette ---- */
+  /* Fond marbre + léger vignettage */
   .bg-marble{
     position:fixed; inset:0; pointer-events:none; z-index:-1;
     background-image:
-      radial-gradient(ellipse at center, rgba(0,0,0,.0) 60%, rgba(0,0,0,.35) 100%),
+      radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,.35) 100%),
       url("https://www.transparenttextures.com/patterns/black-marble.png"),
       url("https://www.transparenttextures.com/patterns/asfalt-light.png");
     background-size: cover, auto, auto;
@@ -23,20 +23,20 @@
     opacity:.25; filter: contrast(1.05) brightness(.9);
   }
 
-  /* ---- Header ---- */
+  /* Header */
   .header{position:sticky;top:0;z-index:40;backdrop-filter:saturate(1.1) blur(6px);background:rgba(0,0,0,.45)}
   .header-inner{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
   .brand{font-weight:900;letter-spacing:-.04em;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px}
   .dot{display:inline-block;width:6px;height:6px;border-radius:999px;background:var(--majorelle)}
 
-  /* ---- Langue + burger ---- */
+  /* Switch langue + burger */
   .lang-switch{display:flex;gap:10px;align-items:center}
   .lang-btn{background:transparent;border:0;color:#fff;opacity:.7;cursor:pointer;font-weight:700}
   .lang-btn.active{opacity:1;text-decoration:underline}
   .burger{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:transparent;cursor:pointer}
   .burger span{display:block;width:20px;height:2px;background:#fff;margin:3px 0;transition:.2s}
 
-  /* ---- Menu overlay ---- */
+  /* Menu overlay */
   .overlay{position:fixed;inset:0;background:#fff;color:#000;z-index:50;display:none;flex-direction:column}
   .overlay.open{display:flex}
   .overlay .top{max-width:1100px;margin:0 auto;padding:24px 20px;display:flex;align-items:center;justify-content:space-between}
@@ -44,24 +44,23 @@
   .menu{max-width:1100px;margin:0 auto;padding:0 20px 48px}
   .menu a{color:#000;text-decoration:none}
   .menu .item{position:relative;display:inline-block;padding:6px 10px;font-weight:900;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;letter-spacing:-.03em;font-size:48px;line-height:1}
-  /* Surlignage “tag” irrégulier */
   .menu .item .hl{position:absolute;inset:-6px -10px;background:var(--majorelle);transform:skewX(-6deg) rotate(-1.5deg);filter:saturate(1.8) drop-shadow(0 6px 22px rgba(9,7,148,.35));z-index:0;clip-path:polygon(0 14%,100% 0%,100% 86%,0% 100%)}
   .menu .item .txt{position:relative;z-index:1}
 
-  /* ---- Pages ---- */
+  /* Pages */
   main{min-height:70vh}
   .page{display:none}
   .page.active{display:block}
   section{scroll-margin-top:90px}
   .section{max-width:1100px;margin:0 auto;padding:48px 20px}
 
-  /* ---- Hero ---- */
+  /* Hero */
   .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:0 24px}
-  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;line-height:.9;font-size:14vw; animation:none !important;}
+  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;line-height:.9;font-size:14vw;animation:none !important;} /* NE CLIGNOTE PAS */
   .hero-sub{opacity:.85;font-size:14px;margin:12px 0 18px}
   .cta{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:var(--majorelle);color:#000;border-radius:16px;font-weight:600;border:0;cursor:pointer}
 
-  /* ---- Grille images ---- */
+  /* Grille images */
   .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:20px}
   @media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
   @media(min-width:992px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
@@ -71,7 +70,7 @@
   .page-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.03em;font-size:46px;margin:0 0 16px}
   .lead{opacity:.9;line-height:1.6}
 
-  /* ---- Blink (uniquement pour le logo du header) ---- */
+  /* Blink (uniquement pour le logo header) */
   @keyframes joyssiBlink{0%,40%{color:#fff}50%,100%{color:var(--majorelle)}}
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
   @media(prefers-reduced-motion:reduce){.blink{animation:none}}
@@ -83,7 +82,7 @@
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
-      <!-- le logo du header CLIGNOTE -->
+      <!-- JOYSSI du header CLIGNOTE -->
       <div class="brand" id="brandHome" title="Home">
         <span class="blink">JOYSSI</span><span class="dot"></span>
       </div>
@@ -123,7 +122,7 @@
   </header>
 
   <main>
-    <!-- PAGE: Accueil (le JOYSSI géant ne clignote PAS) -->
+    <!-- Accueil (titre géant fixe) -->
     <div id="page-home" class="page active">
       <section class="hero">
         <div>
@@ -134,12 +133,11 @@
       </section>
     </div>
 
-    <!-- PAGE: Projets -->
+    <!-- Projets -->
     <div id="page-projets" class="page">
       <section class="section">
         <h1 class="page-title" data-i18n="project.title">BLIND NO PLAN — Campagne</h1>
         <p class="lead" data-i18n="project.lead">Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.</p>
-
         <div class="grid">
           <figure class="card"><img class="thumb" src="images/DSC02221.jpg" alt="BLIND NO PLAN 1"></figure>
           <figure class="card"><img class="thumb" src="images/DSC02224.jpg" alt="BLIND NO PLAN 2"></figure>
@@ -151,7 +149,7 @@
       </section>
     </div>
 
-    <!-- PAGE: À propos (courte FR/EN) -->
+    <!-- À propos (court) -->
     <div id="page-a-propos" class="page">
       <section class="section">
         <h1 class="page-title" data-i18n="about.title">À propos</h1>
@@ -163,7 +161,7 @@
       </section>
     </div>
 
-    <!-- PAGE: Contact -->
+    <!-- Contact -->
     <div id="page-contact" class="page">
       <section class="section">
         <h1 class="page-title" data-i18n="contact.title">Contact</h1>
@@ -182,7 +180,7 @@
   </main>
 
   <script>
-    // --------- i18n strings ----------
+    // i18n
     const STRINGS = {
       fr: {
         menu: { projects: "PROJET", about: "A PROPOS", contact: "CONTACT" },
@@ -212,11 +210,11 @@
       }
     };
 
-    // ----- Helpers -----
+    // Helpers
     const $ = (s, c=document)=>c.querySelector(s);
     const $$ = (s, c=document)=>Array.from(c.querySelectorAll(s));
 
-    // ----- Menu overlay -----
+    // Menu overlay
     const overlay = $('#menuOverlay');
     const openBtn  = $('#openMenu');
     const closeBtn = $('#closeMenu');
@@ -231,7 +229,7 @@
     if (menuHome) menuHome.addEventListener('click', ()=>{ closeMenu(); navigateTo('#/'); });
     brandTop.addEventListener('click', ()=> navigateTo('#/'));
 
-    // ----- Routing (hash) -----
+    // Routing (hash)
     const pages = {
       '#/': $('#page-home'),
       '#/projets': $('#page-projets'),
@@ -250,7 +248,7 @@
     // CTA → projets
     $('#ctaProjects').addEventListener('click', ()=> navigateTo('#/projets'));
 
-    // ----- Langue -----
+    // Langue
     let lang = (localStorage.getItem('lang') || '').toLowerCase() || (navigator.language||'').startsWith('en') ? 'en' : 'fr';
     function applyLangButtons(){
       $$('#btn-fr, #btn-fr-overlay').forEach(b=>b.classList.toggle('active', lang==='fr'));
@@ -269,4 +267,3 @@
   </script>
 </body>
 </html>
-
