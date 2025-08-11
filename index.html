@@ -28,11 +28,12 @@
 
   /* Sections */
   .section{max-width:1200px;margin:0 auto;padding:56px 20px}
-  /* Pastilles : bleu -> TEXTE NOIR (lisible) */
+  /* Pastilles : style contour (fond blanc, bord bleu, texte noir) */
   .label{
     display:inline-block;font-weight:900;
     font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;letter-spacing:-.02em;
-    background:#090794;color:#000;padding:6px 10px;border-radius:16px
+    background:#fff;color:#000;padding:6px 10px;border-radius:16px;
+    border:2px solid var(--majorelle)
   }
   .rule{height:1px;background:rgba(0,0,0,.08);margin:36px 0}
 
@@ -42,11 +43,12 @@
   .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;
               line-height:.9;font-size:min(14vw,120px);animation:none !important;color:#000;margin:0}
   .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
-  /* CTA : bleu → TEXTE NOIR (lisible) + même police que “ACCUEIL” */
+  /* CTA en style contour (cohérent avec Instagram/Email) */
   .cta{
     display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
-    background:#090794;color:#000;border-radius:16px;border:0;cursor:pointer;
-    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.02em
+    background:#fff;color:#000;border-radius:16px;cursor:pointer;
+    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.02em;
+    border:2px solid var(--majorelle)
   }
   .hero-fig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .hero-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#f2f2f2}
@@ -66,10 +68,10 @@
   .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
   .collab{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.15);font-size:13px}
 
-  /* Boutons Contact (icônes + lisibles) */
+  /* Boutons Contact (icônes + style contour) */
   .links a{
     display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;
-    border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700
+    border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700;background:#fff
   }
   .links a + a{margin-left:10px}
   .links svg{width:18px;height:18px}
@@ -184,7 +186,7 @@
 
 <script>
 /* ========= Données projets ========= */
-/* Tu peux ajouter un “collaborators” (array de strings) à n’importe quel projet. */
+/* “collaborators” est optionnel, affiché seulement s’il existe. */
 const PROJECTS = [
   {
     slug: "blind-no-plan",
@@ -193,7 +195,7 @@ const PROJECTS = [
     date: "2025-06-01",
     description_fr: "Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.",
     description_en: "Styling & Photography — A raw, coherent visual world aligned with the brand DNA. Full shoot direction & looks.",
-    collaborators: [], /* ex: ["Direction photo : X", "Make-up : Y"] */
+    collaborators: [],
     images: [
       "images/DSC02221.jpg",
       "images/DSC02224.jpg",
@@ -210,7 +212,7 @@ const PROJECTS = [
     date: "2025-05-15",
     description_fr: "Shooting réalisé pour Milhan — rôles : Styliste & Direction artistique.",
     description_en: "Photoshoot for Milhan — roles: Styling & Art Direction.",
-    collaborators: [], /* ajoute les noms ici si besoin */
+    collaborators: [],
     images: [
       "images/milhan1.jpg",
       "images/milhan2.jpg"
@@ -223,7 +225,7 @@ const PROJECTS = [
     date: "2025-04-10",
     description_fr: "Stylisme & Photographie pour la marque Mega Sue. Looks imaginés, sélection des pièces et organisation du shooting en lien avec l’identité de la marque. Esthétique colorée et expressive dans un cadre minimaliste.",
     description_en: "Styling & Photography for Mega Sue. Looks ideation, pieces selection and shoot organization aligned with the brand identity. Colorful, expressive aesthetics in a minimalist frame.",
-    collaborators: [], /* ajoute ici si tu veux créditer des personnes */
+    collaborators: [],
     images: [
       "images/mega-sue-1.jpg",
       "images/mega-sue-2.jpg"
