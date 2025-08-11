@@ -7,20 +7,29 @@
 <meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe."/>
 
 <style>
-  :root{--majorelle:#090794;--black:#050506;--white:#ffffff}
-  *{box-sizing:border-box} html,body{height:100%}
-  body{margin:0;background:var(--black);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif}
-
-  /* Fond marbre + léger vignettage */
-  .bg-marble{
-    position:fixed; inset:0; pointer-events:none; z-index:-1;
-    background-image:
-      radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,.35) 100%),
-      url("https://www.transparenttextures.com/patterns/black-marble.png"),
-      url("https://www.transparenttextures.com/patterns/asfalt-light.png");
-    background-size: cover, auto, auto;
-    background-repeat: no-repeat, repeat, repeat;
-    opacity:.25; filter: contrast(1.05) brightness(.9);
+ /* Fond noir marbré (auto-généré, pas d'images externes) */
+.bg-marble{
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.45) 100%),
+    url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'>\
+  <filter id='m'>\
+    <feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/>\
+    <feColorMatrix type='saturate' values='0'/>\
+    <feComponentTransfer>\
+      <feFuncR type='gamma' amplitude='1' exponent='0.35' offset='0'/>\
+      <feFuncG type='gamma' amplitude='1' exponent='0.35' offset='0'/>\
+      <feFuncB type='gamma' amplitude='1' exponent='0.35' offset='0'/>\
+    </feComponentTransfer>\
+    <feGaussianBlur stdDeviation='0.8'/>\
+  </filter>\
+  <rect width='100%' height='100%' fill='#050506'/>\
+  <rect width='100%' height='100%' filter='url(#m)' opacity='0.35'/>\
+</svg>");
+  background-repeat:no-repeat, repeat;
+  background-size:cover, 1200px 1200px;
+  mix-blend-mode:normal;
   }
 
   /* Header */
