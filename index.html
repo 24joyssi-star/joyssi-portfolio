@@ -1,115 +1,132 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JOYSSI — Portfolio</title>
-<meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe."/>
+<meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe.">
 
 <style>
-  :root{
-    --majorelle:#090794;
-    --black:#000000;
-    --white:#ffffff;
-  }
+  :root{--majorelle:#090794;--black:#000;--white:#fff}
   *{box-sizing:border-box}
   html,body{height:100%}
   html{scroll-behavior:smooth}
-  body{
-    margin:0; background:var(--white); color:var(--black);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif;
+  body{margin:0;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif}
+
+  /* Header sans burger */
+  .header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid rgba(0,0,0,.08)}
+  .wrap{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:-.04em;
+         font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-size:13px;cursor:pointer;white-space:nowrap}
+  .dot{width:6px;height:6px;border-radius:999px;background:var(--majorelle)}
+  nav{margin-left:auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  nav a{color:#000;text-decoration:none;font-weight:700;opacity:.85}
+  nav a:hover{opacity:1;text-decoration:underline}
+  .lang{display:flex;align-items:center;gap:10px}
+  .lang button{background:transparent;border:0;color:#000;font-weight:800;opacity:.7;cursor:pointer}
+  .lang button.active{opacity:1;text-decoration:underline}
+
+  /* Sections */
+  .section{max-width:1200px;margin:0 auto;padding:56px 20px}
+  .label{display:inline-block;font-weight:900;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;
+         letter-spacing:-.02em;background:var(--majorelle);color:#fff;padding:6px 10px;border-radius:10px}
+  .rule{height:1px;background:rgba(0,0,0,.08);margin:36px 0}
+
+  /* Hero Accueil */
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+  @media(max-width:900px){.hero{grid-template-columns:1fr}}
+  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;
+              line-height:.9;font-size:min(14vw,120px);animation:none !important;color:#000;margin:0}
+  .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
+  .cta{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:var(--majorelle);
+       color:#000;border-radius:16px;font-weight:700;border:0;cursor:pointer}
+  .hero-fig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .hero-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#f2f2f2}
+
+  /* Grille Projets */
+  .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0 22px}
+  .input, .select{
+    border:2px solid var(--majorelle);border-radius:12px;padding:10px 12px;font-weight:600;background:#fff;color:#000
   }
-
-  /* Header simple, SANS menu */
-  .header{position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid rgba(0,0,0,.08)}
-  .wrap{max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px}
-  .brand{display:flex; align-items:center; gap:8px; font-weight:900; letter-spacing:-.04em;
-         font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; font-size:13px; cursor:pointer}
-  .dot{width:6px; height:6px; border-radius:999px; background:var(--majorelle)}
-
-  /* Langues */
-  .lang{display:flex; align-items:center; gap:10px}
-  .lang button{background:transparent; border:0; color:#000; font-weight:800; opacity:.7; cursor:pointer}
-  .lang button.active{opacity:1; text-decoration:underline}
-
-  /* Sections + délimitations visuelles */
-  .section{max-width:1100px; margin:0 auto; padding:56px 20px}
-  .label{display:inline-block; font-weight:900; font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;
-         letter-spacing:-.02em; background:var(--majorelle); color:#fff; padding:6px 10px; border-radius:10px}
-  .rule{height:1px; background:rgba(0,0,0,.08); margin:36px 0}
-
-  /* Hero */
-  .hero{min-height:60vh; display:grid; place-items:center; text-align:center; padding:20px}
-  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; font-weight:900; letter-spacing:-.04em;
-              line-height:.9; font-size:14vw; animation:none !important; color:#000}
-  .hero-sub{opacity:.9; font-size:14px; margin:12px 0 18px; color:#000}
-  .cta{display:inline-flex; align-items:center; gap:8px; padding:12px 18px; background:var(--majorelle);
-       color:#000; border-radius:16px; font-weight:700; border:0; cursor:pointer}
-
-  /* Grille images */
-  .grid{display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:20px}
+  .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:20px}
   @media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
   @media(min-width:992px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
-  .card{border:1px solid rgba(0,0,0,.12); border-radius:16px; overflow:hidden; background:#fff}
-  .thumb{aspect-ratio:4/5; width:100%; object-fit:cover; display:block; background:#f2f2f2}
+  .card{border:1px solid rgba(0,0,0,.12);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+  .thumb{aspect-ratio:4/5;width:100%;object-fit:cover;background:#f2f2f2}
+  .card-body{padding:12px}
+  .roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
 
-  /* Titres & textes */
-  .h1{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; font-weight:900; letter-spacing:-.03em; font-size:42px; margin:0 0 12px; color:#000}
-  .lead{opacity:.9; line-height:1.6; margin:0; color:#000}
-
-  .links a{display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:16px;
-           border:2px solid var(--majorelle); color:#000; text-decoration:none; font-weight:700}
+  /* Contact */
+  .links a{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;
+           border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700}
   .links a + a{margin-left:10px}
 
-  /* Blink UNIQUEMENT pour le logo header (noir ↔︎ bleu) */
+  /* Blink uniquement pour le logo header (noir ↔ bleu) */
   @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--majorelle)}}
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
   @media(prefers-reduced-motion:reduce){.blink{animation:none}}
 </style>
 </head>
 <body>
-  <!-- HEADER — SANS MENU -->
+  <!-- HEADER -->
   <header class="header">
     <div class="wrap">
       <div class="brand" id="goHome" title="Accueil">
         <span class="blink">JOYSSI</span><span class="dot"></span>
       </div>
-      <div class="lang">
-        <button id="frBtn">FR</button>
-        <span style="opacity:.4">|</span>
-        <button id="enBtn">EN</button>
-      </div>
+      <nav>
+        <a href="#home" data-i18n="menu.home">ACCUEIL</a>
+        <a href="#/projets" data-i18n="menu.projects">PROJETS</a>
+        <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
+        <a href="#contact" data-i18n="menu.contact">CONTACT</a>
+        <span style="width:1px;height:18px;background:rgba(0,0,0,.18);display:inline-block;margin:0 6px"></span>
+        <div class="lang">
+          <button id="frBtn">FR</button>
+          <span style="opacity:.4">|</span>
+          <button id="enBtn">EN</button>
+        </div>
+      </nav>
     </div>
   </header>
 
-  <!-- ACCUEIL -->
-  <section id="home" class="section hero">
-    <div>
-      <div class="hero-title">JOYSSI</div>
-      <p class="hero-sub" data-i18n="hero.subtitle">Directeur artistique — Styliste — Photographe</p>
-      <button class="cta" id="toProjects" data-i18n="hero.cta">Voir les projets</button>
+  <!-- ACCUEIL : Dernier projet mis en avant -->
+  <section id="home" class="section">
+    <span class="label" data-i18n="home.delim">ACCUEIL</span>
+    <div class="hero" style="margin-top:18px">
+      <div>
+        <h1 class="hero-title">JOYSSI</h1>
+        <p class="hero-sub" data-i18n="hero.subtitle">Directeur artistique — Styliste — Photographe</p>
 
-      <div class="rule"></div>
-      <span class="label" data-i18n="home.delim">ACCUEIL</span>
+        <h2 class="h1" style="font-size:28px;margin:18px 0 8px" data-i18n="feature.title">Dernier projet</h2>
+        <p id="featureTitle" style="font-weight:800;margin:0 0 6px">BLIND NO PLAN — Campagne</p>
+        <p id="featureDesc" style="opacity:.9;margin:0 0 14px">
+          Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.
+        </p>
+
+        <button class="cta" id="seeAll" data-i18n="feature.cta">Voir tous les projets</button>
+      </div>
+
+      <div class="hero-fig" id="featureImages">
+        <!-- 2 images clés du dernier projet (remplies par JS) -->
+      </div>
     </div>
+    <div class="rule"></div>
   </section>
 
-  <!-- PROJETS -->
-  <section id="projets" class="section">
-    <span class="label" data-i18n="menu.projects">PROJET</span>
-    <h2 class="h1" style="margin-top:14px" data-i18n="project.title">BLIND NO PLAN — Campagne</h2>
-    <p class="lead" data-i18n="project.lead">Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.</p>
+  <!-- PROJETS : “Seconde page” (SPA via hash #/projets) -->
+  <section id="projets" class="section" data-route="#/projets" style="display:none">
+    <span class="label" data-i18n="menu.projects">PROJETS</span>
+    <h2 class="h1" style="margin-top:14px" data-i18n="projects.all">Tous les projets</h2>
 
-    <div class="grid" style="margin-top:22px">
-      <!-- Fallback .JPG si besoin -->
-      <figure class="card"><img class="thumb" src="images/DSC02221.jpg" alt="BLIND NO PLAN 1" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-      <figure class="card"><img class="thumb" src="images/DSC02224.jpg" alt="BLIND NO PLAN 2" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-      <figure class="card"><img class="thumb" src="images/DSC02230.jpg" alt="BLIND NO PLAN 3" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-      <figure class="card"><img class="thumb" src="images/DSC02234.jpg" alt="BLIND NO PLAN 4" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-      <figure class="card"><img class="thumb" src="images/DSC02237.jpg" alt="BLIND NO PLAN 5" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-      <figure class="card"><img class="thumb" src="images/DSC03110.jpg" alt="BLIND NO PLAN 6" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+    <div class="toolbar">
+      <input id="q" class="input" type="search" placeholder="Rechercher…" aria-label="Rechercher">
+      <select id="projectFilter" class="select" aria-label="Sélection par projet">
+        <option value="" data-i18n="filter.all">Tous les projets</option>
+      </select>
     </div>
 
+    <div id="grid" class="grid"></div>
     <div class="rule"></div>
   </section>
 
@@ -122,7 +139,6 @@
       J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
       cohérents et puissants — du concept à la direction de shooting.
     </p>
-
     <div class="rule"></div>
   </section>
 
@@ -137,63 +153,212 @@
     </p>
   </section>
 
-  <script>
-    // Textes FR/EN
-    const STRINGS = {
-      fr: {
-        menu:{projects:"PROJET",about:"A PROPOS",contact:"CONTACT"},
-        home:{delim:"ACCUEIL"},
-        hero:{subtitle:"Directeur artistique — Styliste — Photographe", cta:"Voir les projets"},
-        project:{
-          title:"BLIND NO PLAN — Campagne",
-          lead:"Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks."
-        },
-        about:{
-          title:"À propos",
-          lead:"Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."
-        },
-        contact:{title:"Contact"}
-      },
-      en: {
-        menu:{projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
-        home:{delim:"HOME"},
-        hero:{subtitle:"Art Director — Stylist — Photographer", cta:"View projects"},
-        project:{
-          title:"BLIND NO PLAN — Campaign",
-          lead:"Styling & Photography — A raw, coherent visual world aligned with the brand DNA. Full shoot direction & looks."
-        },
-        about:{
-          title:"About",
-          lead:"I’m Joyssi — art director, stylist and photographer.<br><br>I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."
-        },
-        contact:{title:"Contact"}
+<script>
+/* ===================== Données projets ===================== */
+/* Ajoute ici d'autres projets si besoin — garde "slug", "title", "roles", "date", "images" */
+const PROJECTS = [
+  {
+    slug: "blind-no-plan",
+    title: "BLIND NO PLAN — Campagne",
+    roles: ["Photographe","Styliste"],
+    /* YYYY-MM-DD pour trier */
+    date: "2025-06-01",
+    description_fr: "Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.",
+    description_en: "Styling & Photography — A raw, coherent visual world aligned with the brand DNA. Full shoot direction & looks.",
+    images: [
+      "images/DSC02221.jpg",
+      "images/DSC02224.jpg",
+      "images/DSC02230.jpg",
+      "images/DSC02234.jpg",
+      "images/DSC02237.jpg",
+      "images/DSC03110.jpg"
+    ]
+  }
+  // Tu peux ajouter d'autres projets ici
+];
+
+/* ===================== i18n ===================== */
+const STRINGS = {
+  fr:{
+    menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
+    home:{delim:"ACCUEIL"},
+    hero:{subtitle:"Directeur artistique — Styliste — Photographe"},
+    feature:{title:"Dernier projet",cta:"Voir tous les projets"},
+    projects:{all:"Tous les projets"},
+    filter:{all:"Tous les projets"},
+    about:{
+      title:"À propos",
+      lead:"Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."
+    },
+    contact:{title:"Contact"}
+  },
+  en:{
+    menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
+    home:{delim:"HOME"},
+    hero:{subtitle:"Art Director — Stylist — Photographer"},
+    feature:{title:"Latest project",cta:"See all projects"},
+    projects:{all:"All projects"},
+    filter:{all:"All projects"},
+    about:{
+      title:"About",
+      lead:"I’m Joyssi — art director, stylist and photographer.<br><br>I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."
+    },
+    contact:{title:"Contact"}
+  }
+};
+
+const $ = (s,c=document)=>c.querySelector(s);
+const $$ = (s,c=document)=>Array.from(c.querySelectorAll(s));
+
+/* ===================== Routing SPA (#/projets) ===================== */
+function setRoute(){
+  const hash = location.hash;
+  const projectsRoute = (hash === "#/projets");
+  // “Seconde page” : on masque la section Accueil quand on est sur /projets
+  $("#home").style.display = projectsRoute ? "none" : "";
+  $('#projets').style.display = projectsRoute ? "" : "none";
+  if(projectsRoute) window.scrollTo({top:0, behavior:"instant"});
+}
+window.addEventListener("hashchange", setRoute);
+
+/* ===================== Langue ===================== */
+let lang = (localStorage.getItem('lang')||'').toLowerCase();
+if(!lang){ lang = (navigator.language||'fr').toLowerCase().startsWith('en') ? 'en' : 'fr'; }
+
+function t(path){
+  return path.split('.').reduce((a,k)=>a && a[k], STRINGS[lang]) || '';
+}
+function applyI18n(){
+  $$('[data-i18n]').forEach(el => el.textContent = t(el.getAttribute('data-i18n')));
+  $$('[data-i18n-html]').forEach(el => el.innerHTML = t(el.getAttribute('data-i18n-html')));
+  document.documentElement.lang = lang;
+
+  // Labels placeholders dynamiques
+  const q = $("#q");
+  if(q) q.placeholder = (lang==='fr'?'Rechercher…':'Search…');
+
+  // Mettre à jour le résumé du projet vedette
+  const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
+  $("#featureTitle").textContent = latest.title;
+  $("#featureDesc").textContent = lang==='fr' ? latest.description_fr : latest.description_en;
+
+  // Boutons FR/EN
+  $("#frBtn").classList.toggle('active', lang==='fr');
+  $("#enBtn").classList.toggle('active', lang==='en');
+}
+$("#frBtn").addEventListener('click', ()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); });
+$("#enBtn").addEventListener('click', ()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); });
+
+/* ===================== Accueil : dernier projet ===================== */
+function populateFeature(){
+  const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
+  const holder = $("#featureImages");
+  holder.innerHTML = "";
+  // On prend 2 images clés si dispo
+  const keys = latest.images.slice(0,2);
+  keys.forEach((src,i)=>{
+    const img = document.createElement('img');
+    img.loading = "lazy";
+    img.alt = latest.title + " " + (i+1);
+    img.src = src;
+    img.onerror = function(){
+      if(!img.dataset.swap && img.src.endsWith('.jpg')){
+        img.dataset.swap = 1; img.src = img.src.replace('.jpg','.JPG');
+      }
+    }
+    holder.appendChild(img);
+  });
+  // CTA → route projets filtrée par ce projet
+  $("#seeAll").onclick = ()=>{
+    location.hash = "#/projets";
+    setTimeout(()=> {
+      $("#projectFilter").value = latest.slug;
+      renderGrid();
+    }, 0);
+  };
+}
+
+/* ===================== Projets : filtre + grille ===================== */
+function buildFilter(){
+  const select = $("#projectFilter");
+  // reset options (garde “Tous les projets” en premier)
+  select.innerHTML = `<option value="">${lang==='fr'?STRINGS.fr.filter.all:STRINGS.en.filter.all}</option>`;
+  PROJECTS.forEach(p=>{
+    const opt = document.createElement('option');
+    opt.value = p.slug;
+    opt.textContent = p.title;
+    select.appendChild(opt);
+  });
+}
+
+function renderGrid(){
+  const grid = $("#grid");
+  const q = ($("#q").value || "").toLowerCase().trim();
+  const bySlug = $("#projectFilter").value;
+
+  let list = PROJECTS.slice();
+  if(bySlug) list = list.filter(p=>p.slug===bySlug);
+  if(q) list = list.filter(p => (p.title.toLowerCase().includes(q) ||
+                                (p.description_fr && p.description_fr.toLowerCase().includes(q)) ||
+                                (p.description_en && p.description_en.toLowerCase().includes(q)) ));
+
+  grid.innerHTML = "";
+  if(list.length===0){
+    const p = document.createElement('p'); p.textContent = (lang==='fr'?'Aucun résultat.':'No results.');
+    p.style.opacity = .7; grid.appendChild(p); return;
+  }
+
+  list.forEach(p=>{
+    // carte projet (on affiche la première image)
+    const fig = document.createElement('figure');
+    fig.className = "card";
+    const img = document.createElement('img');
+    img.className = "thumb";
+    img.loading = "lazy";
+    img.src = p.images[0];
+    img.alt = p.title;
+    img.onerror = function(){
+      if(!img.dataset.swap && img.src.endsWith('.jpg')){
+        img.dataset.swap=1; img.src = img.src.replace('.jpg','.JPG');
       }
     };
+    const cap = document.createElement('figcaption');
+    cap.className = "card-body";
+    const title = document.createElement('div');
+    title.style.fontWeight = "800";
+    title.textContent = p.title;
+    const desc = document.createElement('p');
+    desc.style.margin = "6px 0 0";
+    desc.style.opacity = .9;
+    desc.textContent = (lang==='fr' ? p.description_fr : p.description_en);
+    const roles = document.createElement('div'); roles.className = "roles";
+    p.roles.forEach(r=>{ const b=document.createElement('span'); b.className="role"; b.textContent=r; roles.appendChild(b); });
 
-    const $ = (s, c=document)=>c.querySelector(s);
-    const $$ = (s, c=document)=>Array.from(c.querySelectorAll(s));
+    cap.appendChild(title); cap.appendChild(desc); cap.appendChild(roles);
+    fig.appendChild(img); fig.appendChild(cap);
+    grid.appendChild(fig);
+  });
+}
 
-    // Logo → remonter en haut
-    $('#goHome').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-    // CTA → descendre vers projets
-    $('#toProjects').addEventListener('click', ()=> document.getElementById('projets').scrollIntoView({behavior:'smooth'}));
+/* ===================== Init ===================== */
+function init(){
+  // Header interactions
+  $("#goHome").addEventListener('click', ()=> { location.hash = "#home"; window.scrollTo({top:0,behavior:"smooth"}); });
 
-    // Langue
-    let lang = (localStorage.getItem('lang') || '').toLowerCase();
-    if(!lang){ lang = (navigator.language||'fr').toLowerCase().startsWith('en') ? 'en' : 'fr'; }
-    const frBtn = $('#frBtn'), enBtn = $('#enBtn');
+  // Accueil
+  populateFeature();
 
-    function t(path){ return path.split('.').reduce((a,k)=>a&&a[k], STRINGS[lang]) || ''; }
-    function applyI18n(){
-      $$('[data-i18n]').forEach(el => el.textContent = t(el.getAttribute('data-i18n')));
-      $$('[data-i18n-html]').forEach(el => el.innerHTML = t(el.getAttribute('data-i18n-html')));
-      document.documentElement.lang = lang;
-      frBtn.classList.toggle('active', lang==='fr');
-      enBtn.classList.toggle('active', lang==='en');
-    }
-    frBtn.addEventListener('click', ()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); });
-    enBtn.addEventListener('click', ()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); });
-    applyI18n();
-  </script>
+  // Projets
+  buildFilter();
+  renderGrid();
+  $("#q").addEventListener('input', renderGrid);
+  $("#projectFilter").addEventListener('change', renderGrid);
+
+  // Langues + route
+  applyI18n();
+  setRoute();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
 </body>
 </html>
