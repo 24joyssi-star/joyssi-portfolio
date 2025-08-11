@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>JOYSSI — Portfolio</title>
-<meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe.">
+<meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe."/>
 
 <style>
   :root{--majorelle:#090794;--black:#000;--white:#fff}
@@ -57,11 +57,6 @@
   .roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
   .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
 
-  /* Contact */
-  .links a{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;
-           border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700}
-  .links a + a{margin-left:10px}
-
   /* Blink uniquement pour le logo header (noir ↔ bleu) */
   @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--majorelle)}}
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
@@ -98,7 +93,7 @@
         <h1 class="hero-title">JOYSSI</h1>
         <p class="hero-sub" data-i18n="hero.subtitle">Directeur artistique — Styliste — Photographe</p>
 
-        <h2 class="h1" style="font-size:28px;margin:18px 0 8px" data-i18n="feature.title">Dernier projet</h2>
+        <h2 class="h1" style="font:inherit;font-weight:900;letter-spacing:-.02em;margin:18px 0 8px" data-i18n="feature.title">Dernier projet</h2>
         <p id="featureTitle" style="font-weight:800;margin:0 0 6px">BLIND NO PLAN — Campagne</p>
         <p id="featureDesc" style="opacity:.9;margin:0 0 14px">
           Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.
@@ -108,7 +103,7 @@
       </div>
 
       <div class="hero-fig" id="featureImages">
-        <!-- 2 images clés du dernier projet (remplies par JS) -->
+        <!-- 2 images clés du dernier projet (injectées par JS) -->
       </div>
     </div>
     <div class="rule"></div>
@@ -155,13 +150,11 @@
 
 <script>
 /* ===================== Données projets ===================== */
-/* Ajoute ici d'autres projets si besoin — garde "slug", "title", "roles", "date", "images" */
 const PROJECTS = [
   {
     slug: "blind-no-plan",
     title: "BLIND NO PLAN — Campagne",
     roles: ["Photographe","Styliste"],
-    /* YYYY-MM-DD pour trier */
     date: "2025-06-01",
     description_fr: "Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.",
     description_en: "Styling & Photography — A raw, coherent visual world aligned with the brand DNA. Full shoot direction & looks.",
@@ -173,8 +166,19 @@ const PROJECTS = [
       "images/DSC02237.jpg",
       "images/DSC03110.jpg"
     ]
+  },
+  {
+    slug: "milhan-shoot",
+    title: "Shooting pour Milhan",
+    roles: ["Photographe"],
+    date: "2025-05-15",
+    description_fr: "Shooting réalisé pour Milhan — à compléter.",
+    description_en: "Photoshoot for Milhan — to be completed.",
+    images: [
+      "images/milhan1.jpg",
+      "images/milhan2.jpg"
+    ]
   }
-  // Tu peux ajouter d'autres projets ici
 ];
 
 /* ===================== i18n ===================== */
@@ -214,7 +218,6 @@ const $$ = (s,c=document)=>Array.from(c.querySelectorAll(s));
 function setRoute(){
   const hash = location.hash;
   const projectsRoute = (hash === "#/projets");
-  // “Seconde page” : on masque la section Accueil quand on est sur /projets
   $("#home").style.display = projectsRoute ? "none" : "";
   $('#projets').style.display = projectsRoute ? "" : "none";
   if(projectsRoute) window.scrollTo({top:0, behavior:"instant"});
@@ -233,16 +236,16 @@ function applyI18n(){
   $$('[data-i18n-html]').forEach(el => el.innerHTML = t(el.getAttribute('data-i18n-html')));
   document.documentElement.lang = lang;
 
-  // Labels placeholders dynamiques
+  // placeholders dynamiques
   const q = $("#q");
   if(q) q.placeholder = (lang==='fr'?'Rechercher…':'Search…');
 
-  // Mettre à jour le résumé du projet vedette
+  // projet vedette
   const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
   $("#featureTitle").textContent = latest.title;
   $("#featureDesc").textContent = lang==='fr' ? latest.description_fr : latest.description_en;
 
-  // Boutons FR/EN
+  // boutons FR/EN
   $("#frBtn").classList.toggle('active', lang==='fr');
   $("#enBtn").classList.toggle('active', lang==='en');
 }
@@ -254,7 +257,6 @@ function populateFeature(){
   const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
   const holder = $("#featureImages");
   holder.innerHTML = "";
-  // On prend 2 images clés si dispo
   const keys = latest.images.slice(0,2);
   keys.forEach((src,i)=>{
     const img = document.createElement('img');
@@ -265,14 +267,13 @@ function populateFeature(){
       if(!img.dataset.swap && img.src.endsWith('.jpg')){
         img.dataset.swap = 1; img.src = img.src.replace('.jpg','.JPG');
       }
-    }
+    };
     holder.appendChild(img);
   });
-  // CTA → route projets filtrée par ce projet
   $("#seeAll").onclick = ()=>{
     location.hash = "#/projets";
     setTimeout(()=> {
-      $("#projectFilter").value = latest.slug;
+      $("#projectFilter").value = ""; // pas de filtre auto
       renderGrid();
     }, 0);
   };
@@ -281,7 +282,6 @@ function populateFeature(){
 /* ===================== Projets : filtre + grille ===================== */
 function buildFilter(){
   const select = $("#projectFilter");
-  // reset options (garde “Tous les projets” en premier)
   select.innerHTML = `<option value="">${lang==='fr'?STRINGS.fr.filter.all:STRINGS.en.filter.all}</option>`;
   PROJECTS.forEach(p=>{
     const opt = document.createElement('option');
@@ -309,7 +309,6 @@ function renderGrid(){
   }
 
   list.forEach(p=>{
-    // carte projet (on affiche la première image)
     const fig = document.createElement('figure');
     fig.className = "card";
     const img = document.createElement('img');
@@ -340,21 +339,18 @@ function renderGrid(){
   });
 }
 
-/* ===================== Init ===================== */
+/* ===================== Interactions header & init ===================== */
 function init(){
-  // Header interactions
+  // Logo → remonter en haut
   $("#goHome").addEventListener('click', ()=> { location.hash = "#home"; window.scrollTo({top:0,behavior:"smooth"}); });
-
   // Accueil
   populateFeature();
-
   // Projets
   buildFilter();
   renderGrid();
   $("#q").addEventListener('input', renderGrid);
   $("#projectFilter").addEventListener('change', renderGrid);
-
-  // Langues + route
+  // Langue + route
   applyI18n();
   setRoute();
 }
