@@ -13,7 +13,7 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif}
 
-  /* Header sans burger */
+  /* Header (inchangé) */
   .header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid rgba(0,0,0,.08)}
   .wrap{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
   .brand{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:-.04em;
@@ -26,33 +26,30 @@
   .lang button{background:transparent;border:0;color:#000;font-weight:800;opacity:.7;cursor:pointer}
   .lang button.active{opacity:1;text-decoration:underline}
 
-  /* Sections */
+  /* Sections & éléments (positions conservées) */
   .section{max-width:1200px;margin:0 auto;padding:56px 20px}
   .label{display:inline-block;font-weight:900;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;
-         letter-spacing:-.02em;background:var(--majorelle);color:#fff;padding:6px 10px;border-radius:10px}
+         letter-spacing:-.02em;background:var(--majorelle);color:#fff;padding:6px 10px;border-radius:16px}
   .rule{height:1px;background:rgba(0,0,0,.08);margin:36px 0}
 
-  /* Hero Accueil */
+  /* Hero */
   .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
   @media(max-width:900px){.hero{grid-template-columns:1fr}}
   .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;
               line-height:.9;font-size:min(14vw,120px);animation:none !important;color:#000;margin:0}
   .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
-  /* ✅ Bouton corrigé : texte blanc + même police que “ACCUEIL” */
+  /* ✔ Texte blanc + même police que ACCUEIL */
   .cta{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:12px 18px;background:var(--majorelle);
-    color:#fff;border-radius:16px;font-weight:900;border:0;cursor:pointer;
-    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; letter-spacing:-.02em;
+    display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
+    background:var(--majorelle);color:#fff;border-radius:16px;border:0;cursor:pointer;
+    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.02em;
   }
   .hero-fig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .hero-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#f2f2f2}
 
-  /* Grille Projets */
+  /* Grille projets (inchangé) */
   .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0 22px}
-  .input, .select{
-    border:2px solid var(--majorelle);border-radius:12px;padding:10px 12px;font-weight:600;background:#fff;color:#000
-  }
+  .input,.select{border:2px solid var(--majorelle);border-radius:12px;padding:10px 12px;font-weight:600;background:#fff;color:#000}
   .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:20px}
   @media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
   @media(min-width:992px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
@@ -62,12 +59,12 @@
   .roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
   .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
 
-  /* Boutons Contact */
+  /* Boutons Contact avec icônes */
   .links a{
-    display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;
+    display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;
     border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700
   }
-  .links a + a{margin-left:10px}
+  .links svg{width:18px;height:18px}
 
   /* Blink uniquement pour le logo header (noir ↔ bleu) */
   @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--majorelle)}}
@@ -76,7 +73,7 @@
 </style>
 </head>
 <body>
-  <!-- HEADER -->
+  <!-- HEADER (identique) -->
   <header class="header">
     <div class="wrap">
       <div class="brand" id="goHome" title="Accueil">
@@ -89,15 +86,13 @@
         <a href="#contact" data-i18n="menu.contact">CONTACT</a>
         <span style="width:1px;height:18px;background:rgba(0,0,0,.18);display:inline-block;margin:0 6px"></span>
         <div class="lang">
-          <button id="frBtn">FR</button>
-          <span style="opacity:.4">|</span>
-          <button id="enBtn">EN</button>
+          <button id="frBtn">FR</button><span style="opacity:.4">|</span><button id="enBtn">EN</button>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- ACCUEIL : Dernier projet -->
+  <!-- ACCUEIL (badge ACCUEIL conservé à la même place) -->
   <section id="home" class="section">
     <span class="label" data-i18n="home.delim">ACCUEIL</span>
     <div class="hero" style="margin-top:18px">
@@ -113,7 +108,6 @@
 
         <button class="cta" id="seeAll" data-i18n="feature.cta">Voir les projets</button>
       </div>
-
       <div class="hero-fig" id="featureImages"></div>
     </div>
     <div class="rule"></div>
@@ -135,7 +129,7 @@
     <div class="rule"></div>
   </section>
 
-  <!-- À PROPOS -->
+  <!-- A PROPOS -->
   <section id="apropos" class="section">
     <span class="label" data-i18n="menu.about">A PROPOS</span>
     <h2 class="h1" style="margin-top:14px" data-i18n="about.title">À propos</h2>
@@ -147,14 +141,28 @@
     <div class="rule"></div>
   </section>
 
-  <!-- CONTACT (✅ seulement les boutons) -->
+  <!-- CONTACT (uniquement les deux boutons avec icônes) -->
   <section id="contact" class="section">
     <span class="label" data-i18n="menu.contact">CONTACT</span>
     <h2 class="h1" style="margin-top:14px" data-i18n="contact.title">Contact</h2>
-
     <p class="links">
-      <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer">Instagram</a>
-      <a href="mailto:24joyssi@gmail.com">Email</a>
+      <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" aria-label="Instagram">
+        <!-- Icône Instagram -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="3.5"></circle>
+          <circle cx="17.5" cy="6.5" r="1"></circle>
+        </svg>
+        Instagram
+      </a>
+      <a href="mailto:24joyssi@gmail.com" aria-label="Email">
+        <!-- Icône Email -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <path d="m3 7 9 6 9-6"></path>
+        </svg>
+        Email
+      </a>
     </p>
   </section>
 
@@ -191,34 +199,18 @@ const PROJECTS = [
   }
 ];
 
-/* ========= i18n ========= */
+/* ========= i18n (inchangé) ========= */
 const STRINGS = {
-  fr:{
-    menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
-    home:{delim:"ACCUEIL"},
-    hero:{subtitle:"Directeur artistique — Styliste — Photographe"},
-    feature:{title:"Dernier projet",cta:"Voir les projets"},
-    projects:{all:"Tous les projets"},
-    filter:{all:"Tous les projets"},
-    about:{
-      title:"À propos",
-      lead:"Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."
-    },
-    contact:{title:"Contact"}
-  },
-  en:{
-    menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
-    home:{delim:"HOME"},
-    hero:{subtitle:"Art Director — Stylist — Photographer"},
-    feature:{title:"Latest project",cta:"See all projects"},
-    projects:{all:"All projects"},
-    filter:{all:"All projects"},
-    about:{
-      title:"About",
-      lead:"I’m Joyssi — art director, stylist and photographer.<br><br>I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."
-    },
-    contact:{title:"Contact"}
-  }
+  fr:{menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},home:{delim:"ACCUEIL"},
+      hero:{subtitle:"Directeur artistique — Styliste — Photographe"},feature:{title:"Dernier projet",cta:"Voir les projets"},
+      projects:{all:"Tous les projets"},filter:{all:"Tous les projets"},
+      about:{title:"À propos",lead:"Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."},
+      contact:{title:"Contact"}},
+  en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},home:{delim:"HOME"},
+      hero:{subtitle:"Art Director — Stylist — Photographer"},feature:{title:"Latest project",cta:"See all projects"},
+      projects:{all:"All projects"},filter:{all:"All projects"},
+      about:{title:"About",lead:"I’m Joyssi — art director, stylist and photographer.<br><br>I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."},
+      contact:{title:"Contact"}}
 };
 
 const $ = (s,c=document)=>c.querySelector(s);
@@ -226,8 +218,7 @@ const $$ = (s,c=document)=>Array.from(c.querySelectorAll(s));
 
 /* ========= Routing SPA (#/projets) ========= */
 function setRoute(){
-  const hash = location.hash;
-  const projectsRoute = (hash === "#/projets");
+  const projectsRoute = (location.hash === "#/projets");
   $("#home").style.display = projectsRoute ? "none" : "";
   $('#projets').style.display = projectsRoute ? "" : "none";
   if(projectsRoute) window.scrollTo({top:0, behavior:"instant"});
@@ -237,19 +228,15 @@ window.addEventListener("hashchange", setRoute);
 /* ========= Langue ========= */
 let lang = (localStorage.getItem('lang')||'').toLowerCase();
 if(!lang){ lang = (navigator.language||'fr').toLowerCase().startsWith('en') ? 'en' : 'fr'; }
-
 function t(path){ return path.split('.').reduce((a,k)=>a && a[k], STRINGS[lang]) || ''; }
 function applyI18n(){
   $$('[data-i18n]').forEach(el => el.textContent = t(el.getAttribute('data-i18n')));
   $$('[data-i18n-html]').forEach(el => el.innerHTML = t(el.getAttribute('data-i18n-html')));
   document.documentElement.lang = lang;
-
-  const q = $("#q"); if(q) q.placeholder = (lang==='fr'?'Rechercher…':'Search…');
-
+  const q=$("#q"); if(q) q.placeholder = (lang==='fr'?'Rechercher…':'Search…');
   const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
   $("#featureTitle").textContent = latest.title;
   $("#featureDesc").textContent = lang==='fr' ? latest.description_fr : latest.description_en;
-
   $("#frBtn").classList.toggle('active', lang==='fr');
   $("#enBtn").classList.toggle('active', lang==='en');
 }
@@ -259,13 +246,11 @@ $("#enBtn").addEventListener('click', ()=>{ lang='en'; localStorage.setItem('lan
 /* ========= Accueil : dernier projet ========= */
 function populateFeature(){
   const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
-  const holder = $("#featureImages");
-  holder.innerHTML = "";
-  const keys = latest.images.slice(0,2);
-  keys.forEach((src,i)=>{
+  const holder = $("#featureImages"); holder.innerHTML = "";
+  latest.images.slice(0,2).forEach((src,i)=>{
     const img = document.createElement('img');
-    img.loading = "lazy"; img.alt = latest.title + " " + (i+1); img.src = src;
-    img.onerror = function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap = 1; img.src = img.src.replace('.jpg','.JPG'); } };
+    img.loading="lazy"; img.alt = latest.title+" "+(i+1); img.src = src;
+    img.onerror=function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG'); } };
     holder.appendChild(img);
   });
   $("#seeAll").onclick = ()=>{ location.hash = "#/projets"; setTimeout(()=> { $("#projectFilter").value = ""; renderGrid(); }, 0); };
@@ -275,7 +260,7 @@ function populateFeature(){
 function buildFilter(){
   const select = $("#projectFilter");
   select.innerHTML = `<option value="">${lang==='fr'?STRINGS.fr.filter.all:STRINGS.en.filter.all}</option>`;
-  PROJECTS.forEach(p=>{ const opt=document.createElement('option'); opt.value=p.slug; opt.textContent=p.title; select.appendChild(opt); });
+  PROJECTS.forEach(p=>{ const o=document.createElement('option'); o.value=p.slug; o.textContent=p.title; select.appendChild(o); });
 }
 function renderGrid(){
   const grid = $("#grid");
