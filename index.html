@@ -80,6 +80,49 @@
   @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--majorelle)}}
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
   @media(prefers-reduced-motion:reduce){.blink{animation:none}}
+
+  /* Soulignement animé (indépendant du clignotement) */
+  @keyframes underlineSweep {
+    0%   { transform: translateX(-110%); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: translateX(0%);   opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateX(110%); opacity: 0; }
+  }
+  .sweep{
+    position: relative;
+    display: inline-block;
+  }
+  .sweep::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-6px;
+    height:2px;
+    background: var(--majorelle);
+    border-radius:2px;
+    transform: translateX(-110%);
+    animation: underlineSweep 3s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  /* (Optionnel) Reflet discret qui balaye le texte — ajoute la classe `sheen` si tu veux l’activer */
+  @keyframes sheenPass {
+    0%   { transform: translateX(-120%) skewX(-15deg); opacity: 0; }
+    20%  { opacity: .6; }
+    50%  { transform: translateX(0) skewX(-15deg); opacity: .75; }
+    80%  { opacity: .6; }
+    100% { transform: translateX(120%) skewX(-15deg); opacity: 0; }
+  }
+  .sheen{ position: relative; }
+  .sheen::before{
+    content:"";
+    position:absolute;
+    top:-6px; bottom:-6px; left:-6px; right:-6px;
+    background: linear-gradient(90deg, transparent 35%, rgba(255,255,255,.6) 50%, transparent 65%);
+    mix-blend-mode: screen;
+    pointer-events:none;
+    animation: sheenPass 4.5s ease-in-out infinite;
+  }
 </style>
 </head>
 <body>
@@ -87,7 +130,8 @@
   <header class="header">
     <div class="wrap">
       <div class="brand" id="goHome" title="Accueil">
-        <span class="blink">JOYSSI</span><span class="dot"></span>
+        <!-- blink + sweep (soulignement). Ajoute ‘sheen’ si tu veux le reflet plus tard -->
+        <span class="blink sweep">JOYSSI</span><span class="dot"></span>
       </div>
       <nav>
         <a href="#home" data-i18n="menu.home">ACCUEIL</a>
