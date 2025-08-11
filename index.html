@@ -38,8 +38,13 @@
   .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;
               line-height:.9;font-size:min(14vw,120px);animation:none !important;color:#000;margin:0}
   .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
-  .cta{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:var(--majorelle);
-       color:#000;border-radius:16px;font-weight:700;border:0;cursor:pointer}
+  /* ✅ Bouton corrigé : texte blanc + même police que “ACCUEIL” */
+  .cta{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 18px;background:var(--majorelle);
+    color:#fff;border-radius:16px;font-weight:900;border:0;cursor:pointer;
+    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; letter-spacing:-.02em;
+  }
   .hero-fig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .hero-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#f2f2f2}
 
@@ -56,6 +61,13 @@
   .card-body{padding:12px}
   .roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
   .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
+
+  /* Boutons Contact */
+  .links a{
+    display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;
+    border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700
+  }
+  .links a + a{margin-left:10px}
 
   /* Blink uniquement pour le logo header (noir ↔ bleu) */
   @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--majorelle)}}
@@ -85,7 +97,7 @@
     </div>
   </header>
 
-  <!-- ACCUEIL : Dernier projet mis en avant -->
+  <!-- ACCUEIL : Dernier projet -->
   <section id="home" class="section">
     <span class="label" data-i18n="home.delim">ACCUEIL</span>
     <div class="hero" style="margin-top:18px">
@@ -99,17 +111,15 @@
           Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.
         </p>
 
-        <button class="cta" id="seeAll" data-i18n="feature.cta">Voir tous les projets</button>
+        <button class="cta" id="seeAll" data-i18n="feature.cta">Voir les projets</button>
       </div>
 
-      <div class="hero-fig" id="featureImages">
-        <!-- 2 images clés du dernier projet (injectées par JS) -->
-      </div>
+      <div class="hero-fig" id="featureImages"></div>
     </div>
     <div class="rule"></div>
   </section>
 
-  <!-- PROJETS : “Seconde page” (SPA via hash #/projets) -->
+  <!-- PROJETS (route #/projets) -->
   <section id="projets" class="section" data-route="#/projets" style="display:none">
     <span class="label" data-i18n="menu.projects">PROJETS</span>
     <h2 class="h1" style="margin-top:14px" data-i18n="projects.all">Tous les projets</h2>
@@ -137,11 +147,11 @@
     <div class="rule"></div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT (✅ seulement les boutons) -->
   <section id="contact" class="section">
     <span class="label" data-i18n="menu.contact">CONTACT</span>
     <h2 class="h1" style="margin-top:14px" data-i18n="contact.title">Contact</h2>
-    <p class="lead" style="margin-bottom:16px">instagram.com/joyssi.b — 24joyssi@gmail.com</p>
+
     <p class="links">
       <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer">Instagram</a>
       <a href="mailto:24joyssi@gmail.com">Email</a>
@@ -149,7 +159,7 @@
   </section>
 
 <script>
-/* ===================== Données projets ===================== */
+/* ========= Données projets ========= */
 const PROJECTS = [
   {
     slug: "blind-no-plan",
@@ -181,13 +191,13 @@ const PROJECTS = [
   }
 ];
 
-/* ===================== i18n ===================== */
+/* ========= i18n ========= */
 const STRINGS = {
   fr:{
     menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
     home:{delim:"ACCUEIL"},
     hero:{subtitle:"Directeur artistique — Styliste — Photographe"},
-    feature:{title:"Dernier projet",cta:"Voir tous les projets"},
+    feature:{title:"Dernier projet",cta:"Voir les projets"},
     projects:{all:"Tous les projets"},
     filter:{all:"Tous les projets"},
     about:{
@@ -214,7 +224,7 @@ const STRINGS = {
 const $ = (s,c=document)=>c.querySelector(s);
 const $$ = (s,c=document)=>Array.from(c.querySelectorAll(s));
 
-/* ===================== Routing SPA (#/projets) ===================== */
+/* ========= Routing SPA (#/projets) ========= */
 function setRoute(){
   const hash = location.hash;
   const projectsRoute = (hash === "#/projets");
@@ -224,35 +234,29 @@ function setRoute(){
 }
 window.addEventListener("hashchange", setRoute);
 
-/* ===================== Langue ===================== */
+/* ========= Langue ========= */
 let lang = (localStorage.getItem('lang')||'').toLowerCase();
 if(!lang){ lang = (navigator.language||'fr').toLowerCase().startsWith('en') ? 'en' : 'fr'; }
 
-function t(path){
-  return path.split('.').reduce((a,k)=>a && a[k], STRINGS[lang]) || '';
-}
+function t(path){ return path.split('.').reduce((a,k)=>a && a[k], STRINGS[lang]) || ''; }
 function applyI18n(){
   $$('[data-i18n]').forEach(el => el.textContent = t(el.getAttribute('data-i18n')));
   $$('[data-i18n-html]').forEach(el => el.innerHTML = t(el.getAttribute('data-i18n-html')));
   document.documentElement.lang = lang;
 
-  // placeholders dynamiques
-  const q = $("#q");
-  if(q) q.placeholder = (lang==='fr'?'Rechercher…':'Search…');
+  const q = $("#q"); if(q) q.placeholder = (lang==='fr'?'Rechercher…':'Search…');
 
-  // projet vedette
   const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
   $("#featureTitle").textContent = latest.title;
   $("#featureDesc").textContent = lang==='fr' ? latest.description_fr : latest.description_en;
 
-  // boutons FR/EN
   $("#frBtn").classList.toggle('active', lang==='fr');
   $("#enBtn").classList.toggle('active', lang==='en');
 }
 $("#frBtn").addEventListener('click', ()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); });
 $("#enBtn").addEventListener('click', ()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); });
 
-/* ===================== Accueil : dernier projet ===================== */
+/* ========= Accueil : dernier projet ========= */
 function populateFeature(){
   const latest = [...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
   const holder = $("#featureImages");
@@ -260,99 +264,51 @@ function populateFeature(){
   const keys = latest.images.slice(0,2);
   keys.forEach((src,i)=>{
     const img = document.createElement('img');
-    img.loading = "lazy";
-    img.alt = latest.title + " " + (i+1);
-    img.src = src;
-    img.onerror = function(){
-      if(!img.dataset.swap && img.src.endsWith('.jpg')){
-        img.dataset.swap = 1; img.src = img.src.replace('.jpg','.JPG');
-      }
-    };
+    img.loading = "lazy"; img.alt = latest.title + " " + (i+1); img.src = src;
+    img.onerror = function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap = 1; img.src = img.src.replace('.jpg','.JPG'); } };
     holder.appendChild(img);
   });
-  $("#seeAll").onclick = ()=>{
-    location.hash = "#/projets";
-    setTimeout(()=> {
-      $("#projectFilter").value = ""; // pas de filtre auto
-      renderGrid();
-    }, 0);
-  };
+  $("#seeAll").onclick = ()=>{ location.hash = "#/projets"; setTimeout(()=> { $("#projectFilter").value = ""; renderGrid(); }, 0); };
 }
 
-/* ===================== Projets : filtre + grille ===================== */
+/* ========= Projets : filtre + grille ========= */
 function buildFilter(){
   const select = $("#projectFilter");
   select.innerHTML = `<option value="">${lang==='fr'?STRINGS.fr.filter.all:STRINGS.en.filter.all}</option>`;
-  PROJECTS.forEach(p=>{
-    const opt = document.createElement('option');
-    opt.value = p.slug;
-    opt.textContent = p.title;
-    select.appendChild(opt);
-  });
+  PROJECTS.forEach(p=>{ const opt=document.createElement('option'); opt.value=p.slug; opt.textContent=p.title; select.appendChild(opt); });
 }
-
 function renderGrid(){
   const grid = $("#grid");
   const q = ($("#q").value || "").toLowerCase().trim();
   const bySlug = $("#projectFilter").value;
-
   let list = PROJECTS.slice();
   if(bySlug) list = list.filter(p=>p.slug===bySlug);
   if(q) list = list.filter(p => (p.title.toLowerCase().includes(q) ||
                                 (p.description_fr && p.description_fr.toLowerCase().includes(q)) ||
                                 (p.description_en && p.description_en.toLowerCase().includes(q)) ));
-
   grid.innerHTML = "";
-  if(list.length===0){
-    const p = document.createElement('p'); p.textContent = (lang==='fr'?'Aucun résultat.':'No results.');
-    p.style.opacity = .7; grid.appendChild(p); return;
-  }
-
+  if(list.length===0){ const p=document.createElement('p'); p.textContent=(lang==='fr'?'Aucun résultat.':'No results.'); p.style.opacity=.7; grid.appendChild(p); return; }
   list.forEach(p=>{
-    const fig = document.createElement('figure');
-    fig.className = "card";
-    const img = document.createElement('img');
-    img.className = "thumb";
-    img.loading = "lazy";
-    img.src = p.images[0];
-    img.alt = p.title;
-    img.onerror = function(){
-      if(!img.dataset.swap && img.src.endsWith('.jpg')){
-        img.dataset.swap=1; img.src = img.src.replace('.jpg','.JPG');
-      }
-    };
-    const cap = document.createElement('figcaption');
-    cap.className = "card-body";
-    const title = document.createElement('div');
-    title.style.fontWeight = "800";
-    title.textContent = p.title;
-    const desc = document.createElement('p');
-    desc.style.margin = "6px 0 0";
-    desc.style.opacity = .9;
-    desc.textContent = (lang==='fr' ? p.description_fr : p.description_en);
-    const roles = document.createElement('div'); roles.className = "roles";
-    p.roles.forEach(r=>{ const b=document.createElement('span'); b.className="role"; b.textContent=r; roles.appendChild(b); });
-
+    const fig=document.createElement('figure'); fig.className="card";
+    const img=document.createElement('img'); img.className="thumb"; img.loading="lazy"; img.src=p.images[0]; img.alt=p.title;
+    img.onerror=function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG'); } };
+    const cap=document.createElement('figcaption'); cap.className="card-body";
+    const title=document.createElement('div'); title.style.fontWeight="800"; title.textContent=p.title;
+    const desc=document.createElement('p'); desc.style.margin="6px 0 0"; desc.style.opacity=.9; desc.textContent=(lang==='fr'?p.description_fr:p.description_en);
+    const roles=document.createElement('div'); roles.className="roles"; p.roles.forEach(r=>{ const b=document.createElement('span'); b.className="role"; b.textContent=r; roles.appendChild(b); });
     cap.appendChild(title); cap.appendChild(desc); cap.appendChild(roles);
-    fig.appendChild(img); fig.appendChild(cap);
-    grid.appendChild(fig);
+    fig.appendChild(img); fig.appendChild(cap); grid.appendChild(fig);
   });
 }
 
-/* ===================== Interactions header & init ===================== */
+/* ========= Init ========= */
 function init(){
-  // Logo → remonter en haut
   $("#goHome").addEventListener('click', ()=> { location.hash = "#home"; window.scrollTo({top:0,behavior:"smooth"}); });
-  // Accueil
   populateFeature();
-  // Projets
-  buildFilter();
-  renderGrid();
+  buildFilter(); renderGrid();
   $("#q").addEventListener('input', renderGrid);
   $("#projectFilter").addEventListener('change', renderGrid);
-  // Langue + route
-  applyI18n();
-  setRoute();
+  applyI18n(); setRoute();
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
