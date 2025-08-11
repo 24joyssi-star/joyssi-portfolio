@@ -65,7 +65,7 @@
   .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
   .collab{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.15);font-size:13px}
 
-  /* A propos + Contact boutons */
+  /* Contact boutons */
   .links a{
     display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;
     border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700;background:#fff
@@ -89,6 +89,23 @@
     content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
     background: var(--majorelle); border-radius:2px; transform: translateX(-110%);
     animation: underlineSweep 3s ease-in-out infinite;
+  }
+
+  /* ===== DÉTAIL PROJET : vignettes 300x600 ===== */
+  .detail{max-width:1200px;margin:0 auto;padding:56px 20px;display:none}
+  .back{
+    display:inline-flex;align-items:center;gap:8px;
+    border:2px solid var(--majorelle);background:#fff;color:#000;
+    padding:10px 14px;border-radius:14px;font-weight:900;
+    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;cursor:pointer
+  }
+  .detail-title{font-size:28px;font-weight:900;letter-spacing:-.01em}
+  .gallery{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:14px;
+  }
+  .gallery img{
+    width:300px; height:600px; object-fit:cover;
+    border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#f2f2f2;
   }
 </style>
 </head>
@@ -148,15 +165,15 @@
   </section>
 
   <!-- DÉTAIL PROJET -->
-  <section id="detail" class="section" style="display:none" aria-live="polite">
-    <button class="cta" id="backBtn" type="button">← <span data-i18n="menu.projects">PROJETS</span></button>
+  <section id="detail" class="detail" aria-live="polite">
+    <button class="back" id="backBtn" type="button">← <span data-i18n="menu.projects">PROJETS</span></button>
     <div class="detail-head" style="display:flex;flex-direction:column;gap:10px;margin:18px 0">
-      <div class="detail-title" id="dTitle" style="font-size:28px;font-weight:900;letter-spacing:-.01em">—</div>
+      <div class="detail-title" id="dTitle">—</div>
       <div class="detail-meta" id="dRoles" style="display:flex;flex-wrap:wrap;gap:8px"></div>
       <div id="dDesc" style="opacity:.9"></div>
       <div id="dCollab" style="opacity:.9"></div>
     </div>
-    <div class="gallery" id="dGallery" style="display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:14px;margin-top:14px"></div>
+    <div class="gallery" id="dGallery"></div>
     <div class="rule"></div>
   </section>
 
@@ -373,13 +390,21 @@ function renderGrid(){
   });
 }
 
-/* ===== Détail projet ===== */
+/* ===== Détail projet : vignettes 300x600 ===== */
 function renderDetail(slug){
   const p=PROJECTS.find(x=>x.slug===slug);
   if(!p){ location.hash="#/projets"; return; }
 
   $("#dTitle").textContent=p.title;
-  const roles=$("#dRoles"); roles.innerHTML=""; p.roles.forEach(r=>{ const span=document.createElement('span'); span.className='role'; span.textContent=r; roles.appendChild(span); });
+
+  const roles=$("#dRoles"); roles.innerHTML="";
+  p.roles.forEach(r=>{
+    const span=document.createElement('span');
+    span.className='role';
+    span.textContent=r;
+    roles.appendChild(span);
+  });
+
   $("#dDesc").textContent = (lang==='fr'?p.description_fr:p.description_en);
 
   const collab=$("#dCollab");
@@ -390,10 +415,22 @@ function renderDetail(slug){
 
   const g=$("#dGallery"); g.innerHTML="";
   p.images.forEach((src,i)=>{
-    const img=new Image(); img.loading="lazy"; img.alt=`${p.title} — ${i+1}`; img.src=src;
-    img.onerror=function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG'); } };
-    img.style.width="100%"; img.style.aspectRatio="4/5"; img.style.objectFit="cover";
-    img.style.borderRadius="12px"; img.style.border="1px solid rgba(0,0,0,.12)"; img.style.background="#f2f2f2";
+    const img=new Image();
+    img.loading="lazy";
+    img.alt=`${p.title} — ${i+1}`;
+    img.src=src;
+    img.onerror=function(){
+      if(!img.dataset.swap && img.src.endsWith('.jpg')){
+        img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG');
+      }
+    };
+    // dimensions fixes 300x600 (couvert)
+    img.style.width="300px";
+    img.style.height="600px";
+    img.style.objectFit="cover";
+    img.style.borderRadius="12px";
+    img.style.border="1px solid rgba(0,0,0,.12)";
+    img.style.background="#f2f2f2";
     g.appendChild(img);
   });
 
