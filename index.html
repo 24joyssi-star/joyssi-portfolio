@@ -5,302 +5,199 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>JOYSSI — Portfolio</title>
 <meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe."/>
-
 <style>
   :root{
     --majorelle:#090794;
     --black:#050506;
     --white:#ffffff;
   }
-
   *{box-sizing:border-box}
   html,body{height:100%}
+  html{scroll-behavior:smooth}
   body{
-    margin:0;
-    background:var(--black);
-    color:#fff;
+    margin:0; background:var(--black); color:#fff;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif;
   }
 
-  /* ===== Fond MARBRE (en dessous de tout) ===== */
-  body::before{
-    content:"";
-    position:fixed; inset:0; z-index:-1; pointer-events:none;
-    background:
-      radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%),
-      url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'>\
-  <filter id='m'>\
-    <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/>\
-    <feColorMatrix type='saturate' values='0'/>\
-    <feComponentTransfer>\
-      <feFuncR type='gamma' amplitude='1' exponent='0.32'/>\
-      <feFuncG type='gamma' amplitude='1' exponent='0.32'/>\
-      <feFuncB type='gamma' amplitude='1' exponent='0.32'/>\
-    </feComponentTransfer>\
-    <feGaussianBlur stdDeviation='0.8'/>\
-  </filter>\
-  <rect width='100%' height='100%' fill='%23050506'/>\
-  <rect width='100%' height='100%' filter='url(%23m)' opacity='0.43'/>\
-</svg>");
-    background-repeat:no-repeat, repeat;
-    background-size:cover, 1200px 1200px;
-  }
+  /* Header fixe, sans burger */
+  .header{position:sticky; top:0; z-index:40; background:rgba(0,0,0,.6); backdrop-filter:blur(6px)}
+  .wrap{max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+  .brand{display:flex; align-items:center; gap:8px; font-weight:900; letter-spacing:-.04em;
+         font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; font-size:13px; cursor:pointer}
+  .dot{width:6px; height:6px; border-radius:999px; background:var(--majorelle)}
+  nav{display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+  nav a{color:#fff; text-decoration:none; font-weight:700; opacity:.85}
+  nav a:hover{opacity:1; text-decoration:underline}
+  .lang{display:flex; align-items:center; gap:10px}
+  .lang button{background:transparent; border:0; color:#fff; font-weight:800; opacity:.7; cursor:pointer}
+  .lang button.active{opacity:1; text-decoration:underline}
 
-  /* ===== Header ===== */
-  .header{position:sticky;top:0;z-index:40;backdrop-filter:saturate(1.1) blur(6px);background:rgba(0,0,0,.45)}
-  .header-inner{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
-  .brand{font-weight:900;letter-spacing:-.04em;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px}
-  .dot{display:inline-block;width:6px;height:6px;border-radius:999px;background:var(--majorelle)}
-
-  /* ===== Couleur BLEU (forcée) ===== */
-  .cta{background:var(--majorelle) !important; color:#000}
-  .menu .item .hl{background:var(--majorelle) !important;}
-  .dot{background:var(--majorelle) !important;}
-  .link{border-color:var(--majorelle) !important;}
-
-  /* Langue + burger */
-  .lang-switch{display:flex;gap:10px;align-items:center}
-  .lang-btn{background:transparent;border:0;color:#fff;opacity:.8;cursor:pointer;font-weight:700}
-  .lang-btn.active{opacity:1;text-decoration:underline}
-  .burger{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:transparent;cursor:pointer}
-  .burger span{display:block;width:20px;height:2px;background:#fff;margin:3px 0;transition:.2s}
-
-  /* Menu overlay */
-  .overlay{position:fixed;inset:0;background:#fff;color:#000;z-index:50;display:none;flex-direction:column}
-  .overlay.open{display:flex}
-  .overlay .top{max-width:1100px;margin:0 auto;padding:24px 20px;display:flex;align-items:center;justify-content:space-between}
-  .close{width:40px;height:40px;display:grid;place-items:center;background:transparent;border:0;cursor:pointer}
-  .menu{max-width:1100px;margin:0 auto;padding:0 20px 48px}
-  .menu a{color:#000;text-decoration:none}
-  .menu .item{position:relative;display:inline-block;padding:6px 10px;font-weight:900;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;letter-spacing:-.03em;font-size:48px;line-height:1}
-  /* Surlignage “tag” */
-  .menu .item .hl{
-    position:absolute;inset:-6px -10px;
-    transform:skewX(-6deg) rotate(-1.5deg);
-    filter:saturate(1.8) drop-shadow(0 6px 22px rgba(9,7,148,.35));
-    z-index:0;
-    clip-path:polygon(0 14%,100% 0%,100% 86%,0% 100%);
-  }
-  .menu .item .txt{position:relative;z-index:1}
-
-  /* Pages */
-  main{min-height:70vh}
-  .page{display:none}
-  .page.active{display:block}
-  section{scroll-margin-top:90px}
-  .section{max-width:1100px;margin:0 auto;padding:48px 20px}
+  /* Sections & séparateurs */
+  .section{max-width:1100px; margin:0 auto; padding:56px 20px}
+  .group{border-top:1px solid rgba(255,255,255,.08); padding-top:36px; margin-top:36px}
+  .label{display:inline-block; font-weight:900; font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;
+         letter-spacing:-.02em; background:var(--majorelle); color:#000; padding:6px 10px; border-radius:10px}
 
   /* Hero */
-  .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:0 24px}
-  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;line-height:.9;font-size:14vw;animation:none !important;} /* ne clignote pas */
-  .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
-  .cta{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:16px;font-weight:600;border:0;cursor:pointer}
+  .hero{min-height:64vh; display:grid; place-items:center; text-align:center; padding:20px}
+  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; font-weight:900; letter-spacing:-.04em;
+              line-height:.9; font-size:14vw; animation:none !important}
+  .hero-sub{opacity:.9; font-size:14px; margin:12px 0 18px}
+  .cta{display:inline-flex; align-items:center; gap:8px; padding:12px 18px; background:var(--majorelle);
+       color:#000; border-radius:16px; font-weight:700; border:0; cursor:pointer}
 
-  /* Grille images */
-  .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:20px}
+  /* Grid images */
+  .grid{display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:20px}
   @media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
   @media(min-width:992px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
-  .card{border:1px solid rgba(9,7,148,.28);border-radius:16px;overflow:hidden;background:rgba(0,0,0,.25)}
-  .thumb{aspect-ratio:4/5;width:100%;background:rgba(0,0,0,.35);object-fit:cover;display:block}
+  .card{border:1px solid rgba(9,7,148,.28); border-radius:16px; overflow:hidden; background:rgba(255,255,255,.02)}
+  .thumb{aspect-ratio:4/5; width:100%; object-fit:cover; display:block; background:#0a0a0a}
 
-  .page-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.03em;font-size:46px;margin:0 0 16px}
-  .lead{opacity:.9;line-height:1.6}
+  /* Titres */
+  .h1{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif; font-weight:900; letter-spacing:-.03em; font-size:42px; margin:0 0 12px}
+  .lead{opacity:.9; line-height:1.6; margin:0}
 
-  /* Blink (UNIQUEMENT logo header) */
+  /* Blink uniquement pour le header */
   @keyframes joyssiBlink{0%,40%{color:#fff}50%,100%{color:var(--majorelle)}}
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
   @media(prefers-reduced-motion:reduce){.blink{animation:none}}
 </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header simple -->
   <header class="header">
-    <div class="header-inner">
-      <!-- JOYSSI header CLIGNOTE -->
-      <div class="brand" id="brandHome" title="Home">
+    <div class="wrap">
+      <div class="brand" id="goHome" title="Accueil">
         <span class="blink">JOYSSI</span><span class="dot"></span>
       </div>
-
-      <div class="lang-switch">
-        <button class="lang-btn" id="btn-fr">FR</button>
-        <span style="opacity:.4">|</span>
-        <button class="lang-btn" id="btn-en">EN</button>
-        <button class="burger" id="openMenu" aria-label="Menu" style="margin-left:12px">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Menu overlay -->
-    <div class="overlay" id="menuOverlay" aria-hidden="true">
-      <div class="top">
-        <div class="brand" id="menuHome">JOYSSI</div>
-        <div class="lang-switch" style="gap:8px">
-          <button class="lang-btn" id="btn-fr-overlay">FR</button>
+      <nav>
+        <a href="#projets" data-i18n="menu.projects">PROJET</a>
+        <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
+        <a href="#contact" data-i18n="menu.contact">CONTACT</a>
+        <span style="width:1px;height:18px;background:rgba(255,255,255,.18);display:inline-block;margin:0 6px"></span>
+        <div class="lang">
+          <button id="frBtn">FR</button>
           <span style="opacity:.4">|</span>
-          <button class="lang-btn" id="btn-en-overlay">EN</button>
-          <button class="close" id="closeMenu" aria-label="Fermer" title="Close">
-            <div style="position:relative;width:20px;height:20px">
-              <div style="position:absolute;inset:0;height:2px;background:#000;transform:rotate(45deg);top:50%"></div>
-              <div style="position:absolute;inset:0;height:2px;background:#000;transform:rotate(-45deg);top:50%"></div>
-            </div>
-          </button>
+          <button id="enBtn">EN</button>
         </div>
-      </div>
-      <nav class="menu">
-        <a href="#/projets" class="item"><span class="hl"></span><span class="txt" data-i18n="menu.projects">PROJET</span></a><br/>
-        <a href="#/a-propos" class="item"><span class="hl"></span><span class="txt" data-i18n="menu.about">A PROPOS</span></a><br/>
-        <a href="#/contact"  class="item"><span class="hl"></span><span class="txt" data-i18n="menu.contact">CONTACT</span></a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <!-- Accueil -->
-    <div id="page-home" class="page active">
-      <section class="hero">
-        <div>
-          <div class="hero-title">JOYSSI</div>
-          <div class="hero-sub" data-i18n="hero.subtitle">Directeur artistique — Styliste — Photographe</div>
-          <button class="cta" id="ctaProjects" data-i18n="hero.cta">Voir les projets</button>
-        </div>
-      </section>
+  <!-- Accueil -->
+  <section id="home" class="section hero">
+    <div>
+      <div class="hero-title">JOYSSI</div>
+      <p class="hero-sub" data-i18n="hero.subtitle">Directeur artistique — Styliste — Photographe</p>
+      <button class="cta" id="toProjects" data-i18n="hero.cta">Voir les projets</button>
+      <div class="group" style="margin-top:40px">
+        <span class="label" data-i18n="home.delim">ACCUEIL</span>
+      </div>
     </div>
+  </section>
 
-    <!-- Projets -->
-    <div id="page-projets" class="page">
-      <section class="section">
-        <h1 class="page-title" data-i18n="project.title">BLIND NO PLAN — Campagne</h1>
-        <p class="lead" data-i18n="project.lead">Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.</p>
+  <!-- Projets -->
+  <section id="projets" class="section">
+    <span class="label" data-i18n="menu.projects">PROJET</span>
+    <h2 class="h1" style="margin-top:14px" data-i18n="project.title">BLIND NO PLAN — Campagne</h2>
+    <p class="lead" data-i18n="project.lead">Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.</p>
 
-        <div class="grid">
-          <!-- Fallback .JPG si besoin -->
-          <figure class="card"><img class="thumb" src="images/DSC02221.jpg" alt="BLIND NO PLAN 1" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02224.jpg" alt="BLIND NO PLAN 2" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02230.jpg" alt="BLIND NO PLAN 3" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02234.jpg" alt="BLIND NO PLAN 4" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02237.jpg" alt="BLIND NO PLAN 5" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC03110.jpg" alt="BLIND NO PLAN 6" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
-        </div>
-      </section>
+    <div class="grid" style="margin-top:22px">
+      <!-- Fallback .JPG si besoin -->
+      <figure class="card"><img class="thumb" src="images/DSC02221.jpg" alt="BLIND NO PLAN 1" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+      <figure class="card"><img class="thumb" src="images/DSC02224.jpg" alt="BLIND NO PLAN 2" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+      <figure class="card"><img class="thumb" src="images/DSC02230.jpg" alt="BLIND NO PLAN 3" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+      <figure class="card"><img class="thumb" src="images/DSC02234.jpg" alt="BLIND NO PLAN 4" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+      <figure class="card"><img class="thumb" src="images/DSC02237.jpg" alt="BLIND NO PLAN 5" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+      <figure class="card"><img class="thumb" src="images/DSC03110.jpg" alt="BLIND NO PLAN 6" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
     </div>
+  </section>
 
-    <!-- À propos -->
-    <div id="page-a-propos" class="page">
-      <section class="section">
-        <h1 class="page-title" data-i18n="about.title">À propos</h1>
-        <p class="lead" data-i18n-html="about.lead">
-          Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>
-          J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
-          cohérents et puissants — du concept à la direction de shooting.
-        </p>
-      </section>
-    </div>
+  <!-- À propos -->
+  <section id="apropos" class="section">
+    <span class="label" data-i18n="menu.about">A PROPOS</span>
+    <h2 class="h1" style="margin-top:14px" data-i18n="about.title">À propos</h2>
+    <p class="lead" data-i18n-html="about.lead">
+      Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>
+      J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
+      cohérents et puissants — du concept à la direction de shooting.
+    </p>
+  </section>
 
-    <!-- Contact -->
-    <div id="page-contact" class="page">
-      <section class="section">
-        <h1 class="page-title" data-i18n="contact.title">Contact</h1>
-        <a class="link" href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;color:#fff;text-decoration:none;margin:6px 0">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
-            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-            <circle cx="12" cy="12" r="3.5"></circle>
-            <circle cx="17.5" cy="6.5" r="1"></circle>
-          </svg>
-          instagram.com/joyssi.b
-        </a>
-        <br/>
-        <a class="link" href="mailto:24joyssi@gmail.com" style="display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;color:#fff;text-decoration:none;margin:6px 0">✉︎  24joyssi@gmail.com</a>
-      </section>
-    </div>
-  </main>
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <span class="label" data-i18n="menu.contact">CONTACT</span>
+    <h2 class="h1" style="margin-top:14px" data-i18n="contact.title">Contact</h2>
+    <p class="lead" style="margin-bottom:16px">instagram.com/joyssi.b — 24joyssi@gmail.com</p>
+    <p>
+      <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer"
+         style="display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;
+                border:1px solid var(--majorelle);color:#fff;text-decoration:none;margin-right:10px">
+        Instagram
+      </a>
+      <a href="mailto:24joyssi@gmail.com"
+         style="display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;
+                border:1px solid var(--majorelle);color:#fff;text-decoration:none">
+        Email
+      </a>
+    </p>
+  </section>
 
   <script>
-    // i18n
+    // Textes FR/EN
     const STRINGS = {
       fr: {
-        menu: { projects: "PROJET", about: "A PROPOS", contact: "CONTACT" },
-        hero: { subtitle: "Directeur artistique — Styliste — Photographe", cta: "Voir les projets" },
-        project: {
-          title: "BLIND NO PLAN — Campagne",
-          lead: "Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks."
+        menu:{projects:"PROJET",about:"A PROPOS",contact:"CONTACT"},
+        home:{delim:"ACCUEIL"},
+        hero:{subtitle:"Directeur artistique — Styliste — Photographe", cta:"Voir les projets"},
+        project:{
+          title:"BLIND NO PLAN — Campagne",
+          lead:"Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks."
         },
-        about: {
-          title: "À propos",
-          lead: "Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."
+        about:{
+          title:"À propos",
+          lead:"Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."
         },
-        contact: { title: "Contact" }
+        contact:{title:"Contact"}
       },
       en: {
-        menu: { projects: "PROJECTS", about: "ABOUT", contact: "CONTACT" },
-        hero: { subtitle: "Art Director — Stylist — Photographer", cta: "View projects" },
-        project: {
-          title: "BLIND NO PLAN — Campaign",
-          lead: "Styling & Photography — A raw, coherent visual world aligned with the brand DNA. Full shoot direction & looks."
+        menu:{projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
+        home:{delim:"HOME"},
+        hero:{subtitle:"Art Director — Stylist — Photographer", cta:"View projects"},
+        project:{
+          title:"BLIND NO PLAN — Campaign",
+          lead:"Styling & Photography — A raw, coherent visual world aligned with the brand DNA. Full shoot direction & looks."
         },
-        about: {
-          title: "About",
-          lead: "I’m Joyssi — art director, stylist and photographer.<br><br>I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."
+        about:{
+          title:"About",
+          lead:"I’m Joyssi — art director, stylist and photographer.<br><br>I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."
         },
-        contact: { title: "Contact" }
+        contact:{title:"Contact"}
       }
     };
 
-    // Helpers
     const $ = (s, c=document)=>c.querySelector(s);
     const $$ = (s, c=document)=>Array.from(c.querySelectorAll(s));
 
-    // Menu overlay
-    const overlay = $('#menuOverlay');
-    const openBtn  = $('#openMenu');
-    const closeBtn = $('#closeMenu');
-    const brandTop = $('#brandHome');
-    const menuHome = $('#menuHome');
-
-    function openMenu(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
-    function closeMenu(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
-
-    openBtn.addEventListener('click', openMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    if (menuHome) menuHome.addEventListener('click', ()=>{ closeMenu(); navigateTo('#/'); });
-    brandTop.addEventListener('click', ()=> navigateTo('#/'));
-
-    // Routing (hash)
-    const pages = {
-      '#/': $('#page-home'),
-      '#/projets': $('#page-projets'),
-      '#/a-propos': $('#page-a-propos'),
-      '#/contact': $('#page-contact'),
-    };
-    function setActive(hash){
-      Object.values(pages).forEach(p=>p.classList.remove('active'));
-      (pages[hash] || pages['#/']).classList.add('active');
-      window.scrollTo({top:0, behavior:'instant'});
-    }
-    function navigateTo(hash){ if (location.hash !== hash) location.hash = hash; setActive(hash); closeMenu(); }
-    window.addEventListener('hashchange', ()=> setActive(location.hash));
-    setActive(location.hash || '#/');
-
-    // CTA → projets
-    $('#ctaProjects').addEventListener('click', ()=> navigateTo('#/projets'));
+    // Navigation boutons (logo + CTA)
+    $('#goHome').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+    $('#toProjects').addEventListener('click', ()=> location.hash='#projets');
 
     // Langue
-    let lang = (localStorage.getItem('lang') || '').toLowerCase() || (navigator.language||'').startsWith('en') ? 'en' : 'fr';
-    function applyLangButtons(){
-      $$('#btn-fr, #btn-fr-overlay').forEach(b=>b.classList.toggle('active', lang==='fr'));
-      $$('#btn-en, #btn-en-overlay').forEach(b=>b.classList.toggle('active', lang==='en'));
-      document.documentElement.lang = lang;
-    }
+    let lang = (localStorage.getItem('lang') || '').toLowerCase();
+    if(!lang){ lang = (navigator.language||'fr').toLowerCase().startsWith('en') ? 'en' : 'fr'; }
+    const frBtn = $('#frBtn'), enBtn = $('#enBtn');
     function t(path){ return path.split('.').reduce((a,k)=>a&&a[k], STRINGS[lang]) || ''; }
     function applyI18n(){
-      $$('[data-i18n]').forEach(el => { el.textContent = t(el.getAttribute('data-i18n')); });
-      $$('[data-i18n-html]').forEach(el => { el.innerHTML   = t(el.getAttribute('data-i18n-html')); });
+      $$('[data-i18n]').forEach(el => el.textContent = t(el.getAttribute('data-i18n')));
+      $$('[data-i18n-html]').forEach(el => el.innerHTML = t(el.getAttribute('data-i18n-html')));
+      document.documentElement.lang = lang;
+      frBtn.classList.toggle('active', lang==='fr');
+      enBtn.classList.toggle('active', lang==='en');
     }
-    function setLang(next){ lang = next; localStorage.setItem('lang', lang); applyLangButtons(); applyI18n(); }
-    $$('#btn-fr, #btn-fr-overlay').forEach(b=> b.addEventListener('click', ()=> setLang('fr')));
-    $$('#btn-en, #btn-en-overlay').forEach(b=> b.addEventListener('click', ()=> setLang('en')));
-    applyLangButtons(); applyI18n();
+    frBtn.addEventListener('click', ()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); });
+    enBtn.addEventListener('click', ()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); });
+    applyI18n();
   </script>
 </body>
 </html>
