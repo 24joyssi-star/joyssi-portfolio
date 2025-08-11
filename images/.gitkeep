@@ -1,11 +1,3 @@
-.bg-marble{
-  position:fixed; inset:0; pointer-events:none; z-index:-1;
-  background-image:
-    radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,.35) 100%),
-    url("images/marble.png");
-  background-size: cover; background-repeat:no-repeat;
-  opacity:.25; filter: contrast(1.05) brightness(.9);
-}
 <div class="grid">
   <figure class="card"><img class="thumb" src="images/DSC02221.jpg" alt="BLIND NO PLAN 1"></figure>
   <figure class="card"><img class="thumb" src="images/DSC02224.jpg" alt="BLIND NO PLAN 2"></figure>
