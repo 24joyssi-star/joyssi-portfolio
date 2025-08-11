@@ -7,17 +7,28 @@
 <meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe."/>
 
 <style>
- /* Fond marbre génératif — visible partout, sans fichier externe */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  /* vignettage + marbre SVG inline (fractal noise) */
-  background:
-    radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%),
-    url("data:image/svg+xml;utf8,\
+  :root{
+    --majorelle:#090794;
+    --black:#050506;
+    --white:#ffffff;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:var(--black);
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif;
+  }
+
+  /* ===== Fond MARBRE (en dessous de tout) ===== */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%),
+      url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'>\
   <filter id='m'>\
     <feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/>\
@@ -32,19 +43,25 @@ body::before{
   <rect width='100%' height='100%' fill='%23050506'/>\
   <rect width='100%' height='100%' filter='url(%23m)' opacity='0.43'/>\
 </svg>");
-  background-repeat:no-repeat, repeat;
-  background-size:cover, 1200px 1200px;
-}
+    background-repeat:no-repeat, repeat;
+    background-size:cover, 1200px 1200px;
+  }
 
-  /* Header */
+  /* ===== Header ===== */
   .header{position:sticky;top:0;z-index:40;backdrop-filter:saturate(1.1) blur(6px);background:rgba(0,0,0,.45)}
   .header-inner{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
   .brand{font-weight:900;letter-spacing:-.04em;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px}
   .dot{display:inline-block;width:6px;height:6px;border-radius:999px;background:var(--majorelle)}
 
-  /* Switch langue + burger */
+  /* ===== Couleur BLEU (forcée) ===== */
+  .cta{background:var(--majorelle) !important; color:#000}
+  .menu .item .hl{background:var(--majorelle) !important;}
+  .dot{background:var(--majorelle) !important;}
+  .link{border-color:var(--majorelle) !important;}
+
+  /* Langue + burger */
   .lang-switch{display:flex;gap:10px;align-items:center}
-  .lang-btn{background:transparent;border:0;color:#fff;opacity:.7;cursor:pointer;font-weight:700}
+  .lang-btn{background:transparent;border:0;color:#fff;opacity:.8;cursor:pointer;font-weight:700}
   .lang-btn.active{opacity:1;text-decoration:underline}
   .burger{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:transparent;cursor:pointer}
   .burger span{display:block;width:20px;height:2px;background:#fff;margin:3px 0;transition:.2s}
@@ -57,7 +74,14 @@ body::before{
   .menu{max-width:1100px;margin:0 auto;padding:0 20px 48px}
   .menu a{color:#000;text-decoration:none}
   .menu .item{position:relative;display:inline-block;padding:6px 10px;font-weight:900;font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;letter-spacing:-.03em;font-size:48px;line-height:1}
-  .menu .item .hl{position:absolute;inset:-6px -10px;background:var(--majorelle);transform:skewX(-6deg) rotate(-1.5deg);filter:saturate(1.8) drop-shadow(0 6px 22px rgba(9,7,148,.35));z-index:0;clip-path:polygon(0 14%,100% 0%,100% 86%,0% 100%)}
+  /* Surlignage “tag” */
+  .menu .item .hl{
+    position:absolute;inset:-6px -10px;
+    transform:skewX(-6deg) rotate(-1.5deg);
+    filter:saturate(1.8) drop-shadow(0 6px 22px rgba(9,7,148,.35));
+    z-index:0;
+    clip-path:polygon(0 14%,100% 0%,100% 86%,0% 100%);
+  }
   .menu .item .txt{position:relative;z-index:1}
 
   /* Pages */
@@ -69,9 +93,9 @@ body::before{
 
   /* Hero */
   .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:0 24px}
-  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;line-height:.9;font-size:14vw;animation:none !important;} /* NE CLIGNOTE PAS */
-  .hero-sub{opacity:.85;font-size:14px;margin:12px 0 18px}
-  .cta{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:var(--majorelle);color:#000;border-radius:16px;font-weight:600;border:0;cursor:pointer}
+  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;line-height:.9;font-size:14vw;animation:none !important;} /* ne clignote pas */
+  .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
+  .cta{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:16px;font-weight:600;border:0;cursor:pointer}
 
   /* Grille images */
   .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:20px}
@@ -83,19 +107,17 @@ body::before{
   .page-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.03em;font-size:46px;margin:0 0 16px}
   .lead{opacity:.9;line-height:1.6}
 
-  /* Blink (uniquement pour le logo header) */
+  /* Blink (UNIQUEMENT logo header) */
   @keyframes joyssiBlink{0%,40%{color:#fff}50%,100%{color:var(--majorelle)}}
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
   @media(prefers-reduced-motion:reduce){.blink{animation:none}}
 </style>
 </head>
 <body>
-  <div class="bg-marble" aria-hidden="true"></div>
-
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
-      <!-- JOYSSI du header CLIGNOTE -->
+      <!-- JOYSSI header CLIGNOTE -->
       <div class="brand" id="brandHome" title="Home">
         <span class="blink">JOYSSI</span><span class="dot"></span>
       </div>
@@ -135,7 +157,7 @@ body::before{
   </header>
 
   <main>
-    <!-- Accueil (titre géant fixe) -->
+    <!-- Accueil -->
     <div id="page-home" class="page active">
       <section class="hero">
         <div>
@@ -151,18 +173,20 @@ body::before{
       <section class="section">
         <h1 class="page-title" data-i18n="project.title">BLIND NO PLAN — Campagne</h1>
         <p class="lead" data-i18n="project.lead">Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.</p>
+
         <div class="grid">
-          <figure class="card"><img class="thumb" src="images/DSC02221.jpg" alt="BLIND NO PLAN 1"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02224.jpg" alt="BLIND NO PLAN 2"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02230.jpg" alt="BLIND NO PLAN 3"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02234.jpg" alt="BLIND NO PLAN 4"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC02237.jpg" alt="BLIND NO PLAN 5"></figure>
-          <figure class="card"><img class="thumb" src="images/DSC03110.jpg" alt="BLIND NO PLAN 6"></figure>
+          <!-- Fallback .JPG si besoin -->
+          <figure class="card"><img class="thumb" src="images/DSC02221.jpg" alt="BLIND NO PLAN 1" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+          <figure class="card"><img class="thumb" src="images/DSC02224.jpg" alt="BLIND NO PLAN 2" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+          <figure class="card"><img class="thumb" src="images/DSC02230.jpg" alt="BLIND NO PLAN 3" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+          <figure class="card"><img class="thumb" src="images/DSC02234.jpg" alt="BLIND NO PLAN 4" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+          <figure class="card"><img class="thumb" src="images/DSC02237.jpg" alt="BLIND NO PLAN 5" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
+          <figure class="card"><img class="thumb" src="images/DSC03110.jpg" alt="BLIND NO PLAN 6" onerror="if(!this.dataset.swap){this.dataset.swap=1;this.src=this.src.replace('.jpg','.JPG');}"></figure>
         </div>
       </section>
     </div>
 
-    <!-- À propos (court) -->
+    <!-- À propos -->
     <div id="page-a-propos" class="page">
       <section class="section">
         <h1 class="page-title" data-i18n="about.title">À propos</h1>
@@ -178,7 +202,7 @@ body::before{
     <div id="page-contact" class="page">
       <section class="section">
         <h1 class="page-title" data-i18n="contact.title">Contact</h1>
-        <a class="link" href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--majorelle);padding:12px 16px;border-radius:16px;color:#fff;text-decoration:none;margin:6px 0">
+        <a class="link" href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;color:#fff;text-decoration:none;margin:6px 0">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
             <circle cx="12" cy="12" r="3.5"></circle>
@@ -187,7 +211,7 @@ body::before{
           instagram.com/joyssi.b
         </a>
         <br/>
-        <a class="link" href="mailto:24joyssi@gmail.com" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--majorelle);padding:12px 16px;border-radius:16px;color:#fff;text-decoration:none;margin:6px 0">✉︎  24joyssi@gmail.com</a>
+        <a class="link" href="mailto:24joyssi@gmail.com" style="display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:16px;color:#fff;text-decoration:none;margin:6px 0">✉︎  24joyssi@gmail.com</a>
       </section>
     </div>
   </main>
