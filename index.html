@@ -43,7 +43,7 @@
   .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;
               line-height:.9;font-size:min(14vw,120px);animation:none !important;color:#000;margin:0}
   .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
-  /* CTA : style contour (cohérent avec Instagram/Email) */
+  /* CTA en style contour (cohérent avec Instagram/Email) */
   .cta{
     display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
     background:#fff;color:#000;border-radius:16px;cursor:pointer;
@@ -89,55 +89,40 @@
     90%  { opacity: 1; }
     100% { transform: translateX(110%); opacity: 0; }
   }
-  .sweep{ position: relative; display: inline-block; }
+  .sweep{
+    position: relative;
+    display: inline-block;
+  }
   .sweep::after{
-    content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
-    background: var(--majorelle); border-radius:2px; transform: translateX(-110%);
-    animation: underlineSweep 3s ease-in-out infinite; will-change: transform, opacity;
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-6px;
+    height:2px;
+    background: var(--majorelle);
+    border-radius:2px;
+    transform: translateX(-110%);
+    animation: underlineSweep 3s ease-in-out infinite;
+    will-change: transform, opacity;
   }
 
-  /* (Optionnel) Reflet — ajoute la classe `sheen` au logo si tu veux l’activer */
+  /* (Optionnel) Reflet discret qui balaye le texte — ajoute la classe `sheen` si tu veux l’activer */
   @keyframes sheenPass {
-    0%{ transform:translateX(-120%) skewX(-15deg); opacity:0 }
-    20%{ opacity:.6 } 50%{ transform:translateX(0) skewX(-15deg); opacity:.75 }
-    80%{ opacity:.6 } 100%{ transform:translateX(120%) skewX(-15deg); opacity:0 }
+    0%   { transform: translateX(-120%) skewX(-15deg); opacity: 0; }
+    20%  { opacity: .6; }
+    50%  { transform: translateX(0) skewX(-15deg); opacity: .75; }
+    80%  { opacity: .6; }
+    100% { transform: translateX(120%) skewX(-15deg); opacity: 0; }
   }
-  .sheen{ position:relative }
+  .sheen{ position: relative; }
   .sheen::before{
-    content:""; position:absolute; top:-6px; bottom:-6px; left:-6px; right:-6px;
-    background:linear-gradient(90deg,transparent 35%,rgba(255,255,255,.6) 50%,transparent 65%);
-    mix-blend-mode:screen; pointer-events:none; animation:sheenPass 4.5s ease-in-out infinite;
+    content:"";
+    position:absolute;
+    top:-6px; bottom:-6px; left:-6px; right:-6px;
+    background: linear-gradient(90deg, transparent 35%, rgba(255,255,255,.6) 50%, transparent 65%);
+    mix-blend-mode: screen;
+    pointer-events:none;
+    animation: sheenPass 4.5s ease-in-out infinite;
   }
-
-  /* Spotify FAB (BLEU) + panneau */
-  .spotify-fab{
-    position:fixed; right:20px; bottom:20px; z-index:30;
-    width:52px; height:52px; border-radius:50%;
-    background:#090794; display:grid; place-items:center;
-    border:2px solid #fff; cursor:pointer;
-    box-shadow:0 8px 24px rgba(0,0,0,.25);
-  }
-  .spotify-fab svg{ width:26px; height:26px; fill:#fff }
-  .spotify-panel{
-    position:fixed; right:20px; bottom:86px; z-index:30;
-    width:min(420px, 92vw); max-height:70vh; background:#fff; color:#000;
-    border:1px solid rgba(0,0,0,.12); border-radius:14px; overflow:hidden;
-    box-shadow:0 16px 40px rgba(0,0,0,.25); display:none;
-  }
-  .spotify-head{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:10px 12px; border-bottom:1px solid rgba(0,0,0,.08); background:#fff;
-  }
-  .spotify-head b{
-    font-weight:900; letter-spacing:-.02em;
-    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;
-  }
-  .spotify-close{
-    border:2px solid var(--majorelle); background:#fff; color:#000;
-    border-radius:10px; padding:6px 10px; font-weight:800; cursor:pointer;
-  }
-  .spotify-body{ aspect-ratio: 16 / 10; background:#000; }
-  .spotify-body iframe{ width:100%; height:100%; border:0; }
 </style>
 </head>
 <body>
@@ -242,29 +227,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Bouton Spotify (BLEU) -->
-  <button class="spotify-fab" id="spotifyFab" aria-label="Ouvrir le lecteur Spotify">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 0a12 12 0 1 0 12 12A12.014 12.014 0 0 0 12 0Zm5.487 17.334a.75.75 0 0 1-1.029.248c-2.811-1.716-6.35-2.105-10.518-1.16a.75.75 0 0 1-.33-1.462c4.51-1.019 8.39-.58 11.44 1.24a.75.75 0 0 1 .437.834Zm1.47-3.215a.94.94 0 0 1-1.289.31c-3.218-1.99-8.123-2.57-11.92-1.415a.938.938 0 1 1-.537-1.8c4.314-1.285 9.7-.64 13.35 1.603a.94.94 0 0 1 .396 1.302Zm.128-3.33a1.12 1.12 0 0 1-1.533.37c-3.676-2.24-10.397-2.447-14.14-1.346a1.12 1.12 0 1 1-.64-2.153c4.287-1.276 11.7-1.015 15.986 1.6a1.12 1.12 0 0 1 .327 1.53Z"/>
-    </svg>
-  </button>
-
-  <!-- Panneau Spotify -->
-  <div class="spotify-panel" id="spotifyPanel" role="dialog" aria-modal="false" aria-label="Lecteur Spotify">
-    <div class="spotify-head">
-      <b>Playlist</b>
-      <button class="spotify-close" id="spotifyClose">Fermer</button>
-    </div>
-    <div class="spotify-body">
-      <iframe
-        id="spotifyFrame"
-        src="https://open.spotify.com/embed/playlist/62079MOHlBFmnyUUCNoMCH?utm_source=generator&theme=0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-      </iframe>
-    </div>
-  </div>
 
 <script>
 /* ========= Données projets ========= */
@@ -442,21 +404,6 @@ function renderGrid(){
     catch{ alert(address); }
   });
   document.addEventListener('click',(e)=>{ if(!menu.contains(e.target) && e.target!==emailBtn) toggleMenu(false); });
-})();
-
-/* ========= Spotify : ouvrir / fermer le panneau ========= */
-(function(){
-  const fab = document.getElementById('spotifyFab');
-  const panel = document.getElementById('spotifyPanel');
-  const close = document.getElementById('spotifyClose');
-  function openPanel(){ panel.style.display = 'block'; }
-  function closePanel(){ panel.style.display = 'none'; }
-  fab.addEventListener('click', openPanel);
-  close.addEventListener('click', closePanel);
-  document.addEventListener('click', (e)=>{
-    if(panel.style.display==='block' && !panel.contains(e.target) && e.target!==fab){ closePanel(); }
-  });
-  panel.addEventListener('touchmove', (e)=>{ e.stopPropagation(); }, {passive:true});
 })();
 
 /* ========= Init ========= */
