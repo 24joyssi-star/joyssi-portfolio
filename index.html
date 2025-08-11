@@ -79,7 +79,7 @@
   .blink{animation:joyssiBlink 1s steps(1,end) infinite}
   @media(prefers-reduced-motion:reduce){.blink{animation:none}}
 
-  /* Soulignement animé du logo */
+  /* Underline animé logo */
   @keyframes underlineSweep {
     0%{ transform: translateX(-110%); opacity:0 }
     10%{ opacity:1 } 50%{ transform: translateX(0%); opacity:1 }
@@ -334,13 +334,12 @@ function applyI18n(){
   $("#frBtn").classList.toggle('active',lang==='fr');
   $("#enBtn").classList.toggle('active',lang==='en');
 
-  // Texte bouton retour
   $("#backBtn").lastChild.nodeValue = " " + (lang==='fr'?STRINGS.fr.detail.back:STRINGS.en.detail.back);
 }
 $("#frBtn").addEventListener('click',()=>{lang='fr';localStorage.setItem('lang','fr');applyI18n();});
 $("#enBtn").addEventListener('click',()=>{lang='en';localStorage.setItem('lang','en');applyI18n();});
 
-/* ===== Accueil : dernier projet (images cliquables en <a>) ===== */
+/* ===== Accueil : dernier projet (images cliquables) ===== */
 function populateFeature(){
   const latest=[...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
   const holder=$("#featureImages"); holder.innerHTML="";
@@ -354,10 +353,10 @@ function populateFeature(){
     link.appendChild(img);
     holder.appendChild(link);
   });
-  $("#seeAll").addEventListener('click',(e)=>{ /* lien <a>, pas besoin d'empêcher */ setTimeout(setRoute,0); });
+  $("#seeAll").addEventListener('click',()=>setTimeout(setRoute,0));
 }
 
-/* ===== Liste : filtres + cartes cliquables (en <a>) ===== */
+/* ===== Liste : filtres + cartes cliquables ===== */
 function buildFilter(){
   const select=$("#projectFilter");
   select.innerHTML=`<option value="">${lang==='fr'?STRINGS.fr.filter.all:STRINGS.en.filter.all}</option>`;
@@ -392,7 +391,7 @@ function renderGrid(){
   });
 }
 
-/* ===== Détail projet : galerie 300x600 centrée + badges si erreur ===== */
+/* ===== Détail projet : galerie 300x600 centrée ===== */
 function renderDetail(slug){
   const p=PROJECTS.find(x=>x.slug===slug);
   if(!p){ location.hash="#/projets"; setRoute(); return; }
