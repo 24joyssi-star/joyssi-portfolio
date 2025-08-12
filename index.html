@@ -24,7 +24,7 @@
   .blink{ animation:joyssiBlink 1s steps(1,end) infinite }
   @media (prefers-reduced-motion:reduce){ .blink{ animation:none } }
 
-  /* Layouts */
+  /* Sections */
   .section{ max-width:1200px; margin:0 auto; padding:56px 20px }
   .label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
   .rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
@@ -57,7 +57,7 @@
   .links button,.links a{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px; border:2px solid var(--blue); color:#000; text-decoration:none; font-weight:800; background:#fff; cursor:pointer }
   .links svg{ width:18px; height:18px }
   .menu{ position:fixed; right:20px; bottom:90px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12); display:none; z-index:60 }
-  .menu a{ color:#000; text-decoration:none; font-weight:700; padding:6px 0 }
+  .menu a{ color:#000; text-decoration:none; font-weight:700; padding:6px 0; display:block }
   .menu .copy{ margin-top:6px; border:2px solid var(--blue); border-radius:10px; padding:8px 10px; background:#fff; color:#000; font-weight:800; cursor:pointer }
 </style>
 </head>
@@ -65,7 +65,7 @@
 
 <header class="header">
   <div class="wrap">
-    <a class="brand" id="goHome" href="#home" title="Accueil">
+    <a class="brand" href="#home" title="Accueil">
       <span class="blink">JOYSSI</span><span class="dot"></span>
     </a>
     <nav>
@@ -87,7 +87,7 @@
   <span class="label" data-i18n="home.label">ACCUEIL</span>
   <div class="hero" style="margin-top:18px">
     <div>
-      <h1>JOYSSI</h1>
+      <h1 style="animation:none">JOYSSI</h1>
       <p class="sub" data-i18n="hero.sub">Directeur artistique — Styliste — Photographe</p>
       <a class="btn" href="#projets" data-i18n="hero.cta">Voir les projets</a>
     </div>
@@ -192,14 +192,11 @@
   <!-- Menu email -->
   <div id="emailMenu" class="menu" role="dialog" aria-label="Choisir un service email">
     <div style="font-weight:800; margin-bottom:8px;">Ouvrir avec</div>
-    <div style="display:flex;flex-direction:column;">
-      <a href="mailto:24joyssi@gmail.com">Client installé (mailto)</a>
-      <a href="https://mail.google.com/mail/?view=cm&to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Gmail</a>
-      <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Outlook Web</a>
-      <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Yahoo Mail</a>
-      <button class="copy" id="copyMail">Copier l’adresse</button>
-    </div>
-  </div>
+    <a href="mailto:24joyssi@gmail.com">Client installé (mailto)</a>
+    <a href="https://mail.google.com/mail/?view=cm&to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Gmail</a>
+    <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Outlook Web</a>
+    <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Yahoo Mail</a>
+    <button class="copy" id="copyMail">Copier l’adresse</button>
 </section>
 
 <!-- Lightbox -->
@@ -243,7 +240,7 @@ function T(){ const t=STR[lang];
   document.querySelectorAll('[data-i18n="roles.stylist"]').forEach(n=>n.textContent=t.roles.stylist);
   document.querySelectorAll('[data-i18n="roles.photography"]').forEach(n=>n.textContent=t.roles.photography);
   document.querySelectorAll('[data-i18n="roles.styling"]').forEach(n=>n.textContent=t.roles.styling);
-  document.querySelector('#milhan h3').textContent='Milhan';
+  document.querySelector('[data-i18n="mega.desc"]').textContent=t.mega.desc;
   document.querySelector('[data-i18n="milhan.desc"]').textContent=t.milhan.desc;
   document.querySelector('[data-i18n="about.title"]').textContent=t.about.title;
   document.getElementById('aboutTxt').textContent=t.about.txt;
@@ -254,18 +251,18 @@ function T(){ const t=STR[lang];
 document.getElementById('frBtn').onclick=()=>{ lang='fr'; localStorage.setItem('lang','fr'); T(); };
 document.getElementById('enBtn').onclick=()=>{ lang='en'; localStorage.setItem('lang','en'); T(); };
 
-/* ========= Chargement images avec fallback de dossier ========= */
-function attachSrc(img, file){
-  const bases=["images/","Image/","/images/"];
-  let i=0;
-  const tryNext=()=>{ if(i>=bases.length){ img.alt+=" (introuvable)"; img.style.opacity=.35; img.style.borderStyle='dashed'; return; }
-    img.src=bases[i++]+file;
+/* ========= Chargement images (dossier unique: /images) ========= */
+function setSrc(img, file){
+  img.src = "images/" + file + "?v=" + Date.now(); // force refresh
+  img.onerror = () => {
+    console.warn("Introuvable:", img.src);
+    img.style.opacity = .35;
+    img.style.borderStyle = 'dashed';
+    img.alt += " (introuvable)";
   };
-  img.onerror=tryNext;
-  tryNext();
 }
 document.querySelectorAll('img[data-file]').forEach(img=>{
-  attachSrc(img, img.getAttribute('data-file'));
+  setSrc(img, img.getAttribute('data-file'));
 });
 
 /* ========= Lightbox ========= */
@@ -277,12 +274,14 @@ document.addEventListener('click',e=>{
 box.addEventListener('click',()=>{ box.style.display='none'; big.src=''; });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') box.click(); });
 
-/* ========= Email menu (pas de blocage mailto) ========= */
+/* ========= Email menu ========= */
 (function(){
-  const btn=document.getElementById('emailBtn'), menu=document.getElementById('emailMenu'), copy=document.getElementById('copyMail'), addr='24joyssi@gmail.com';
+  const btn=document.getElementById('emailBtn'), menu=document.getElementById('emailMenu'), addr='24joyssi@gmail.com';
   btn.addEventListener('click',()=>{ menu.style.display = (menu.style.display==='block'?'none':'block'); });
-  copy.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(addr); copy.textContent='Copié ✓'; setTimeout(()=>copy.textContent='Copier l’adresse',1200);}catch{ alert(addr);} });
   document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
+  document.getElementById('copyMail').addEventListener('click',async()=>{
+    try{ await navigator.clipboard.writeText(addr); event.target.textContent='Copié ✓'; setTimeout(()=>event.target.textContent='Copier l’adresse',1200);}catch{ alert(addr); }
+  });
 })();
 
 /* Init i18n */
