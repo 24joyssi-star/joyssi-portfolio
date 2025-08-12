@@ -1,486 +1,289 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>JOYSSI — Portfolio</title>
-<meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste, photographe."/>
+<meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste et photographe.">
 <style>
-  :root{--majorelle:#090794;--black:#000;--white:#fff}
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif}
+  :root{ --blue:#090794; }
+  *{ box-sizing:border-box }
+  html{ scroll-behavior:smooth }
+  body{ margin:0; background:#fff; color:#000; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif }
 
-  /* Header (sans burger) */
-  .header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid rgba(0,0,0,.08)}
-  .wrap{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
-  .brand{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:-.04em;
-         font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-size:13px;cursor:pointer;white-space:nowrap}
-  .dot{width:6px;height:6px;border-radius:999px;background:var(--majorelle)}
-  nav{margin-left:auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-  nav a{color:#000;text-decoration:none;font-weight:700;opacity:.85}
-  nav a:hover{opacity:1;text-decoration:underline}
-  .lang{display:flex;align-items:center;gap:10px}
-  .lang button{background:transparent;border:0;color:#000;font-weight:800;opacity:.7;cursor:pointer}
-  .lang button.active{opacity:1;text-decoration:underline}
+  /* Header */
+  .header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid rgba(0,0,0,.08) }
+  .wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px }
+  .brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer; user-select:none }
+  .dot{ width:6px; height:6px; border-radius:999px; background:var(--blue) }
+  nav{ margin-left:auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap }
+  nav a{ color:#000; text-decoration:none; font-weight:800; opacity:.85 }
+  nav a:hover{ opacity:1; text-decoration:underline }
+  .lang button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65 }
+  .lang button.active{ opacity:1; text-decoration:underline }
+  @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--blue)}}
+  .blink{ animation:joyssiBlink 1s steps(1,end) infinite }
+  @media (prefers-reduced-motion:reduce){ .blink{ animation:none } }
 
-  /* Sections / labels / rules */
-  .section{max-width:1200px;margin:0 auto;padding:56px 20px}
-  .label{
-    display:inline-block;font-weight:900;
-    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;letter-spacing:-.02em;
-    background:#fff;color:#000;padding:6px 10px;border-radius:16px;
-    border:2px solid var(--majorelle)
-  }
-  .rule{height:1px;background:rgba(0,0,0,.08);margin:36px 0}
+  /* Sections */
+  .section{ max-width:1200px; margin:0 auto; padding:56px 20px }
+  .label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
+  .rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
 
-  /* Hero (Accueil) */
-  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
-  @media(max-width:900px){.hero{grid-template-columns:1fr}}
-  .hero-title{font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.04em;
-              line-height:.9;font-size:min(14vw,120px);color:#000;margin:0}
-  .hero-sub{opacity:.9;font-size:14px;margin:12px 0 18px}
-  .cta{
-    display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
-    background:#fff;color:#000;border-radius:16px;cursor:pointer;
-    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:-.02em;
-    border:2px solid var(--majorelle); text-decoration:none
-  }
-  .hero-fig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .hero-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#f2f2f2}
+  /* Hero */
+  .hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center }
+  @media(max-width:900px){ .hero{ grid-template-columns:1fr } }
+  .hero h1{ margin:0; font:900 min(14vw,120px)/0.9 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em }
+  .sub{ opacity:.9; margin:12px 0 18px }
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
+  .thumbs{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+  .thumbs img{ width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#f2f2f2 }
 
-  /* Liste projets */
-  .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0 22px}
-  .input,.select{
-    border:2px solid var(--majorelle);border-radius:12px;padding:10px 12px;font-weight:600;background:#fff;color:#000
-  }
-  .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:20px}
-  @media(min-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
-  @media(min-width:992px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
-  .card{border:1px solid rgba(0,0,0,.12);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
-  .card:link,.card:visited{color:inherit;text-decoration:none}
-  .thumb{aspect-ratio:4/5;width:100%;object-fit:cover;background:#f2f2f2}
-  .card-body{padding:12px}
-  .roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-  .role{border:1.5px solid var(--majorelle);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700}
-  .collab{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.15);font-size:13px}
+  /* Projets */
+  .project{ margin-top:22px }
+  .project h3{ margin:12px 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
+  .chip{ border:2px solid var(--blue); border-radius:999px; padding:4px 10px; font-weight:800; font-size:12px }
+  .grid{ display:flex; flex-wrap:wrap; gap:14px }
+  .ph{ width:300px; height:600px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:12px; cursor:zoom-in }
 
-  /* A propos + Contact boutons */
-  .links a{
-    display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:16px;
-    border:2px solid var(--majorelle);color:#000;text-decoration:none;font-weight:700;background:#fff
-  }
-  .links a + a{margin-left:10px}
-  .links svg{width:18px;height:18px}
+  /* Lightbox */
+  .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:100 }
+  .lightbox img{ max-width:90vw; max-height:90vh; border-radius:12px }
+  .lightbox:focus{ outline:none }
 
-  /* Blink (logo header uniquement) */
-  @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--majorelle)}}
-  .blink{animation:joyssiBlink 1s steps(1,end) infinite}
-  @media(prefers-reduced-motion:reduce){.blink{animation:none}}
+  /* Contact buttons */
+  .links a{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px; border:2px solid var(--blue); color:#000; text-decoration:none; font-weight:800; background:#fff }
+  .links svg{ width:18px; height:18px }
 
-  /* Underline animé logo */
-  @keyframes underlineSweep {
-    0%{ transform: translateX(-110%); opacity:0 }
-    10%{ opacity:1 } 50%{ transform: translateX(0%); opacity:1 }
-    90%{ opacity:1 } 100%{ transform: translateX(110%); opacity:0 }
-  }
-  .sweep{ position:relative; display:inline-block }
-  .sweep::after{
-    content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
-    background: var(--majorelle); border-radius:2px; transform: translateX(-110%);
-    animation: underlineSweep 3s ease-in-out infinite;
-  }
-
-  /* ===== Page DÉTAIL : galerie 300x600 centrée ===== */
-  .detail{max-width:1200px;margin:0 auto;padding:56px 20px;display:none}
-  .back{
-    display:inline-flex;align-items:center;gap:8px;
-    border:2px solid var(--majorelle);background:#fff;color:#000;
-    padding:10px 14px;border-radius:14px;font-weight:900;
-    font-family:Impact,Arial Black,Helvetica,Arial,sans-serif;cursor:pointer
-  }
-  .detail-title{font-size:28px;font-weight:900;letter-spacing:-.01em}
-  .gallery{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:14px}
-  .gallery img{
-    width:300px; height:600px; object-fit:cover;
-    border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#f2f2f2;
-  }
+  /* Small helper on very narrow phones */
+  @media (max-width:340px){ .ph{ width:260px; height:520px } }
 </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="header">
-    <div class="wrap">
-      <div class="brand" id="goHome" title="Accueil">
-        <span class="blink sweep">JOYSSI</span><span class="dot"></span>
-      </div>
-      <nav>
-        <a href="#home" data-i18n="menu.home">ACCUEIL</a>
-        <a href="#/projets" data-i18n="menu.projects">PROJETS</a>
-        <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
-        <a href="#contact" data-i18n="menu.contact">CONTACT</a>
-        <span style="width:1px;height:18px;background:rgba(0,0,0,.18);display:inline-block;margin:0 6px"></span>
-        <div class="lang">
-          <button id="frBtn">FR</button><span style="opacity:.4">|</span><button id="enBtn">EN</button>
-        </div>
-      </nav>
+<header class="header">
+  <div class="wrap">
+    <div class="brand" id="goHome" title="Accueil">
+      <span class="blink">JOYSSI</span><span class="dot"></span>
     </div>
-  </header>
+    <nav>
+      <a href="#home" data-i18n="menu.home">ACCUEIL</a>
+      <a href="#projets" data-i18n="menu.projects">PROJETS</a>
+      <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
+      <a href="#contact" data-i18n="menu.contact">CONTACT</a>
+      <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
+      <span class="lang">
+        <button id="frBtn" class="active">FR</button> |
+        <button id="enBtn">EN</button>
+      </span>
+    </nav>
+  </div>
+</header>
 
-  <!-- ACCUEIL -->
-  <section id="home" class="section">
-    <span class="label" data-i18n="home.delim">ACCUEIL</span>
-    <div class="hero" style="margin-top:18px">
-      <div>
-        <h1 class="hero-title">JOYSSI</h1>
-        <p class="hero-sub" data-i18n="hero.subtitle">Directeur artistique — Styliste — Photographe</p>
-
-        <h2 class="h1" style="font:inherit;font-weight:900;letter-spacing:-.02em;margin:18px 0 8px" data-i18n="feature.title">Dernier projet</h2>
-        <p id="featureTitle" style="font-weight:800;margin:0 0 6px">—</p>
-        <p id="featureDesc" style="opacity:.9;margin:0 0 14px">—</p>
-
-        <a class="cta" id="seeAll" href="#/projets" data-i18n="feature.cta">Voir les projets</a>
-      </div>
-      <div class="hero-fig" id="featureImages"></div>
+<!-- ACCUEIL -->
+<section id="home" class="section">
+  <span class="label" data-i18n="home.label">ACCUEIL</span>
+  <div class="hero" style="margin-top:18px">
+    <div>
+      <h1>JOYSSI</h1>
+      <p class="sub" data-i18n="hero.sub">Directeur artistique — Styliste — Photographe</p>
+      <a class="btn" href="#projets" data-i18n="hero.cta">Voir les projets</a>
     </div>
-    <div class="rule"></div>
-  </section>
-
-  <!-- LISTE PROJETS -->
-  <section id="projets" class="section" data-route="#/projets" style="display:none">
-    <span class="label" data-i18n="menu.projects">PROJETS</span>
-    <h2 class="h1" style="margin-top:14px" data-i18n="projects.all">Tous les projets</h2>
-
-    <div class="toolbar">
-      <input id="q" class="input" type="search" placeholder="Rechercher…" aria-label="Rechercher">
-      <select id="projectFilter" class="select" aria-label="Sélection par projet">
-        <option value="" data-i18n="filter.all">Tous les projets</option>
-      </select>
+    <div class="thumbs">
+      <!-- Mini aperçu : 2 images de Blind No Plan -->
+      <img src="images/DSC02221.jpg" alt="Blind No Plan — aperçu 1" loading="lazy">
+      <img src="images/DSC02224.jpg" alt="Blind No Plan — aperçu 2" loading="lazy">
     </div>
+  </div>
+  <div class="rule"></div>
+</section>
 
-    <div id="grid" class="grid"></div>
-    <div class="rule"></div>
-  </section>
+<!-- PROJETS -->
+<section id="projets" class="section">
+  <span class="label" data-i18n="menu.projects">PROJETS</span>
 
-  <!-- DÉTAIL PROJET -->
-  <section id="detail" class="detail" aria-live="polite">
-    <button class="back" id="backBtn" type="button">← <span data-i18n="menu.projects">PROJETS</span></button>
-    <div class="detail-head" style="display:flex;flex-direction:column;gap:10px;margin:18px 0">
-      <div class="detail-title" id="dTitle">—</div>
-      <div class="detail-meta" id="dRoles" style="display:flex;flex-wrap:wrap;gap:8px"></div>
-      <div id="dDesc" style="opacity:.9"></div>
-      <div id="dCollab" style="opacity:.9"></div>
-    </div>
-    <div class="gallery" id="dGallery"></div>
-    <div class="rule"></div>
-  </section>
-
-  <!-- A PROPOS -->
-  <section id="apropos" class="section">
-    <span class="label" data-i18n="menu.about">A PROPOS</span>
-    <h2 class="h1" style="margin-top:14px" data-i18n="about.title">À propos</h2>
-    <p class="lead" data-i18n-html="about.lead">
-      Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>
-      J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
-      cohérents et puissants — du concept à la direction de shooting.
+  <!-- BLIND NO PLAN -->
+  <article class="project" id="blind-no-plan">
+    <h3>BLIND NO PLAN — <span data-i18n="roles.campaign">Campagne</span></h3>
+    <p data-i18n="blind.desc">
+      Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.
     </p>
-    <div class="rule"></div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section">
-    <span class="label" data-i18n="menu.contact">CONTACT</span>
-    <h2 class="h1" style="margin-top:14px" data-i18n="contact.title">Contact</h2>
-
-    <p class="links">
-      <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-          <circle cx="12" cy="12" r="3.5"></circle>
-          <circle cx="17.5" cy="6.5" r="1"></circle>
-        </svg>
-        Instagram
-      </a>
-      <a href="mailto:24joyssi@gmail.com" id="emailBtn" aria-label="Email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-          <path d="m3 7 9 6 9-6"></path>
-        </svg>
-        Email
-      </a>
-    </p>
-
-    <!-- Fallback email (Windows/web) -->
-    <div id="emailMenu" style="display:none; position:fixed; right:20px; bottom:72px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12);">
-      <div style="font-weight:800; margin-bottom:8px;">Ouvrir avec</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <a href="https://mail.google.com/mail/?view=cm&to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Gmail</a>
-        <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Outlook Web</a>
-        <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Yahoo Mail</a>
-        <button id="copyMail" style="margin-top:6px;border:2px solid #090794;border-radius:10px;padding:8px 10px;background:#fff;color:#000;font-weight:800;cursor:pointer;">Copier l’adresse</button>
-      </div>
+    <div class="chips">
+      <span class="chip" data-i18n="roles.photographer">Photographe</span>
+      <span class="chip" data-i18n="roles.stylist">Styliste</span>
     </div>
-  </section>
+    <div class="grid" id="blindGrid">
+      <!-- 6 photos (300×600) cliquables -->
+      <img class="ph" src="images/DSC02221.jpg" alt="Blind No Plan 1" loading="lazy">
+      <img class="ph" src="images/DSC02224.jpg" alt="Blind No Plan 2" loading="lazy">
+      <img class="ph" src="images/DSC02230.jpg" alt="Blind No Plan 3" loading="lazy">
+      <img class="ph" src="images/DSC02234.jpg" alt="Blind No Plan 4" loading="lazy">
+      <img class="ph" src="images/DSC02237.jpg" alt="Blind No Plan 5" loading="lazy">
+      <img class="ph" src="images/DSC03110.jpg" alt="Blind No Plan 6" loading="lazy">
+    </div>
+  </article>
+
+  <div class="rule"></div>
+
+  <!-- MEGA SUE -->
+  <article class="project" id="mega-sue">
+    <h3>Mega Sue</h3>
+    <p data-i18n="mega.desc">
+      Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.
+    </p>
+    <div class="chips">
+      <span class="chip" data-i18n="roles.photography">Photographie</span>
+      <span class="chip" data-i18n="roles.styling">Stylisme</span>
+    </div>
+    <div class="grid">
+      <!-- Utilise EXACTEMENT ces noms dans /images -->
+      <img class="ph" src="images/339666353_247672421014594_8397278685892781428_n.jpg" alt="Mega Sue 1" loading="lazy">
+      <img class="ph" src="images/340161934_246336221192578_2732525740245454873_n.jpg" alt="Mega Sue 2" loading="lazy">
+      <img class="ph" src="images/340344943_528187286144781_7924168324666929102_n.jpg" alt="Mega Sue 3" loading="lazy">
+      <img class="ph" src="images/340150327_149185328090165_7242448741521794319_n.jpg" alt="Mega Sue 4" loading="lazy">
+      <img class="ph" src="images/339670857_796988891299798_5135637208194398707_n.jpg" alt="Mega Sue 5" loading="lazy">
+      <img class="ph" src="images/340185756_2441590042677026_8394769900836223507_n.jpg" alt="Mega Sue 6" loading="lazy">
+    </div>
+  </article>
+
+  <div class="rule"></div>
+
+  <!-- MILHAN -->
+  <article class="project" id="milhan">
+    <h3>Milhan</h3>
+    <p data-i18n="milhan.desc">
+      Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)
+    </p>
+    <div class="chips">
+      <span class="chip" data-i18n="roles.stylist">Styliste</span>
+      <span class="chip" data-i18n="roles.art">Directeur artistique</span>
+    </div>
+  </article>
+
+  <div class="rule"></div>
+</section>
+
+<!-- A PROPOS -->
+<section id="apropos" class="section">
+  <span class="label" data-i18n="menu.about">A PROPOS</span>
+  <h3 style="margin:12px 0 6px" data-i18n="about.title">À propos</h3>
+  <p id="aboutTxt">
+    Je suis Joyssi — directeur artistique, styliste et photographe.  
+    J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
+    cohérents et puissants — du concept à la direction de shooting.
+  </p>
+  <div class="rule"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <span class="label" data-i18n="menu.contact">CONTACT</span>
+  <h3 style="margin:12px 0 12px" data-i18n="contact.title">Contact</h3>
+  <p class="links">
+    <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      Instagram
+    </a>
+    <a href="mailto:24joyssi@gmail.com" id="emailBtn" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      Email
+    </a>
+  </p>
+
+  <!-- Menu fallback email (webmails) -->
+  <div id="emailMenu" style="display:none; position:fixed; right:20px; bottom:72px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12);">
+    <div style="font-weight:800; margin-bottom:8px;">Ouvrir avec</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <a href="https://mail.google.com/mail/?view=cm&to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Gmail</a>
+      <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Outlook Web</a>
+      <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Yahoo Mail</a>
+      <button id="copyMail" style="margin-top:6px;border:2px solid var(--blue);border-radius:10px;padding:8px 10px;background:#fff;color:#000;font-weight:800;cursor:pointer;">Copier l’adresse</button>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" tabindex="-1" aria-modal="true" role="dialog">
+  <img id="lightImg" alt="">
+</div>
 
 <script>
-/* ===== Données projets ===== */
-const PROJECTS = [
-  {
-    slug: "blind-no-plan",
-    title: "BLIND NO PLAN — Campagne",
-    roles: ["Photographe","Styliste"],
-    date: "2025-06-01",
-    description_fr: "Stylisme & Photographie — Univers visuel brut, cohérent avec l’ADN de la marque. Direction du shooting & looks.",
-    description_en: "Styling & Photography — A raw, coherent visual world aligned with the brand DNA. Full shoot direction & looks.",
-    collaborators: [],
-    images: [
-      "images/DSC02221.jpg",
-      "images/DSC02224.jpg",
-      "images/DSC02230.jpg",
-      "images/DSC02234.jpg",
-      "images/DSC02237.jpg",
-      "images/DSC03110.jpg"
-    ]
-  },
-  {
-    slug: "milhan-shoot",
-    title: "Shooting pour Milhan",
-    roles: ["Styliste","Directeur artistique"],
-    date: "2025-05-15",
-    description_fr: "Shooting réalisé pour Milhan — rôles : Styliste & Direction artistique.",
-    description_en: "Photoshoot for Milhan — roles: Styling & Art Direction.",
-    collaborators: [],
-    images: [
-      "images/milhan1.jpg",
-      "images/milhan2.jpg"
-    ]
-  },
-  {
-    slug: "mega-sue",
-    title: "Mega Sue",
-    roles: ["Photographie","Stylisme"],
-    date: "2025-04-10",
-    description_fr: "Stylisme & Photographie pour la marque Mega Sue. Looks imaginés, sélection des pièces et organisation du shooting en lien avec l’identité de la marque. Esthétique colorée et expressive dans un cadre minimaliste.",
-    description_en: "Styling & Photography for Mega Sue. Looks ideation, pieces selection and shoot organization aligned with the brand identity. Colorful, expressive aesthetics in a minimalist frame.",
-    collaborators: [],
-    images: [
-      "images/mega-sue-1.jpg",
-      "images/mega-sue-2.jpg"
-    ]
-  }
-];
-
 /* ===== i18n ===== */
-const STRINGS = {
+const STR = {
   fr:{
     menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
-    home:{delim:"ACCUEIL"},
-    hero:{subtitle:"Directeur artistique — Styliste — Photographe"},
-    feature:{title:"Dernier projet",cta:"Voir les projets"},
-    projects:{all:"Tous les projets"},
-    filter:{all:"Tous les projets"},
-    about:{title:"À propos",lead:"Je suis Joyssi — directeur artistique, styliste et photographe.<br><br>J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."},
-    contact:{title:"Contact"},
-    detail:{back:"PROJETS", with:"Avec : "}
+    home:{label:"ACCUEIL"}, hero:{sub:"Directeur artistique — Styliste — Photographe",cta:"Voir les projets"},
+    roles:{campaign:"Campagne",photographer:"Photographe",stylist:"Styliste",photography:"Photographie",styling:"Stylisme",art:"Directeur artistique"},
+    blind:{desc:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks."},
+    mega:{desc:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste."},
+    milhan:{desc:"Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)"},
+    about:{title:"À propos",txt:"Je suis Joyssi — directeur artistique, styliste et photographe. J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."},
+    contact:{title:"Contact"}
   },
   en:{
     menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
-    home:{delim:"HOME"},
-    hero:{subtitle:"Art Director — Stylist — Photographer"},
-    feature:{title:"Latest project",cta:"See all projects"},
-    projects:{all:"All projects"},
-    filter:{all:"All projects"},
-    about:{title:"About",lead:"I’m Joyssi — art director, stylist and photographer.<br><br>I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."},
-    contact:{title:"Contact"},
-    detail:{back:"PROJECTS", with:"With: "}
+    home:{label:"HOME"}, hero:{sub:"Art Director — Stylist — Photographer",cta:"See projects"},
+    roles:{campaign:"Campaign",photographer:"Photographer",stylist:"Stylist",photography:"Photography",styling:"Styling",art:"Art Director"},
+    blind:{desc:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks."},
+    mega:{desc:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame."},
+    milhan:{desc:"Shoot for Milhan — Roles: Stylist & Art Director. (Images coming soon)"},
+    about:{title:"About",txt:"I’m Joyssi — art director, stylist and photographer. I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."},
+    contact:{title:"Contact"}
   }
 };
-
-const $=(s,c=document)=>c.querySelector(s);
-const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
-
-/* ===== Routing : #/projets et #/projets/<slug> ===== */
-function setRoute(){
-  const h = location.hash;
-  const isList = h === "#/projets";
-  const matchDetail = /^#\/projets\/([^\/#?]+)/.exec(h);
-
-  $("#home").style.display = (!isList && !matchDetail) ? "" : "none";
-  $("#projets").style.display = isList ? "" : "none";
-  $("#detail").style.display = matchDetail ? "" : "none";
-
-  if(isList){ window.scrollTo({top:0,behavior:"instant"}); }
-  if(matchDetail){ renderDetail(decodeURIComponent(matchDetail[1])); }
-}
-window.addEventListener("hashchange", setRoute);
-
-/* ===== Langue ===== */
-let lang=(localStorage.getItem('lang')||'').toLowerCase();
-if(!lang){ lang=(navigator.language||'fr').toLowerCase().startsWith('en')?'en':'fr'; }
-
-function t(path){return path.split('.').reduce((a,k)=>a&&a[k], STRINGS[lang])||'';}
+let lang = (localStorage.getItem("lang")||"fr").toLowerCase();
 function applyI18n(){
-  $$('[data-i18n]').forEach(el=>el.textContent=t(el.getAttribute('data-i18n')));
-  $$('[data-i18n-html]').forEach(el=>el.innerHTML=t(el.getAttribute('data-i18n-html')));
+  const t=STR[lang];
   document.documentElement.lang=lang;
-
-  const q=$("#q"); if(q) q.placeholder=(lang==='fr'?'Rechercher…':'Search…');
-
-  const latest=[...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
-  $("#featureTitle").textContent=latest.title;
-  $("#featureDesc").textContent=lang==='fr'?latest.description_fr:latest.description_en;
-
-  $("#frBtn").classList.toggle('active',lang==='fr');
-  $("#enBtn").classList.toggle('active',lang==='en');
-
-  $("#backBtn").lastChild.nodeValue = " " + (lang==='fr'?STRINGS.fr.detail.back:STRINGS.en.detail.back);
+  document.querySelector('[data-i18n="menu.home"]').textContent=t.menu.home;
+  document.querySelector('[data-i18n="menu.projects"]').textContent=t.menu.projects;
+  document.querySelector('[data-i18n="menu.about"]').textContent=t.menu.about;
+  document.querySelector('[data-i18n="menu.contact"]').textContent=t.menu.contact;
+  document.querySelector('[data-i18n="home.label"]').textContent=t.home.label;
+  document.querySelector('[data-i18n="hero.sub"]').textContent=t.hero.sub;
+  document.querySelector('[data-i18n="hero.cta"]').textContent=t.hero.cta;
+  document.querySelector('#blind-no-plan h3').innerHTML = `BLIND NO PLAN — <span>${t.roles.campaign}</span>`;
+  document.querySelector('[data-i18n="blind.desc"]').textContent=t.blind.desc;
+  document.querySelector('[data-i18n="roles.photographer"]').textContent=t.roles.photographer;
+  document.querySelector('[data-i18n="roles.stylist"]').textContent=t.roles.stylist;
+  document.querySelector('#mega-sue h3').textContent='Mega Sue';
+  document.querySelector('[data-i18n="mega.desc"]').textContent=t.mega.desc;
+  document.querySelector('[data-i18n="roles.photography"]').textContent=t.roles.photography;
+  document.querySelector('[data-i18n="roles.styling"]').textContent=t.roles.styling;
+  document.querySelector('#milhan h3').textContent='Milhan';
+  document.querySelector('[data-i18n="milhan.desc"]').textContent=t.milhan.desc;
+  document.querySelector('[data-i18n="menu.about"]').textContent=t.menu.about;
+  document.querySelector('[data-i18n="about.title"]').textContent=t.about.title;
+  document.getElementById('aboutTxt').textContent=t.about.txt;
+  document.querySelector('[data-i18n="menu.contact"]').textContent=t.menu.contact;
+  document.querySelector('[data-i18n="contact.title"]').textContent=t.contact.title;
+  document.getElementById('frBtn').classList.toggle('active',lang==='fr');
+  document.getElementById('enBtn').classList.toggle('active',lang==='en');
 }
-$("#frBtn").addEventListener('click',()=>{lang='fr';localStorage.setItem('lang','fr');applyI18n();});
-$("#enBtn").addEventListener('click',()=>{lang='en';localStorage.setItem('lang','en');applyI18n();});
+document.getElementById('frBtn').onclick=()=>{lang='fr';localStorage.setItem('lang','fr');applyI18n();};
+document.getElementById('enBtn').onclick=()=>{lang='en';localStorage.setItem('lang','en');applyI18n();};
 
-/* ===== Accueil : dernier projet (images cliquables) ===== */
-function populateFeature(){
-  const latest=[...PROJECTS].sort((a,b)=>b.date.localeCompare(a.date))[0];
-  const holder=$("#featureImages"); holder.innerHTML="";
-  latest.images.slice(0,2).forEach((src,i)=>{
-    const link=document.createElement('a');
-    link.href = `#/projets/${latest.slug}`;
-    const img=new Image();
-    img.loading="lazy"; img.alt=latest.title+" "+(i+1); img.src=src;
-    img.onerror=function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG'); } };
-    img.style.cursor="pointer";
-    link.appendChild(img);
-    holder.appendChild(link);
-  });
-  $("#seeAll").addEventListener('click',()=>setTimeout(setRoute,0));
-}
+document.getElementById('goHome').onclick=()=>{ location.hash='#home'; window.scrollTo({top:0,behavior:'smooth'}) };
 
-/* ===== Liste : filtres + cartes cliquables ===== */
-function buildFilter(){
-  const select=$("#projectFilter");
-  select.innerHTML=`<option value="">${lang==='fr'?STRINGS.fr.filter.all:STRINGS.en.filter.all}</option>`;
-  PROJECTS.forEach(p=>{const o=document.createElement('option');o.value=p.slug;o.textContent=p.title;select.appendChild(o);});
-}
-function renderGrid(){
-  const grid=$("#grid");
-  const q=($("#q").value||"").toLowerCase().trim();
-  const bySlug=$("#projectFilter").value;
-  let list=PROJECTS.slice();
-  if(bySlug) list=list.filter(p=>p.slug===bySlug);
-  if(q) list=list.filter(p=>(p.title.toLowerCase().includes(q) ||
-                              (p.description_fr&&p.description_fr.toLowerCase().includes(q)) ||
-                              (p.description_en&&p.description_en.toLowerCase().includes(q))));
-  grid.innerHTML="";
-  if(list.length===0){const p=document.createElement('p');p.textContent=(lang==='fr'?'Aucun résultat.':'No results.');p.style.opacity=.7;grid.appendChild(p);return;}
-  list.forEach(p=>{
-    const card=document.createElement('a'); card.className="card"; card.href=`#/projets/${p.slug}`;
-    const img=new Image(); img.className="thumb"; img.loading="lazy"; img.src=p.images[0]; img.alt=p.title;
-    img.onerror=function(){ if(!img.dataset.swap && img.src.endsWith('.jpg')){ img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG'); } };
-    const cap=document.createElement('div'); cap.className="card-body";
-    const title=document.createElement('div'); title.style.fontWeight="800"; title.textContent=p.title;
-    const desc=document.createElement('p'); desc.style.margin="6px 0 0"; desc.style.opacity=.9; desc.textContent=(lang==='fr'?p.description_fr:p.description_en);
-    const roles=document.createElement('div'); roles.className="roles"; p.roles.forEach(r=>{const b=document.createElement('span'); b.className="role"; b.textContent=r; roles.appendChild(b);});
-    cap.appendChild(title); cap.appendChild(desc); cap.appendChild(roles);
-    if(p.collaborators && p.collaborators.length){
-      const col=document.createElement('div'); col.className="collab";
-      col.textContent=(lang==='fr'?STRINGS.fr.detail.with:STRINGS.en.detail.with)+p.collaborators.join(' • ');
-      cap.appendChild(col);
-    }
-    card.appendChild(img); card.appendChild(cap); grid.appendChild(card);
-  });
-}
+/* Lightbox */
+const box=document.getElementById('lightbox'), big=document.getElementById('lightImg');
+document.addEventListener('click',e=>{
+  const img=e.target.closest('.ph');
+  if(img){ big.src=img.src; big.alt=img.alt; box.style.display='flex'; box.focus(); }
+});
+box.addEventListener('click',()=>{ box.style.display='none'; big.src=''; });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') box.click(); });
 
-/* ===== Détail projet : galerie 300x600 centrée ===== */
-function renderDetail(slug){
-  const p=PROJECTS.find(x=>x.slug===slug);
-  if(!p){ location.hash="#/projets"; setRoute(); return; }
-
-  $("#dTitle").textContent=p.title;
-
-  const roles=$("#dRoles"); roles.innerHTML="";
-  p.roles.forEach(r=>{
-    const span=document.createElement('span');
-    span.className='role';
-    span.textContent=r;
-    roles.appendChild(span);
-  });
-
-  $("#dDesc").textContent = (lang==='fr'?p.description_fr:p.description_en);
-
-  const collab=$("#dCollab");
-  if(p.collaborators && p.collaborators.length){
-    collab.style.display="block";
-    collab.textContent=(lang==='fr'?STRINGS.fr.detail.with:STRINGS.en.detail.with)+p.collaborators.join(' • ');
-  } else { collab.style.display="none"; collab.textContent=""; }
-
-  const g=$("#dGallery"); g.innerHTML="";
-  if(!p.images || p.images.length===0){
-    const msg=document.createElement('p');
-    msg.textContent = (lang==='fr'?'Aucune image pour ce projet.':'No images for this project.');
-    msg.style.opacity=.7; g.appendChild(msg);
-  } else {
-    p.images.forEach((src,i)=>{
-      const wrap=document.createElement('div');
-      const img=new Image();
-      img.loading="lazy";
-      img.alt=`${p.title} — ${i+1}`;
-      img.src=src;
-      img.style.width="300px";
-      img.style.height="600px";
-      img.style.objectFit="cover";
-      img.style.borderRadius="12px";
-      img.style.border="1px solid rgba(0,0,0,.12)";
-      img.style.background="#f2f2f2";
-
-      img.onerror=function(){
-        if(!img.dataset.swap && img.src.endsWith('.jpg')){
-          img.dataset.swap=1; img.src=img.src.replace('.jpg','.JPG');
-        } else {
-          const badge=document.createElement('div');
-          badge.textContent="Image introuvable : "+src;
-          badge.style.maxWidth="300px";
-          badge.style.fontSize="12px";
-          badge.style.color="#900";
-          badge.style.marginTop="6px";
-          wrap.appendChild(badge);
-        }
-      };
-      wrap.appendChild(img);
-      g.appendChild(wrap);
-    });
-  }
-
-  $("#backBtn").onclick=()=>{ location.hash="#/projets"; setRoute(); };
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-/* ===== Email fallback ===== */
+/* Email fallback menu */
 (function(){
-  const emailBtn=$("#emailBtn");
-  const menu=$("#emailMenu");
-  const copyBtn=$("#copyMail");
-  const address='24joyssi@gmail.com';
-  function toggleMenu(show){ menu.style.display = show ? 'block' : 'none'; }
-  emailBtn.addEventListener('click',()=>{ setTimeout(()=>toggleMenu(true),50); });
-  copyBtn.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(address); copyBtn.textContent='Copié ✓'; setTimeout(()=>copyBtn.textContent='Copier l’adresse',1200);} catch{ alert(address);} });
-  document.addEventListener('click',(e)=>{ if(!menu.contains(e.target) && e.target!==emailBtn) toggleMenu(false); });
+  const btn=document.getElementById('emailBtn'), menu=document.getElementById('emailMenu'), copy=document.getElementById('copyMail'), addr='24joyssi@gmail.com';
+  btn.addEventListener('click',()=>{ setTimeout(()=>menu.style.display='block',40); });
+  copy.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(addr); copy.textContent='Copié ✓'; setTimeout(()=>copy.textContent='Copier l’adresse',1200);}catch{ alert(addr);} });
+  document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
 })();
 
-/* ===== Init ===== */
-function init(){
-  $("#goHome").addEventListener('click',()=>{ location.hash="#home"; window.scrollTo({top:0,behavior:"smooth"}); });
-
-  populateFeature();
-  buildFilter(); renderGrid();
-
-  $("#q").addEventListener('input', renderGrid);
-  $("#projectFilter").addEventListener('change', renderGrid);
-
-  applyI18n();
-  setRoute(); // route initiale
-}
-document.addEventListener('DOMContentLoaded', init);
+/* Init */
+document.addEventListener('DOMContentLoaded', applyI18n);
 </script>
 </body>
 </html>
