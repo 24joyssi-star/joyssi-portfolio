@@ -4,7 +4,6 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>JOYSSI — Portfolio</title>
-<meta name="description" content="Portfolio de Joyssi — Directeur artistique, styliste et photographe.">
 <style>
   :root{ --blue:#090794; }
   *{ box-sizing:border-box }
@@ -14,7 +13,7 @@
   /* Header */
   .header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid rgba(0,0,0,.08) }
   .wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px }
-  .brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer; user-select:none }
+  .brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer; user-select:none; color:#000; text-decoration:none }
   .dot{ width:6px; height:6px; border-radius:999px; background:var(--blue) }
   nav{ margin-left:auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap }
   nav a{ color:#000; text-decoration:none; font-weight:800; opacity:.85 }
@@ -25,7 +24,7 @@
   .blink{ animation:joyssiBlink 1s steps(1,end) infinite }
   @media (prefers-reduced-motion:reduce){ .blink{ animation:none } }
 
-  /* Sections */
+  /* Layouts */
   .section{ max-width:1200px; margin:0 auto; padding:56px 20px }
   .label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
   .rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
@@ -46,26 +45,29 @@
   .chip{ border:2px solid var(--blue); border-radius:999px; padding:4px 10px; font-weight:800; font-size:12px }
   .grid{ display:flex; flex-wrap:wrap; gap:14px }
   .ph{ width:300px; height:600px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:12px; cursor:zoom-in }
+  @media (max-width:340px){ .ph{ width:260px; height:520px } }
 
   /* Lightbox */
   .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:100 }
   .lightbox img{ max-width:90vw; max-height:90vh; border-radius:12px }
   .lightbox:focus{ outline:none }
 
-  /* Contact buttons */
-  .links a{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px; border:2px solid var(--blue); color:#000; text-decoration:none; font-weight:800; background:#fff }
+  /* Contact */
+  .links{ display:flex; gap:12px; flex-wrap:wrap }
+  .links button,.links a{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px; border:2px solid var(--blue); color:#000; text-decoration:none; font-weight:800; background:#fff; cursor:pointer }
   .links svg{ width:18px; height:18px }
-
-  /* Small helper on very narrow phones */
-  @media (max-width:340px){ .ph{ width:260px; height:520px } }
+  .menu{ position:fixed; right:20px; bottom:90px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12); display:none; z-index:60 }
+  .menu a{ color:#000; text-decoration:none; font-weight:700; padding:6px 0 }
+  .menu .copy{ margin-top:6px; border:2px solid var(--blue); border-radius:10px; padding:8px 10px; background:#fff; color:#000; font-weight:800; cursor:pointer }
 </style>
 </head>
 <body>
+
 <header class="header">
   <div class="wrap">
-    <div class="brand" id="goHome" title="Accueil">
+    <a class="brand" id="goHome" href="#home" title="Accueil">
       <span class="blink">JOYSSI</span><span class="dot"></span>
-    </div>
+    </a>
     <nav>
       <a href="#home" data-i18n="menu.home">ACCUEIL</a>
       <a href="#projets" data-i18n="menu.projects">PROJETS</a>
@@ -90,9 +92,8 @@
       <a class="btn" href="#projets" data-i18n="hero.cta">Voir les projets</a>
     </div>
     <div class="thumbs">
-      <!-- Mini aperçu : 2 images de Blind No Plan -->
-      <img src="images/DSC02221.jpg" alt="Blind No Plan — aperçu 1" loading="lazy">
-      <img src="images/DSC02224.jpg" alt="Blind No Plan — aperçu 2" loading="lazy">
+      <img data-file="DSC02221.jpg" alt="Blind No Plan — aperçu 1" loading="lazy">
+      <img data-file="DSC02224.jpg" alt="Blind No Plan — aperçu 2" loading="lazy">
     </div>
   </div>
   <div class="rule"></div>
@@ -112,14 +113,13 @@
       <span class="chip" data-i18n="roles.photographer">Photographe</span>
       <span class="chip" data-i18n="roles.stylist">Styliste</span>
     </div>
-    <div class="grid" id="blindGrid">
-      <!-- 6 photos (300×600) cliquables -->
-      <img class="ph" src="images/DSC02221.jpg" alt="Blind No Plan 1" loading="lazy">
-      <img class="ph" src="images/DSC02224.jpg" alt="Blind No Plan 2" loading="lazy">
-      <img class="ph" src="images/DSC02230.jpg" alt="Blind No Plan 3" loading="lazy">
-      <img class="ph" src="images/DSC02234.jpg" alt="Blind No Plan 4" loading="lazy">
-      <img class="ph" src="images/DSC02237.jpg" alt="Blind No Plan 5" loading="lazy">
-      <img class="ph" src="images/DSC03110.jpg" alt="Blind No Plan 6" loading="lazy">
+    <div class="grid">
+      <img class="ph" data-file="DSC02221.jpg" alt="Blind No Plan 1" loading="lazy">
+      <img class="ph" data-file="DSC02224.jpg" alt="Blind No Plan 2" loading="lazy">
+      <img class="ph" data-file="DSC02230.jpg" alt="Blind No Plan 3" loading="lazy">
+      <img class="ph" data-file="DSC02234.jpg" alt="Blind No Plan 4" loading="lazy">
+      <img class="ph" data-file="DSC02237.jpg" alt="Blind No Plan 5" loading="lazy">
+      <img class="ph" data-file="DSC03110.jpg" alt="Blind No Plan 6" loading="lazy">
     </div>
   </article>
 
@@ -136,13 +136,12 @@
       <span class="chip" data-i18n="roles.styling">Stylisme</span>
     </div>
     <div class="grid">
-      <!-- Utilise EXACTEMENT ces noms dans /images -->
-      <img class="ph" src="images/339666353_247672421014594_8397278685892781428_n.jpg" alt="Mega Sue 1" loading="lazy">
-      <img class="ph" src="images/340161934_246336221192578_2732525740245454873_n.jpg" alt="Mega Sue 2" loading="lazy">
-      <img class="ph" src="images/340344943_528187286144781_7924168324666929102_n.jpg" alt="Mega Sue 3" loading="lazy">
-      <img class="ph" src="images/340150327_149185328090165_7242448741521794319_n.jpg" alt="Mega Sue 4" loading="lazy">
-      <img class="ph" src="images/339670857_796988891299798_5135637208194398707_n.jpg" alt="Mega Sue 5" loading="lazy">
-      <img class="ph" src="images/340185756_2441590042677026_8394769900836223507_n.jpg" alt="Mega Sue 6" loading="lazy">
+      <img class="ph" data-file="339666353_247672421014594_8397278685892781428_n.jpg" alt="Mega Sue 1" loading="lazy">
+      <img class="ph" data-file="340161934_246336221192578_2732525740245454873_n.jpg" alt="Mega Sue 2" loading="lazy">
+      <img class="ph" data-file="340344943_528187286144781_7924168324666929102_n.jpg" alt="Mega Sue 3" loading="lazy">
+      <img class="ph" data-file="340150327_149185328090165_7242448741521794319_n.jpg" alt="Mega Sue 4" loading="lazy">
+      <img class="ph" data-file="339670857_796988891299798_5135637208194398707_n.jpg" alt="Mega Sue 5" loading="lazy">
+      <img class="ph" data-file="340185756_2441590042677026_8394769900836223507_n.jpg" alt="Mega Sue 6" loading="lazy">
     </div>
   </article>
 
@@ -168,7 +167,7 @@
   <span class="label" data-i18n="menu.about">A PROPOS</span>
   <h3 style="margin:12px 0 6px" data-i18n="about.title">À propos</h3>
   <p id="aboutTxt">
-    Je suis Joyssi — directeur artistique, styliste et photographe.  
+    Je suis Joyssi — directeur artistique, styliste et photographe.
     J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
     cohérents et puissants — du concept à la direction de shooting.
   </p>
@@ -179,25 +178,26 @@
 <section id="contact" class="section">
   <span class="label" data-i18n="menu.contact">CONTACT</span>
   <h3 style="margin:12px 0 12px" data-i18n="contact.title">Contact</h3>
-  <p class="links">
+  <div class="links">
     <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="1"/></svg>
       Instagram
     </a>
-    <a href="mailto:24joyssi@gmail.com" id="emailBtn" aria-label="Email">
+    <button id="emailBtn" aria-label="Email">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
       Email
-    </a>
-  </p>
+    </button>
+  </div>
 
-  <!-- Menu fallback email (webmails) -->
-  <div id="emailMenu" style="display:none; position:fixed; right:20px; bottom:72px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12);">
+  <!-- Menu email -->
+  <div id="emailMenu" class="menu" role="dialog" aria-label="Choisir un service email">
     <div style="font-weight:800; margin-bottom:8px;">Ouvrir avec</div>
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      <a href="https://mail.google.com/mail/?view=cm&to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Gmail</a>
-      <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Outlook Web</a>
-      <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer" style="text-decoration:none;color:#000;font-weight:700">Yahoo Mail</a>
-      <button id="copyMail" style="margin-top:6px;border:2px solid var(--blue);border-radius:10px;padding:8px 10px;background:#fff;color:#000;font-weight:800;cursor:pointer;">Copier l’adresse</button>
+    <div style="display:flex;flex-direction:column;">
+      <a href="mailto:24joyssi@gmail.com">Client installé (mailto)</a>
+      <a href="https://mail.google.com/mail/?view=cm&to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Gmail</a>
+      <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Outlook Web</a>
+      <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Yahoo Mail</a>
+      <button class="copy" id="copyMail">Copier l’adresse</button>
     </div>
   </div>
 </section>
@@ -208,32 +208,27 @@
 </div>
 
 <script>
-/* ===== i18n ===== */
+/* ========= i18n ========= */
 const STR = {
-  fr:{
-    menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
-    home:{label:"ACCUEIL"}, hero:{sub:"Directeur artistique — Styliste — Photographe",cta:"Voir les projets"},
-    roles:{campaign:"Campagne",photographer:"Photographe",stylist:"Styliste",photography:"Photographie",styling:"Stylisme",art:"Directeur artistique"},
-    blind:{desc:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks."},
-    mega:{desc:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste."},
-    milhan:{desc:"Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)"},
-    about:{title:"À propos",txt:"Je suis Joyssi — directeur artistique, styliste et photographe. J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."},
-    contact:{title:"Contact"}
-  },
-  en:{
-    menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
-    home:{label:"HOME"}, hero:{sub:"Art Director — Stylist — Photographer",cta:"See projects"},
-    roles:{campaign:"Campaign",photographer:"Photographer",stylist:"Stylist",photography:"Photography",styling:"Styling",art:"Art Director"},
-    blind:{desc:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks."},
-    mega:{desc:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame."},
-    milhan:{desc:"Shoot for Milhan — Roles: Stylist & Art Director. (Images coming soon)"},
-    about:{title:"About",txt:"I’m Joyssi — art director, stylist and photographer. I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."},
-    contact:{title:"Contact"}
-  }
+  fr:{menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
+      home:{label:"ACCUEIL"}, hero:{sub:"Directeur artistique — Styliste — Photographe",cta:"Voir les projets"},
+      roles:{campaign:"Campagne",photographer:"Photographe",stylist:"Styliste",photography:"Photographie",styling:"Stylisme",art:"Directeur artistique"},
+      blind:{desc:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks."},
+      mega:{desc:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste."},
+      milhan:{desc:"Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)"},
+      about:{title:"À propos",txt:"Je suis Joyssi — directeur artistique, styliste et photographe. J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."},
+      contact:{title:"Contact"}},
+  en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
+      home:{label:"HOME"}, hero:{sub:"Art Director — Stylist — Photographer",cta:"See projects"},
+      roles:{campaign:"Campaign",photographer:"Photographer",stylist:"Stylist",photography:"Photography",styling:"Styling",art:"Art Director"},
+      blind:{desc:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks."},
+      mega:{desc:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame."},
+      milhan:{desc:"Shoot for Milhan — Roles: Stylist & Art Director. (Images coming soon)"},
+      about:{title:"About",txt:"I’m Joyssi — art director, stylist and photographer. I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."},
+      contact:{title:"Contact"}}
 };
-let lang = (localStorage.getItem("lang")||"fr").toLowerCase();
-function applyI18n(){
-  const t=STR[lang];
+let lang=(localStorage.getItem("lang")||"fr").toLowerCase();
+function T(){ const t=STR[lang];
   document.documentElement.lang=lang;
   document.querySelector('[data-i18n="menu.home"]').textContent=t.menu.home;
   document.querySelector('[data-i18n="menu.projects"]').textContent=t.menu.projects;
@@ -242,30 +237,38 @@ function applyI18n(){
   document.querySelector('[data-i18n="home.label"]').textContent=t.home.label;
   document.querySelector('[data-i18n="hero.sub"]').textContent=t.hero.sub;
   document.querySelector('[data-i18n="hero.cta"]').textContent=t.hero.cta;
-  document.querySelector('#blind-no-plan h3').innerHTML = `BLIND NO PLAN — <span>${t.roles.campaign}</span>`;
+  document.querySelector('#blind-no-plan h3').innerHTML=`BLIND NO PLAN — <span>${t.roles.campaign}</span>`;
   document.querySelector('[data-i18n="blind.desc"]').textContent=t.blind.desc;
-  document.querySelector('[data-i18n="roles.photographer"]').textContent=t.roles.photographer;
-  document.querySelector('[data-i18n="roles.stylist"]').textContent=t.roles.stylist;
-  document.querySelector('#mega-sue h3').textContent='Mega Sue';
-  document.querySelector('[data-i18n="mega.desc"]').textContent=t.mega.desc;
-  document.querySelector('[data-i18n="roles.photography"]').textContent=t.roles.photography;
-  document.querySelector('[data-i18n="roles.styling"]').textContent=t.roles.styling;
+  document.querySelectorAll('[data-i18n="roles.photographer"]').forEach(n=>n.textContent=t.roles.photographer);
+  document.querySelectorAll('[data-i18n="roles.stylist"]').forEach(n=>n.textContent=t.roles.stylist);
+  document.querySelectorAll('[data-i18n="roles.photography"]').forEach(n=>n.textContent=t.roles.photography);
+  document.querySelectorAll('[data-i18n="roles.styling"]').forEach(n=>n.textContent=t.roles.styling);
   document.querySelector('#milhan h3').textContent='Milhan';
   document.querySelector('[data-i18n="milhan.desc"]').textContent=t.milhan.desc;
-  document.querySelector('[data-i18n="menu.about"]').textContent=t.menu.about;
   document.querySelector('[data-i18n="about.title"]').textContent=t.about.title;
   document.getElementById('aboutTxt').textContent=t.about.txt;
-  document.querySelector('[data-i18n="menu.contact"]').textContent=t.menu.contact;
   document.querySelector('[data-i18n="contact.title"]').textContent=t.contact.title;
   document.getElementById('frBtn').classList.toggle('active',lang==='fr');
   document.getElementById('enBtn').classList.toggle('active',lang==='en');
 }
-document.getElementById('frBtn').onclick=()=>{lang='fr';localStorage.setItem('lang','fr');applyI18n();};
-document.getElementById('enBtn').onclick=()=>{lang='en';localStorage.setItem('lang','en');applyI18n();};
+document.getElementById('frBtn').onclick=()=>{ lang='fr'; localStorage.setItem('lang','fr'); T(); };
+document.getElementById('enBtn').onclick=()=>{ lang='en'; localStorage.setItem('lang','en'); T(); };
 
-document.getElementById('goHome').onclick=()=>{ location.hash='#home'; window.scrollTo({top:0,behavior:'smooth'}) };
+/* ========= Chargement images avec fallback de dossier ========= */
+function attachSrc(img, file){
+  const bases=["images/","Image/","/images/"];
+  let i=0;
+  const tryNext=()=>{ if(i>=bases.length){ img.alt+=" (introuvable)"; img.style.opacity=.35; img.style.borderStyle='dashed'; return; }
+    img.src=bases[i++]+file;
+  };
+  img.onerror=tryNext;
+  tryNext();
+}
+document.querySelectorAll('img[data-file]').forEach(img=>{
+  attachSrc(img, img.getAttribute('data-file'));
+});
 
-/* Lightbox */
+/* ========= Lightbox ========= */
 const box=document.getElementById('lightbox'), big=document.getElementById('lightImg');
 document.addEventListener('click',e=>{
   const img=e.target.closest('.ph');
@@ -274,16 +277,16 @@ document.addEventListener('click',e=>{
 box.addEventListener('click',()=>{ box.style.display='none'; big.src=''; });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') box.click(); });
 
-/* Email fallback menu */
+/* ========= Email menu (pas de blocage mailto) ========= */
 (function(){
   const btn=document.getElementById('emailBtn'), menu=document.getElementById('emailMenu'), copy=document.getElementById('copyMail'), addr='24joyssi@gmail.com';
-  btn.addEventListener('click',()=>{ setTimeout(()=>menu.style.display='block',40); });
+  btn.addEventListener('click',()=>{ menu.style.display = (menu.style.display==='block'?'none':'block'); });
   copy.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(addr); copy.textContent='Copié ✓'; setTimeout(()=>copy.textContent='Copier l’adresse',1200);}catch{ alert(addr);} });
   document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
 })();
 
-/* Init */
-document.addEventListener('DOMContentLoaded', applyI18n);
+/* Init i18n */
+document.addEventListener('DOMContentLoaded', T);
 </script>
 </body>
 </html>
