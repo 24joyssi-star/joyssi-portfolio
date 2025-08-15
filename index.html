@@ -36,15 +36,32 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .hero-about{ max-width:860px }
 .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
 
-/* PROJETS — layout */
-.filter-bar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:12px 0 18px }
-.select{ appearance:none; -webkit-appearance:none; -moz-appearance:none;
-  background:#fff; color:#000; border:2px solid var(--blue); border-radius:14px; padding:10px 14px; font-weight:900; cursor:pointer }
-.filters{ display:flex; flex-wrap:wrap; gap:8px }
-.filter{ border:2px solid var(--blue); background:#fff; color:#000; padding:8px 12px; border-radius:999px; font-weight:900; cursor:pointer; font-size:13px }
-.filter[aria-pressed="true"]{ background:var(--blue); color:#fff }
-.helper{ font-weight:700; opacity:.7 }
+/* PROJETS */
+.helper{ font-weight:700; opacity:.75; margin-left:10px }
+.filterBar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:12px 0 16px }
+.filterBtn{ border:2px solid var(--blue); background:#fff; color:#000; padding:10px 14px; border-radius:14px; font-weight:900; cursor:pointer }
 
+/* Panneau filtre */
+.panel{ position:relative; display:inline-block }
+.panelBox{
+  position:absolute; left:0; top:calc(100% + 8px); min-width:280px; background:#fff; border:1px solid rgba(0,0,0,.12);
+  border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.14); padding:12px; display:none; z-index:40
+}
+.panel.open .panelBox{ display:block }
+.panel h5{ margin:6px 0 8px; font:900 12px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.drop{ border:1px solid rgba(0,0,0,.12); border-radius:10px; overflow:hidden; margin-bottom:10px }
+.drop summary{
+  list-style:none; cursor:pointer; padding:10px 12px; font-weight:800; background:#fafafa; border-bottom:1px solid rgba(0,0,0,.06)
+}
+.drop summary::-webkit-details-marker{ display:none }
+.drop .inner{ padding:10px 12px; display:grid; gap:8px }
+.drop label{ display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:700 }
+.drop input[type="checkbox"], .drop input[type="radio"]{ width:16px; height:16px; cursor:pointer }
+
+.panelActions{ display:flex; gap:8px; margin-top:8px }
+.smallBtn{ border:2px solid var(--blue); background:#fff; color:#000; padding:8px 12px; border-radius:12px; font-weight:900; cursor:pointer }
+
+/* Détail projet (miniatures, non étirées) */
 .detail{ margin-top:10px }
 .detail h3{ margin:0 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
 .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
@@ -130,25 +147,38 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <div class="rule"></div>
 </section>
 
-<!-- PROJETS : filtres (nom + rôles) => puis détail unique -->
+<!-- PROJETS -->
 <section id="projets" class="section" hidden>
   <span class="label" data-i18n="menu.projects">PROJETS</span>
 
-  <div class="filter-bar">
-    <!-- Sélecteur par nom -->
-    <select id="byName" class="select" aria-label="Filtrer par projet">
-      <option value="" selected>— Choisir un projet —</option>
-    </select>
-
-    <!-- Filtres par rôles (multi) -->
-    <div class="filters" id="filters" aria-label="Filtrer par rôles">
-      <button class="filter" data-tag="stylist" type="button" aria-pressed="false">Stylisme</button>
-      <button class="filter" data-tag="art" type="button" aria-pressed="false">Direction artistique</button>
-      <button class="filter" data-tag="photographer" type="button" aria-pressed="false">Photographie</button>
-      <button class="filter" data-tag="assistant-photo" type="button" aria-pressed="false">Assistant photo</button>
-      <button class="filter" data-tag="assistant-ad" type="button" aria-pressed="false">Assistant DA</button>
-      <button class="filter" data-tag="graphic" type="button" aria-pressed="false">Design graphique</button>
-      <button class="filter" data-tag="reset" type="button" aria-pressed="false" title="Réinitialiser">Tous</button>
+  <div class="filterBar">
+    <div class="panel" id="filterPanel">
+      <button class="filterBtn" type="button" id="openFilter">Filtrer</button>
+      <div class="panelBox" id="panelBox" role="dialog" aria-label="Filtres">
+        <!-- Par projet -->
+        <details class="drop" id="dropByProject">
+          <summary>Par projet</summary>
+          <div class="inner" id="byProjectBox">
+            <!-- radios injectés -->
+          </div>
+        </details>
+        <!-- Par rôle (multi) -->
+        <details class="drop" id="dropByRole">
+          <summary>Par rôle / poste</summary>
+          <div class="inner">
+            <label><input type="checkbox" value="stylist"> Stylisme</label>
+            <label><input type="checkbox" value="art"> Direction artistique</label>
+            <label><input type="checkbox" value="photographer"> Photographie</label>
+            <label><input type="checkbox" value="assistant-photo"> Assistant photo</label>
+            <label><input type="checkbox" value="assistant-ad"> Assistant DA</label>
+            <label><input type="checkbox" value="graphic"> Design graphique</label>
+          </div>
+        </details>
+        <div class="panelActions">
+          <button class="smallBtn" type="button" id="applyFilters">Appliquer</button>
+          <button class="smallBtn" type="button" id="resetFilters">Réinitialiser</button>
+        </div>
+      </div>
     </div>
     <span class="helper" id="countInfo">Aucun projet sélectionné</span>
   </div>
@@ -276,7 +306,6 @@ const PROJECTS = [
 /* ========= Lang / i18n ========= */
 const STR={
   fr:{menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"}, hero:{cta:"Voir les projets"},
-      roles:{stylist:"Styliste",art:"Directeur artistique",photographer:"Photographe","assistant-photo":"Assistant Photo","assistant-ad":"Assistant DA",graphic:"Design graphique"},
       email:{open:"Ouvrir avec",copy:"Copier l’adresse"},
       aboutHome:`Je suis Joyssi, directeur artistique, styliste et photographe.
 J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
@@ -307,12 +336,10 @@ Ma démarche est immersive et contemporaine. Elle consiste à créer des univers
 articuler le fond et la forme, à relier émotion et direction visuelle avec précision et
 intention.`},
   en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"}, hero:{cta:"See projects"},
-      roles:{stylist:"Stylist",art:"Art Director",photographer:"Photographer","assistant-photo":"Assistant Photographer","assistant-ad":"Assistant AD",graphic:"Graphic design"},
       email:{open:"Open with",copy:"Copy address"},
       aboutHome:"I’m Joyssi — art director, stylist and photographer. I started as an assistant in fashion/culture and now develop full identities, styling and photography.",
       aboutFull:"I’m Joyssi — art director, stylist and photographer. I began as an assistant in fashion/culture. Today I run independent projects across art direction, styling and photography. I also act as a music art director and design event spaces. My approach is immersive and contemporary, aligning emotion and visual direction with precision and intent."},
   es:{menu:{home:"INICIO",projects:"PROYECTOS",about:"SOBRE MÍ",contact:"CONTACTO"}, hero:{cta:"Ver proyectos"},
-      roles:{stylist:"Estilista",art:"Director de arte",photographer:"Fotógrafo","assistant-photo":"Asistente de foto","assistant-ad":"Asistente de DA",graphic:"Diseño gráfico"},
       email:{open:"Abrir con",copy:"Copiar dirección"},
       aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo. Empecé como asistente y ahora desarrollo identidades visuales, estilismo y fotografía.",
       aboutFull:"Soy Joyssi — director de arte, estilista y fotógrafo. Inicié como asistente en moda/cultura. Hoy llevo proyectos independientes en dirección de arte, estilismo y fotografía; también dirección artística musical y diseño de espacios. Enfoque inmersivo y contemporáneo."}
@@ -334,7 +361,7 @@ function applyI18n(){
   q('#emailMenu div').textContent=t.email.open;
   q('#copyMail').textContent=t.email.copy;
 
-  // Lang on buttons
+  // Lang active
   q('#frBtn').classList.toggle('active',lang==='fr');
   q('#enBtn').classList.toggle('active',lang==='en');
   q('#esBtn').classList.toggle('active',lang==='es');
@@ -381,68 +408,76 @@ document.addEventListener('DOMContentLoaded', () => {
     q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent=STR[lang].email.copy+' ✓'; setTimeout(()=>ev.target.textContent=STR[lang].email.copy,1200);}catch{ alert(addr); }});
   })();
 
+  // Filters panel
+  initFilterPanel();
+
   // Projects
   initProjects();
 });
 
-/* ========= Projects (sélecteur nom + multi-filtres rôles) ========= */
+/* ========= Projects (panel “Filtrer”) ========= */
 const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
   "assistant-photo":"Assistant photo", "assistant-ad":"Assistant DA", "graphic":"Design graphique" };
 
-let activeTags = new Set();  // multi-sélection rôles
-let selectedByName = "";     // id du projet choisi
+let selectedByName = "";     // id (radio)
+let activeTags = new Set();  // rôles (checkbox)
 let current = null;
 
-function roleLabel(tag){
-  const T=STR[lang].roles;
-  return T[tag] || rolesMap[tag] || tag;
-}
+function roleLabel(tag){ return rolesMap[tag] || tag; }
 
-// Remplir le select des noms (mais on ne montre pas les noms ailleurs)
-(function fillByName(){
-  const sel=q('#byName');
-  PROJECTS.forEach(p=>{
-    const opt=document.createElement('option');
-    opt.value=p.id; opt.textContent=p.title;
-    sel.appendChild(opt);
+function initFilterPanel(){
+  const panel = q('#filterPanel');
+  const box = q('#panelBox');
+  const open = q('#openFilter');
+
+  // Toggle open/close
+  open.addEventListener('click',()=> panel.classList.toggle('open'));
+  document.addEventListener('click',e=>{
+    if(!panel.contains(e.target)) panel.classList.remove('open');
   });
-  sel.addEventListener('change',()=>{
-    selectedByName = sel.value || "";
+
+  // Inject radios “par projet”
+  const byProjectBox = q('#byProjectBox');
+  PROJECTS.forEach(p=>{
+    const id = 'by_'+p.id;
+    const line = document.createElement('label');
+    line.innerHTML = `<input type="radio" name="byProject" value="${p.id}" id="${id}"> ${p.title}`;
+    byProjectBox.appendChild(line);
+  });
+  // Handler radios
+  byProjectBox.addEventListener('change',(e)=>{
+    if(e.target && e.target.name==='byProject'){ selectedByName = e.target.value; }
+  });
+
+  // Handler checkboxes rôles
+  q('#dropByRole .inner').addEventListener('change',(e)=>{
+    if(e.target && e.target.type==='checkbox'){
+      const v = e.target.value;
+      if(e.target.checked) activeTags.add(v); else activeTags.delete(v);
+    }
+  });
+
+  // Apply / Reset
+  q('#applyFilters').addEventListener('click',()=>{ panel.classList.remove('open'); applyFilters(); });
+  q('#resetFilters').addEventListener('click',()=>{
+    // reset radios
+    byProjectBox.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+    selectedByName="";
+    // reset roles
+    activeTags.clear();
+    q('#dropByRole .inner').querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
+    panel.classList.remove('open');
     applyFilters();
   });
-})();
-
-function refreshFiltersUI(){
-  qa('.filter').forEach(btn=>{
-    const tag=btn.dataset.tag;
-    if(tag==='reset'){ btn.setAttribute('aria-pressed', activeTags.size===0 && !selectedByName ? 'true':'false'); }
-    else{ btn.setAttribute('aria-pressed', activeTags.has(tag) ? 'true':'false'); }
-  });
 }
-
-function toggleTag(tag){
-  if(tag==='reset'){ activeTags.clear(); selectedByName=""; q('#byName').value=""; }
-  else{
-    if(activeTags.has(tag)) activeTags.delete(tag);
-    else activeTags.add(tag);
-  }
-  applyFilters();
-}
-
-qa('#filters .filter').forEach(btn=>{
-  btn.addEventListener('click',()=> toggleTag(btn.dataset.tag));
-});
 
 function matchProject(p){
-  // Si nom choisi, il faut que ce soit CE projet
-  if(selectedByName) { if(p.id!==selectedByName) return false; }
-  // Si des rôles sont actifs, le projet doit tous les contenir
+  if(selectedByName && p.id!==selectedByName) return false;
   for(const t of activeTags){ if(!p.roles.includes(t)) return false; }
   return true;
 }
 
 function applyFilters(){
-  refreshFiltersUI();
   const matched = PROJECTS.filter(matchProject);
   const info = q('#countInfo');
 
@@ -457,7 +492,6 @@ function applyFilters(){
     renderDetail(current);
     return;
   }
-  // Plusieurs résultats (rôles seulement, sans nom) → on propose un petit sélecteur interne
   info.textContent = matched.length+" projets";
   renderChooser(matched);
 }
@@ -472,24 +506,35 @@ function renderChooser(items){
   q('#dDesc').textContent = "Affiner par nom ou cliquer ci-dessous :";
   q('#dRoles').innerHTML=''; q('#dCredits').textContent='';
   const box=q('#dThumbs'); box.innerHTML='';
-  // mini boutons (n'affichent pas les noms ailleurs que dans ce choix)
   items.forEach(p=>{
     const b=document.createElement('button');
-    b.className='btn'; b.textContent=p.title; // visible uniquement ici pour choisir
-    b.addEventListener('click',()=>{ current=p; selectedByName=p.id; q('#byName').value=p.id; applyFilters(); });
+    b.className='btn'; b.textContent=p.title;
+    b.addEventListener('click',()=>{
+      current=p;
+      selectedByName=p.id;
+      // cocher la radio correspondante dans le panneau pour cohérence
+      const r=document.querySelector(`#by_${p.id}`); if(r) r.checked=true;
+      applyFilters(); // ré-affiche le détail
+    });
     box.appendChild(b);
   });
 }
 
 function renderDetail(p){
   q('#dTitle').textContent = p.title;
-  q('#dDesc').textContent = p.desc[lang] || p.desc.fr;
+  // i18n minimal sur desc/credits (FR par défaut si non trouvé)
+  q('#dDesc').textContent = p.desc[lang] || p.desc.fr || '';
   q('#dCredits').textContent = (p.credits && (p.credits[lang]||p.credits.fr)) || '';
   const rolesBox=q('#dRoles'); rolesBox.innerHTML='';
   p.roles.forEach(r=>{
     const s=document.createElement('span'); s.className='chip'; s.textContent=roleLabel(r);
     s.title='Filtrer par '+roleLabel(r);
-    s.addEventListener('click',()=>{ activeTags.add(r); applyFilters(); });
+    s.addEventListener('click',()=>{
+      // coche/décoche la checkbox correspondante et relance apply
+      const cb = q(`#dropByRole input[type="checkbox"][value="${r}"]`);
+      if(cb){ cb.checked = !cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }
+      applyFilters();
+    });
     rolesBox.appendChild(s);
   });
   const thumbs=q('#dThumbs'); thumbs.innerHTML='';
@@ -504,8 +549,8 @@ function openLightbox(src,alt){ const box=q('#lightbox'), big=q('#lightImg'); bi
 q('#lightbox').addEventListener('click',()=>{ q('#lightbox').style.display='none'; q('#lightImg').src=''; });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') q('#lightbox').click(); });
 
-// Init état au chargement (rien sélectionné)
-function initProjects(){ refreshFiltersUI(); renderEmpty(); }
+/* ========= Init ========= */
+function initProjects(){ renderEmpty(); }
 </script>
 </body>
 </html>
