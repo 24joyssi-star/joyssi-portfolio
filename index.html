@@ -36,7 +36,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .hero-about{ max-width:860px }
 .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
 
-/* PROJETS */
+/* PROJETS (page filtres) */
 .helper{ font-weight:700; opacity:.75; margin-left:10px }
 .filterBar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:12px 0 16px }
 .filterBtn{ border:2px solid var(--blue); background:#fff; color:#000; padding:10px 14px; border-radius:14px; font-weight:900; cursor:pointer }
@@ -71,8 +71,31 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .thumb{ width:160px; height:240px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
 @media(max-width:380px){ .thumb{ width:140px; height:210px } }
 
-/* Lightbox */
-.lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:100 }
+/* -------- PAGE TOUS LES PROJETS (sans filtres) -------- */
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px }
+@media(max-width:1000px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+@media(max-width:640px){ .grid{ grid-template-columns:1fr } }
+.card{ border:1px solid rgba(0,0,0,.12); border-radius:14px; overflow:hidden; background:#fff; cursor:pointer }
+.card .cover{ aspect-ratio:4/5; width:100%; object-fit:cover; display:block; background:#f2f2f2 }
+.card .body{ padding:10px 12px }
+.card .title{ margin:0 0 4px; font:900 16px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.card .roles{ display:flex; flex-wrap:wrap; gap:6px }
+.badge{ border:2px solid var(--blue); border-radius:999px; padding:2px 8px; font-weight:800; font-size:11px }
+
+/* MODAL projet (pour la page "tous") */
+.projectModal{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; z-index:120; overflow:auto }
+.pm-wrap{ max-width:1100px; margin:40px auto; background:#fff; color:#000; border-radius:16px; overflow:hidden }
+.pm-head{ display:flex; justify-content:space-between; align-items:center; padding:16px 18px; border-bottom:1px solid rgba(0,0,0,.08) }
+.pm-head h3{ margin:0; font:900 22px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.pm-close{ background:#fff; border:2px solid var(--blue); border-radius:10px; padding:6px 10px; font-weight:900; cursor:pointer }
+.pm-body{ display:grid; grid-template-columns:1fr 1fr; gap:18px; padding:18px }
+@media(max-width:900px){ .pm-body{ grid-template-columns:1fr } }
+.pm-info .chips{ margin:6px 0 }
+.pm-thumbs{ display:flex; flex-wrap:wrap; gap:10px }
+.pm-thumbs img{ width:160px; height:240px; object-fit:cover; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
+
+/* Lightbox commun */
+.lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:200 }
 .lightbox img{ max-width:92vw; max-height:92vh; border-radius:12px }
 .lightbox:focus{ outline:none }
 
@@ -85,7 +108,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .menu .copy{ margin-top:6px; border:2px solid var(--blue); border-radius:10px; padding:8px 10px; background:#fff; color:#000; font-weight:800; cursor:pointer }
 
 /* -------- Splash (NOIR + JOYSSI bleu + langues) -------- */
-.splash{ position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; z-index:200 }
+.splash{ position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; z-index:300 }
 .s-inner{ text-align:center; max-width:900px; padding:24px }
 .s-logo{ font:900 clamp(56px,18vw,180px)/0.85 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:var(--blue); cursor:pointer; user-select:none }
 .lang-chooser{ display:inline-flex; gap:10px; border:2px solid var(--blue); border-radius:16px; padding:8px 12px; background:#000; color:#fff; font-weight:900; margin-bottom:14px }
@@ -111,7 +134,8 @@ nav a:hover{ opacity:1; text-decoration:underline }
     <a class="brand" href="#home" title="Accueil"><span class="blink">JOYSSI</span><span class="dot"></span></a>
     <nav>
       <a href="#home" data-i18n="menu.home">ACCUEIL</a>
-      <a href="#projets" data-i18n="menu.projects">PROJETS</a>
+      <!-- ⚠️ PROJETS → page “tous les projets” -->
+      <a href="#projets-tous" data-i18n="menu.projects">PROJETS</a>
       <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
       <a href="#contact" data-i18n="menu.contact">CONTACT</a>
       <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
@@ -147,7 +171,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <div class="rule"></div>
 </section>
 
-<!-- PROJETS -->
+<!-- PROJETS (avec filtres/panneau) -->
 <section id="projets" class="section" hidden>
   <span class="label" data-i18n="menu.projects">PROJETS</span>
 
@@ -158,9 +182,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
         <!-- Par projet -->
         <details class="drop" id="dropByProject">
           <summary>Par projet</summary>
-          <div class="inner" id="byProjectBox">
-            <!-- radios injectés -->
-          </div>
+          <div class="inner" id="byProjectBox"></div>
         </details>
         <!-- Par rôle (multi) -->
         <details class="drop" id="dropByRole">
@@ -194,12 +216,26 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <div class="rule"></div>
 </section>
 
+<!-- ✅ PAGE TOUS LES PROJETS (sans filtres) -->
+<section id="projets-tous" class="section" hidden>
+  <span class="label">PROJETS</span>
+  <h2 style="margin:10px 0 6px; font:900 28px/1 Impact,'Arial Black','Helvetica Neue',Arial,sans-serif; letter-spacing:-.02em">Tous les projets</h2>
+  <p class="helper">Clique sur un projet pour voir les images et les infos.</p>
+
+  <div id="allGrid" class="grid"></div>
+
+  <div class="rule"></div>
+  <p>
+    <a class="btn" href="#projets">Filtrer les projets</a>
+  </p>
+</section>
+
 <!-- A PROPOS (onglet) = version longue -->
 <section id="apropos" class="section" hidden>
   <span class="label" data-i18n="menu.about">A PROPOS</span>
   <div class="hero-about">
     <h1>JOYSSI</h1>
-    <div id="aboutTxtFull"><!-- injecté par i18n --></div>
+    <div id="aboutTxtFull"></div>
   </div>
   <div class="rule"></div>
 </section>
@@ -228,7 +264,25 @@ nav a:hover{ opacity:1; text-decoration:underline }
   </div>
 </section>
 
-<!-- Lightbox -->
+<!-- MODAL projet (page tous les projets) -->
+<div id="projModal" class="projectModal" aria-modal="true" role="dialog" aria-label="Détail du projet">
+  <div class="pm-wrap">
+    <div class="pm-head">
+      <h3 id="pmTitle">Projet</h3>
+      <button class="pm-close" id="pmClose" type="button">Fermer</button>
+    </div>
+    <div class="pm-body">
+      <div class="pm-info">
+        <div class="chips" id="pmRoles"></div>
+        <div class="credits" id="pmCredits"></div>
+        <p id="pmDesc" style="max-width:65ch"></p>
+      </div>
+      <div class="pm-thumbs" id="pmThumbs"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox commun -->
 <div class="lightbox" id="lightbox" tabindex="-1" aria-modal="true" role="dialog">
   <img id="lightImg" alt="">
 </div>
@@ -352,7 +406,7 @@ const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s);
 function applyI18n(){
   const t=STR[lang]; document.documentElement.lang=lang;
   q('a[href="#home"]').textContent=t.menu.home;
-  q('a[href="#projets"]').textContent=t.menu.projects;
+  q('a[href="#projets-tous"]').textContent=t.menu.projects; // nav → tous les projets
   q('a[href="#apropos"]').textContent=t.menu.about;
   q('a[href="#contact"]').textContent=t.menu.contact;
   q('#home .btn').textContent=t.hero.cta;
@@ -368,9 +422,6 @@ function applyI18n(){
   q('#s-fr').classList.toggle('active',lang==='fr');
   q('#s-en').classList.toggle('active',lang==='en');
   q('#s-es').classList.toggle('active',lang==='es');
-
-  // refresh detail if open
-  if(current) renderDetail(current);
 }
 
 /* ========= Utils ========= */
@@ -391,7 +442,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Enter site by clicking JOYSSI
   q('#sJoy').addEventListener('click',()=>{
     q('#splash').style.display='none';
-    ['siteHeader','home','projets','apropos','contact'].forEach(id=>{ const el=q('#'+id); if(el) el.hidden=false; });
+    ['siteHeader','home','projets','projets-tous','apropos','contact'].forEach(id=>{ const el=q('#'+id); if(el) el.hidden=false; });
+    window.location.hash = '#home';
     window.scrollTo(0,0);
   });
 
@@ -405,17 +457,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn=q('#emailBtn'), menu=q('#emailMenu'), addr='24joyssi@gmail.com';
     btn.addEventListener('click',()=>{ menu.style.display = (menu.style.display==='block'?'none':'block'); });
     document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
-    q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent=STR[lang].email.copy+' ✓'; setTimeout(()=>ev.target.textContent=STR[lang].email.copy,1200);}catch{ alert(addr); }});
+    q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent='Copié ✓'; setTimeout(()=>ev.target.textContent='Copier l’adresse',1200);}catch{ alert(addr); }});
   })();
 
-  // Filters panel
+  // Projects (page filtres)
   initFilterPanel();
+  initProjectsFiltered();
 
-  // Projects
-  initProjects();
+  // Tous les projets (page grille)
+  buildAllProjectsGrid();
+  initProjectModal();
 });
 
-/* ========= Projects (panel “Filtrer”) ========= */
+/* ========= Projects — page FILTRES ========= */
 const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
   "assistant-photo":"Assistant photo", "assistant-ad":"Assistant DA", "graphic":"Design graphique" };
 
@@ -427,29 +481,24 @@ function roleLabel(tag){ return rolesMap[tag] || tag; }
 
 function initFilterPanel(){
   const panel = q('#filterPanel');
-  const box = q('#panelBox');
-  const open = q('#openFilter');
-
-  // Toggle open/close
-  open.addEventListener('click',()=> panel.classList.toggle('open'));
-  document.addEventListener('click',e=>{
-    if(!panel.contains(e.target)) panel.classList.remove('open');
-  });
-
-  // Inject radios “par projet”
   const byProjectBox = q('#byProjectBox');
+
+  // open/close
+  q('#openFilter').addEventListener('click',()=> panel.classList.toggle('open'));
+  document.addEventListener('click',e=>{ if(!panel.contains(e.target)) panel.classList.remove('open'); });
+
+  // radios projets
   PROJECTS.forEach(p=>{
     const id = 'by_'+p.id;
     const line = document.createElement('label');
     line.innerHTML = `<input type="radio" name="byProject" value="${p.id}" id="${id}"> ${p.title}`;
     byProjectBox.appendChild(line);
   });
-  // Handler radios
   byProjectBox.addEventListener('change',(e)=>{
     if(e.target && e.target.name==='byProject'){ selectedByName = e.target.value; }
   });
 
-  // Handler checkboxes rôles
+  // checkboxes rôles
   q('#dropByRole .inner').addEventListener('change',(e)=>{
     if(e.target && e.target.type==='checkbox'){
       const v = e.target.value;
@@ -457,13 +506,11 @@ function initFilterPanel(){
     }
   });
 
-  // Apply / Reset
+  // actions
   q('#applyFilters').addEventListener('click',()=>{ panel.classList.remove('open'); applyFilters(); });
   q('#resetFilters').addEventListener('click',()=>{
-    // reset radios
     byProjectBox.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
     selectedByName="";
-    // reset roles
     activeTags.clear();
     q('#dropByRole .inner').querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
     panel.classList.remove('open');
@@ -483,25 +530,25 @@ function applyFilters(){
 
   if(matched.length===0){
     info.textContent = "Aucun projet trouvé";
-    current=null; renderEmpty();
+    current=null; renderFilteredEmpty();
     return;
   }
   if(matched.length===1){
     info.textContent = "1 projet";
     current = matched[0];
-    renderDetail(current);
+    renderFilteredDetail(current);
     return;
   }
   info.textContent = matched.length+" projets";
-  renderChooser(matched);
+  renderFilteredChooser(matched);
 }
 
-function renderEmpty(){
+function renderFilteredEmpty(){
   q('#dTitle').textContent='Sélectionne un projet';
   q('#dDesc').textContent=''; q('#dRoles').innerHTML=''; q('#dCredits').textContent=''; q('#dThumbs').innerHTML='';
 }
 
-function renderChooser(items){
+function renderFilteredChooser(items){
   q('#dTitle').textContent = "Choisir un projet";
   q('#dDesc').textContent = "Affiner par nom ou cliquer ci-dessous :";
   q('#dRoles').innerHTML=''; q('#dCredits').textContent='';
@@ -512,17 +559,15 @@ function renderChooser(items){
     b.addEventListener('click',()=>{
       current=p;
       selectedByName=p.id;
-      // cocher la radio correspondante dans le panneau pour cohérence
       const r=document.querySelector(`#by_${p.id}`); if(r) r.checked=true;
-      applyFilters(); // ré-affiche le détail
+      applyFilters();
     });
     box.appendChild(b);
   });
 }
 
-function renderDetail(p){
+function renderFilteredDetail(p){
   q('#dTitle').textContent = p.title;
-  // i18n minimal sur desc/credits (FR par défaut si non trouvé)
   q('#dDesc').textContent = p.desc[lang] || p.desc.fr || '';
   q('#dCredits').textContent = (p.credits && (p.credits[lang]||p.credits.fr)) || '';
   const rolesBox=q('#dRoles'); rolesBox.innerHTML='';
@@ -530,7 +575,6 @@ function renderDetail(p){
     const s=document.createElement('span'); s.className='chip'; s.textContent=roleLabel(r);
     s.title='Filtrer par '+roleLabel(r);
     s.addEventListener('click',()=>{
-      // coche/décoche la checkbox correspondante et relance apply
       const cb = q(`#dropByRole input[type="checkbox"][value="${r}"]`);
       if(cb){ cb.checked = !cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }
       applyFilters();
@@ -545,12 +589,48 @@ function renderDetail(p){
   });
 }
 
+function initProjectsFiltered(){ renderFilteredEmpty(); }
+
+/* ========= PAGE “TOUS LES PROJETS” (grille + modal) ========= */
+function buildAllProjectsGrid(){
+  const grid = q('#allGrid'); grid.innerHTML='';
+  PROJECTS.forEach(p=>{
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <img class="cover" alt="">
+      <div class="body">
+        <div class="title">${p.title}</div>
+        <div class="roles">${p.roles.map(r=>`<span class="badge">${roleLabel(r)}</span>`).join(' ')}</div>
+      </div>`;
+    const cover=card.querySelector('.cover'); setSrc(cover,p.cover);
+    card.addEventListener('click',()=>openProjectModal(p));
+    grid.appendChild(card);
+  });
+}
+
+function openProjectModal(p){
+  q('#pmTitle').textContent=p.title;
+  const roles=q('#pmRoles'); roles.innerHTML=''; p.roles.forEach(r=>{ const x=document.createElement('span'); x.className='chip'; x.textContent=roleLabel(r); roles.appendChild(x); });
+  q('#pmCredits').textContent=(p.credits && (p.credits[lang]||p.credits.fr)) || '';
+  q('#pmDesc').textContent=p.desc[lang] || p.desc.fr || '';
+  const box=q('#pmThumbs'); box.innerHTML='';
+  (p.images||[]).forEach(f=>{
+    const im=document.createElement('img'); im.alt=p.title; im.src=''; setSrc(im,f);
+    im.addEventListener('click',()=>openLightbox("images/"+f,p.title));
+    box.appendChild(im);
+  });
+  q('#projModal').style.display='block';
+}
+
+function initProjectModal(){
+  q('#pmClose').addEventListener('click',()=>{ q('#projModal').style.display='none'; });
+  q('#projModal').addEventListener('click',e=>{ if(e.target.id==='projModal') q('#projModal').style.display='none'; });
+}
+
+/* ========= Lightbox ========= */
 function openLightbox(src,alt){ const box=q('#lightbox'), big=q('#lightImg'); big.src=src; big.alt=alt||''; box.style.display='flex'; box.focus(); }
 q('#lightbox').addEventListener('click',()=>{ q('#lightbox').style.display='none'; q('#lightImg').src=''; });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') q('#lightbox').click(); });
-
-/* ========= Init ========= */
-function initProjects(){ renderEmpty(); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(q('#lightbox').style.display==='flex') q('#lightbox').click(); if(q('#projModal').style.display==='block') q('#pmClose').click(); }});
 </script>
 </body>
 </html>
