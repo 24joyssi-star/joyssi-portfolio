@@ -5,95 +5,91 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>JOYSSI — Portfolio</title>
 <style>
-  :root{ --blue:#090794; }
-  *{ box-sizing:border-box }
-  html{ scroll-behavior:smooth }
-  body{ margin:0; background:#fff; color:#000; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif }
+:root{ --blue:#090794; }
+*{ box-sizing:border-box }
+html{ scroll-behavior:smooth }
+body{ margin:0; background:#fff; color:#000; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif }
 
-  /* Header (site principal) */
-  .header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid rgba(0,0,0,.08) }
-  .wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px }
-  .brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer; user-select:none; color:#000; text-decoration:none }
-  .dot{ width:6px; height:6px; border-radius:999px; background:var(--blue) }
-  nav{ margin-left:auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap }
-  nav a{ color:#000; text-decoration:none; font-weight:800; opacity:.85 }
-  nav a:hover{ opacity:1; text-decoration:underline }
-  .lang-top button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65 }
-  .lang-top button.active{ opacity:1; text-decoration:underline }
-  @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--blue)}}
-  .blink{ animation:joyssiBlink 1s steps(1,end) infinite }
-  @media (prefers-reduced-motion:reduce){ .blink{ animation:none } }
+/* Header */
+.header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid rgba(0,0,0,.08) }
+.wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px }
+.brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer; color:#000; text-decoration:none }
+.dot{ width:6px; height:6px; border-radius:999px; background:var(--blue) }
+nav{ margin-left:auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap }
+nav a{ color:#000; text-decoration:none; font-weight:800; opacity:.85 }
+nav a:hover{ opacity:1; text-decoration:underline }
+.lang-top button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65 }
+.lang-top button.active{ opacity:1; text-decoration:underline }
 
-  /* Sections */
-  .section{ max-width:1200px; margin:0 auto; padding:56px 20px }
-  .label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
-  .rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
+@keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--blue)}}
+.blink{ animation:joyssiBlink 1s steps(1,end) infinite }
+@media (prefers-reduced-motion:reduce){ .blink{ animation:none } }
 
-  /* Hero */
-  .hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center }
-  @media(max-width:900px){ .hero{ grid-template-columns:1fr } }
-  .hero h1{ margin:0; font:900 min(14vw,120px)/0.9 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:#000; animation:none }
-  .sub{ opacity:.9; margin:12px 0 18px }
-  .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
-  .thumbs{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
-  .thumbs img{ width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#f2f2f2 }
+/* Sections */
+.section{ max-width:1200px; margin:0 auto; padding:56px 20px }
+.label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
+.rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
 
-  /* Projets */
-  .project{ margin-top:22px }
-  .project h3{ margin:12px 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
-  .chip{ border:2px solid var(--blue); border-radius:999px; padding:4px 10px; font-weight:800; font-size:12px }
-  .grid{ display:flex; flex-wrap:wrap; gap:14px }
-  .ph{ width:300px; height:600px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:12px; cursor:zoom-in }
-  @media (max-width:340px){ .ph{ width:260px; height:520px } }
+/* Hero */
+.hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center }
+@media(max-width:900px){ .hero{ grid-template-columns:1fr } }
+.hero h1{ margin:0; font:900 min(14vw,120px)/0.9 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:#000; animation:none }
+.sub{ opacity:.9; margin:12px 0 18px }
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
+.thumbs{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+.thumbs img{ width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#f2f2f2 }
 
-  /* Lightbox */
-  .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:100 }
-  .lightbox img{ max-width:90vw; max-height:90vh; border-radius:12px }
-  .lightbox:focus{ outline:none }
+/* Projets (sélecteur) */
+.tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-top:18px }
+.tab{ border:2px solid var(--blue); background:#fff; color:#000; padding:10px 14px; border-radius:999px; font-weight:900; cursor:pointer }
+.tab.active{ background:var(--blue); color:#fff; }
+.project{ margin-top:18px; display:none }
+.project.active{ display:block }
+.project h3{ margin:12px 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
+.chip{ border:2px solid var(--blue); border-radius:999px; padding:4px 10px; font-weight:800; font-size:12px }
+.grid{ display:flex; flex-wrap:wrap; gap:14px }
+.ph{ width:300px; height:600px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:12px; cursor:zoom-in }
+@media (max-width:340px){ .ph{ width:260px; height:520px } }
 
-  /* Contact */
-  .links{ display:flex; gap:12px; flex-wrap:wrap }
-  .links button,.links a{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px; border:2px solid var(--blue); color:#000; text-decoration:none; font-weight:800; background:#fff; cursor:pointer }
-  .links svg{ width:18px; height:18px }
-  .menu{ position:fixed; right:20px; bottom:90px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12); display:none; z-index:60 }
-  .menu a{ color:#000; text-decoration:none; font-weight:700; padding:6px 0; display:block }
-  .menu .copy{ margin-top:6px; border:2px solid var(--blue); border-radius:10px; padding:8px 10px; background:#fff; color:#000; font-weight:800; cursor:pointer }
+/* Lightbox */
+.lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:100 }
+.lightbox img{ max-width:90vw; max-height:90vh; border-radius:12px }
+.lightbox:focus{ outline:none }
 
-  /* -------- Splash obligatoire -------- */
-  .splash{ position:fixed; inset:0; background:#fff; display:flex; align-items:center; justify-content:center; z-index:200; }
-  .s-inner{ text-align:center; max-width:900px; padding:24px }
-  .s-logo{ font:900 clamp(56px,18vw,180px)/0.85 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:var(--blue); cursor:pointer; user-select:none }
-  .s-tip{ margin:10px 0 18px; color:#444 }
-  .lang-chooser{ display:inline-flex; gap:10px; border:2px solid var(--blue); border-radius:16px; padding:8px 12px; background:#fff; font-weight:900 }
-  .lang-chooser button{ background:transparent; border:0; font:inherit; cursor:pointer; opacity:.7 }
-  .lang-chooser button.active{ opacity:1; text-decoration:underline }
-  .s-note{ margin-top:10px; font-size:12px; color:#666 }
+/* Contact */
+.links{ display:flex; gap:12px; flex-wrap:wrap }
+.links button,.links a{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px; border:2px solid var(--blue); color:#000; text-decoration:none; font-weight:800; background:#fff; cursor:pointer }
+.links svg{ width:18px; height:18px }
+.menu{ position:fixed; right:20px; bottom:90px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12); display:none; z-index:60 }
+.menu a{ color:#000; text-decoration:none; font-weight:700; padding:6px 0; display:block }
+.menu .copy{ margin-top:6px; border:2px solid var(--blue); border-radius:10px; padding:8px 10px; background:#fff; color:#000; font-weight:800; cursor:pointer }
+
+/* -------- Splash obligatoire (NOIR + JOYSSI bleu + langues) -------- */
+.splash{ position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; z-index:200 }
+.s-inner{ text-align:center; max-width:900px; padding:24px }
+.s-logo{ font:900 clamp(56px,18vw,180px)/0.85 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:var(--blue); cursor:pointer; user-select:none }
+.lang-chooser{ display:inline-flex; gap:10px; border:2px solid var(--blue); border-radius:16px; padding:8px 12px; background:#000; color:#fff; font-weight:900; margin-bottom:14px }
+.lang-chooser button{ background:transparent; border:0; font:inherit; cursor:pointer; color:#fff; opacity:.7 }
+.lang-chooser button.active{ opacity:1; text-decoration:underline }
 </style>
 </head>
 <body>
 
-<!-- ========= SPLASH (obligatoire à chaque visite) ========= -->
+<!-- ========= SPLASH ========= -->
 <div id="splash" class="splash" aria-label="Entrée du site">
   <div class="s-inner">
     <div class="lang-chooser" aria-label="Choisir la langue">
-      <button id="s-fr">FR</button>|
-      <button id="s-en">EN</button>|
-      <button id="s-es">ES</button>
+      <button id="s-fr">FR</button>|<button id="s-en">EN</button>|<button id="s-es">ES</button>
     </div>
-    <div style="height:14px"></div>
     <div id="sJoy" class="s-logo" title="Entrer">JOYSSI</div>
-    <div class="s-tip" id="sTip">Touchez « JOYSSI » pour entrer</div>
-    <div class="s-note" id="sNote">La langue choisie est mémorisée pour vos prochaines visites.</div>
   </div>
 </div>
 
-<!-- ========= SITE PRINCIPAL ========= -->
+<!-- ========= SITE ========= -->
 <header class="header" id="siteHeader" hidden>
   <div class="wrap">
-    <a class="brand" href="#home" title="Accueil">
-      <span class="blink">JOYSSI</span><span class="dot"></span>
-    </a>
+    <a class="brand" href="#home" title="Accueil"><span class="blink">JOYSSI</span><span class="dot"></span></a>
     <nav>
       <a href="#home" data-i18n="menu.home">ACCUEIL</a>
       <a href="#projets" data-i18n="menu.projects">PROJETS</a>
@@ -101,9 +97,7 @@
       <a href="#contact" data-i18n="menu.contact">CONTACT</a>
       <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
       <span class="lang-top">
-        <button id="frBtn" class="active">FR</button> |
-        <button id="enBtn">EN</button> |
-        <button id="esBtn">ES</button>
+        <button id="frBtn" class="active">FR</button> | <button id="enBtn">EN</button> | <button id="esBtn">ES</button>
       </span>
     </nav>
   </div>
@@ -130,16 +124,19 @@
 <section id="projets" class="section" hidden>
   <span class="label" data-i18n="menu.projects">PROJETS</span>
 
-  <!-- BLIND NO PLAN -->
-  <article class="project" id="blind-no-plan">
+  <!-- sélecteur -->
+  <div class="tabs" role="tablist" aria-label="Projets">
+    <button class="tab active" data-tab="blind">Blind No Plan</button>
+    <button class="tab" data-tab="mega">Mega Sue</button>
+    <button class="tab" data-tab="ddm">Drôle de Monsieur</button>
+    <button class="tab" data-tab="milhan">Milhan</button>
+  </div>
+
+  <!-- BLIND -->
+  <article class="project active" id="p-blind" aria-labelledby="t-blind">
     <h3>BLIND NO PLAN — <span data-i18n="roles.campaign">Campagne</span></h3>
-    <p data-i18n="blind.desc">
-      Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.
-    </p>
-    <div class="chips">
-      <span class="chip" data-i18n="roles.photographer">Photographe</span>
-      <span class="chip" data-i18n="roles.stylist">Styliste</span>
-    </div>
+    <p data-i18n="blind.desc">Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.</p>
+    <div class="chips"><span class="chip" data-i18n="roles.photographer">Photographe</span><span class="chip" data-i18n="roles.stylist">Styliste</span></div>
     <div class="grid">
       <img class="ph" data-file="DSC02221.jpg" alt="Blind No Plan 1" loading="lazy">
       <img class="ph" data-file="DSC02224.jpg" alt="Blind No Plan 2" loading="lazy">
@@ -150,18 +147,11 @@
     </div>
   </article>
 
-  <div class="rule"></div>
-
-  <!-- MEGA SUE -->
-  <article class="project" id="mega-sue">
+  <!-- MEGA -->
+  <article class="project" id="p-mega">
     <h3>Mega Sue</h3>
-    <p data-i18n="mega.desc">
-      Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.
-    </p>
-    <div class="chips">
-      <span class="chip" data-i18n="roles.photography">Photographie</span>
-      <span class="chip" data-i18n="roles.styling">Stylisme</span>
-    </div>
+    <p data-i18n="mega.desc">Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.</p>
+    <div class="chips"><span class="chip" data-i18n="roles.photography">Photographie</span><span class="chip" data-i18n="roles.styling">Stylisme</span></div>
     <div class="grid">
       <img class="ph" data-file="339666353_247672421014594_8397278685892781428_n.jpg" alt="Mega Sue 1" loading="lazy">
       <img class="ph" data-file="340161934_246336221192578_2732525740245454873_n.jpg" alt="Mega Sue 2" loading="lazy">
@@ -172,26 +162,26 @@
     </div>
   </article>
 
-  <div class="rule"></div>
-
-  <!-- DRÔLE DE MONSIEUR -->
-  <article class="project" id="ddm">
+  <!-- DDM -->
+  <article class="project" id="p-ddm">
     <h3>Drôle de Monsieur</h3>
-    <p data-i18n="ddm.desc">
-      Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale.
-    </p>
-    <div class="chips">
-      <span class="chip" data-i18n="roles.assistantAD">Assistant DA</span>
-      <span class="chip" data-i18n="roles.assistantPhoto">Assistant Photo</span>
-      <span class="chip" data-i18n="roles.graphic">Design graphique</span>
-    </div>
+    <p data-i18n="ddm.desc">Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale.</p>
+    <div class="chips"><span class="chip" data-i18n="roles.assistantAD">Assistant DA</span><span class="chip" data-i18n="roles.assistantPhoto">Assistant Photo</span><span class="chip" data-i18n="roles.graphic">Design graphique</span></div>
     <div class="grid">
-      <img class="ph" data-file="464462279_18467418079001724_4296041362829498819_n.jpg" alt="Drôle de Monsieur 1" loading="lazy">
-      <img class="ph" data-file="464272154_18467418088001724_3840538998036405615_n.jpg" alt="Drôle de Monsieur 2" loading="lazy">
-      <img class="ph" data-file="464157675_18467418052001724_4103426957022696783_n.jpg" alt="Drôle de Monsieur 3" loading="lazy">
-      <img class="ph" data-file="464167162_18467418043001724_5217675012693912393_n.jpg" alt="Drôle de Monsieur 4" loading="lazy">
-      <img class="ph" data-file="464055292_18467418031001724_89644642640605347_n.jpg" alt="Drôle de Monsieur 5" loading="lazy">
+      <img class="ph" data-file="464462279_18467418079001724_4296041362829498819_n.jpg" alt="DDM 1" loading="lazy">
+      <img class="ph" data-file="464272154_18467418088001724_3840538998036405615_n.jpg" alt="DDM 2" loading="lazy">
+      <img class="ph" data-file="464157675_18467418052001724_4103426957022696783_n.jpg" alt="DDM 3" loading="lazy">
+      <img class="ph" data-file="464167162_18467418043001724_5217675012693912393_n.jpg" alt="DDM 4" loading="lazy">
+      <img class="ph" data-file="464055292_18467418031001724_89644642640605347_n.jpg" alt="DDM 5" loading="lazy">
     </div>
+  </article>
+
+  <!-- MILHAN -->
+  <article class="project" id="p-milhan">
+    <h3>Milhan</h3>
+    <p data-i18n="milhan.desc">Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)</p>
+    <div class="chips"><span class="chip" data-i18n="roles.stylist">Styliste</span><span class="chip" data-i18n="roles.art">Directeur artistique</span></div>
+    <div class="grid" id="milhanGrid"><!-- Ajoute tes images plus tard --></div>
   </article>
 
   <div class="rule"></div>
@@ -223,8 +213,6 @@
       Email
     </button>
   </div>
-
-  <!-- Menu email -->
   <div id="emailMenu" class="menu" role="dialog" aria-label="Choisir un service email">
     <div style="font-weight:800; margin-bottom:8px;" data-i18n="email.open">Ouvrir avec</div>
     <a href="mailto:24joyssi@gmail.com">Client installé (mailto)</a>
@@ -232,6 +220,7 @@
     <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Outlook Web</a>
     <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Yahoo Mail</a>
     <button class="copy" id="copyMail" data-i18n="email.copy">Copier l’adresse</button>
+  </div>
 </section>
 
 <!-- Lightbox -->
@@ -240,8 +229,8 @@
 </div>
 
 <script>
-/* ========= i18n (FR/EN/ES) ========= */
-const STR = {
+/* ========= i18n ========= */
+const STR={
   fr:{menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
       home:{label:"ACCUEIL"}, hero:{sub:"Directeur artistique — Styliste — Photographe",cta:"Voir les projets"},
       roles:{campaign:"Campagne",photographer:"Photographe",stylist:"Styliste",photography:"Photographie",styling:"Stylisme",art:"Directeur artistique",assistantAD:"Assistant DA",assistantPhoto:"Assistant Photo",graphic:"Design graphique"},
@@ -249,10 +238,9 @@ const STR = {
       mega:{desc:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste."},
       ddm:{desc:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale."},
       milhan:{desc:"Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)"},
-      about:{title:"À propos",txt:"Je suis Joyssi — directeur artistique, styliste et photographe. J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."},
+      about:{title:"À propos",txt:"Ici, version courte FR."},
       contact:{title:"Contact"},
-      email:{open:"Ouvrir avec",copy:"Copier l’adresse"},
-      splash:{tip:"Touchez « JOYSSI » pour entrer",note:"La langue choisie est mémorisée pour vos prochaines visites."}
+      email:{open:"Ouvrir avec",copy:"Copier l’adresse"}
   },
   en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
       home:{label:"HOME"}, hero:{sub:"Art Director — Stylist — Photographer",cta:"See projects"},
@@ -261,10 +249,9 @@ const STR = {
       mega:{desc:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame."},
       ddm:{desc:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout — ensuring overall aesthetic consistency."},
       milhan:{desc:"Shoot for Milhan — Roles: Stylist & Art Director. (Images coming soon)"},
-      about:{title:"About",txt:"I’m Joyssi — art director, stylist and photographer. I combine identity, styling and photography to craft precise, coherent and powerful worlds — from concept to shoot direction."},
+      about:{title:"About",txt:"Short EN version here."},
       contact:{title:"Contact"},
-      email:{open:"Open with",copy:"Copy address"},
-      splash:{tip:"Tap “JOYSSI” to enter",note:"Your language choice is remembered for future visits."}
+      email:{open:"Open with",copy:"Copy address"}
   },
   es:{menu:{home:"INICIO",projects:"PROYECTOS",about:"SOBRE MÍ",contact:"CONTACTO"},
       home:{label:"INICIO"}, hero:{sub:"Director de arte — Estilista — Fotógrafo",cta:"Ver proyectos"},
@@ -273,50 +260,45 @@ const STR = {
       mega:{desc:"Fotografía y estilismo para Mega Sue. Estética colorida y expresiva en un marco minimalista."},
       ddm:{desc:"Asistente de dirección de arte y asistente de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final — para asegurar la coherencia estética global."},
       milhan:{desc:"Sesión para Milhan — Roles: Estilista y Director de arte. (Imágenes próximamente)"},
-      about:{title:"Sobre mí",txt:"Soy Joyssi — director de arte, estilista y fotógrafo. Combino identidad visual, estilismo y fotografía para crear universos precisos, coherentes y potentes — del concepto a la dirección del rodaje."},
+      about:{title:"Sobre mí",txt:"Versión corta ES aquí."},
       contact:{title:"Contacto"},
-      email:{open:"Abrir con",copy:"Copiar dirección"},
-      splash:{tip:"Pulsa « JOYSSI » para entrar",note:"Tu idioma se recordará para futuras visitas."}
+      email:{open:"Abrir con",copy:"Copiar dirección"}
   }
 };
-
 let lang=(localStorage.getItem("lang")||"fr").toLowerCase();
+const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s);
 
-/* === helpers i18n === */
 function applyI18n(){
   const t=STR[lang]; document.documentElement.lang=lang;
-  // Header + menus
   q('[data-i18n="menu.home"]').textContent=t.menu.home;
   q('[data-i18n="menu.projects"]').textContent=t.menu.projects;
   q('[data-i18n="menu.about"]').textContent=t.menu.about;
   q('[data-i18n="menu.contact"]').textContent=t.menu.contact;
-  // Hero
   q('[data-i18n="home.label"]').textContent=t.home.label;
   q('[data-i18n="hero.sub"]').textContent=t.hero.sub;
   q('[data-i18n="hero.cta"]').textContent=t.hero.cta;
-  // Roles / desc
-  q('#blind-no-plan h3 span').textContent=t.roles.campaign;
-  q('[data-i18n="blind.desc"]').textContent=t.blind.desc;
+
+  qa('[data-i18n="roles.campaign"]').forEach(n=>n.textContent=t.roles.campaign);
+  qa('[data-i18n="blind.desc"]').forEach(n=>n.textContent=t.blind.desc);
+  qa('[data-i18n="mega.desc"]').forEach(n=>n.textContent=t.mega.desc);
+  qa('[data-i18n="ddm.desc"]').forEach(n=>n.textContent=t.ddm.desc);
+  qa('[data-i18n="milhan.desc"]').forEach(n=>n.textContent=t.milhan.desc);
+
   qa('[data-i18n="roles.photographer"]').forEach(n=>n.textContent=t.roles.photographer);
   qa('[data-i18n="roles.stylist"]').forEach(n=>n.textContent=t.roles.stylist);
   qa('[data-i18n="roles.photography"]').forEach(n=>n.textContent=t.roles.photography);
   qa('[data-i18n="roles.styling"]').forEach(n=>n.textContent=t.roles.styling);
+  qa('[data-i18n="roles.art"]').forEach(n=>n.textContent=t.roles.art);
   qa('[data-i18n="roles.assistantAD"]').forEach(n=>n.textContent=t.roles.assistantAD);
   qa('[data-i18n="roles.assistantPhoto"]').forEach(n=>n.textContent=t.roles.assistantPhoto);
   qa('[data-i18n="roles.graphic"]').forEach(n=>n.textContent=t.roles.graphic);
-  q('[data-i18n="mega.desc"]').textContent=t.mega.desc;
-  q('[data-i18n="ddm.desc"]').textContent=t.ddm.desc;
-  // About + Contact
+
   q('[data-i18n="about.title"]').textContent=t.about.title;
   q('#aboutTxt').textContent=t.about.txt;
   q('[data-i18n="contact.title"]').textContent=t.contact.title;
   q('[data-i18n="email.open"]').textContent=t.email.open;
   q('#copyMail').textContent=t.email.copy;
-  // Splash texts
-  q('#sTip').textContent=t.splash.tip;
-  q('#sNote').textContent=t.splash.note;
 
-  // boutons actifs
   q('#frBtn').classList.toggle('active',lang==='fr');
   q('#enBtn').classList.toggle('active',lang==='en');
   q('#esBtn').classList.toggle('active',lang==='es');
@@ -324,65 +306,59 @@ function applyI18n(){
   q('#s-en').classList.toggle('active',lang==='en');
   q('#s-es').classList.toggle('active',lang==='es');
 }
-const q=(sel)=>document.querySelector(sel);
-const qa=(sel)=>document.querySelectorAll(sel);
 
-/* ========= Splash logique ========= */
+/* Splash */
 (function(){
-  // Pré-sélection selon localStorage
   applyI18n();
   q('#s-fr').onclick=()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); };
   q('#s-en').onclick=()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); };
   q('#s-es').onclick=()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); };
-  // Entrée seulement en cliquant LE mot JOYSSI
-  q('#sJoy').addEventListener('click', ()=>{
-    // affiche le site
+  q('#sJoy').addEventListener('click',()=>{
     q('#splash').style.display='none';
     ['siteHeader','home','projets','apropos','contact'].forEach(id=>q('#'+id).hidden=false);
     window.scrollTo(0,0);
   });
 })();
 
-/* ========= Switch langue depuis le site ========= */
+/* Lang toggles (site) */
 q('#frBtn').onclick=()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); };
 q('#enBtn').onclick=()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); };
 q('#esBtn').onclick=()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); };
 
-/* ========= Chargement images (dossier unique: /images) ========= */
-function setSrc(img, file){
-  img.src = "images/" + file + "?v=" + Date.now(); // force refresh
-  img.onerror = () => {
-    console.warn("Introuvable:", img.src);
-    img.style.opacity = .35;
-    img.style.borderStyle = 'dashed';
-    img.alt += " (introuvable)";
-  };
+/* Images depuis /images */
+function setSrc(img,file){
+  img.src="images/"+file;
+  img.onerror=()=>{ console.warn("Introuvable:",img.src); img.style.opacity=.35; img.style.borderStyle='dashed'; };
 }
-qa('img[data-file]').forEach(img=>{
-  setSrc(img, img.getAttribute('data-file'));
-});
+qa('img[data-file]').forEach(img=>setSrc(img,img.getAttribute('data-file')));
 
-/* ========= Lightbox ========= */
+/* Lightbox */
 const box=q('#lightbox'), big=q('#lightImg');
 document.addEventListener('click',e=>{
-  const img=e.target.closest('.ph');
-  if(img){ big.src=img.src; big.alt=img.alt; box.style.display='flex'; box.focus(); }
+  const img=e.target.closest('.ph'); if(img){ big.src=img.src; big.alt=img.alt; box.style.display='flex'; box.focus(); }
 });
 box.addEventListener('click',()=>{ box.style.display='none'; big.src=''; });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') box.click(); });
 
-/* ========= Email menu ========= */
+/* Email menu */
 (function(){
   const btn=q('#emailBtn'), menu=q('#emailMenu'), addr='24joyssi@gmail.com';
   btn.addEventListener('click',()=>{ menu.style.display = (menu.style.display==='block'?'none':'block'); });
   document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
-  q('#copyMail').addEventListener('click',async(event)=>{
-    try{ await navigator.clipboard.writeText(addr); event.target.textContent=STR[lang].email.copy+' ✓'; setTimeout(()=>{event.target.textContent=STR[lang].email.copy;},1200);}catch{ alert(addr); }
-  });
+  q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent=STR[lang].email.copy+' ✓'; setTimeout(()=>ev.target.textContent=STR[lang].email.copy,1200);}catch{ alert(addr); }});
 })();
 
-/* Init i18n pour elements déjà visibles (splash) */
-document.addEventListener('DOMContentLoaded', applyI18n);
+/* Tabs projets */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    t.classList.add('active');
+    const key=t.dataset.tab;
+    document.querySelectorAll('.project').forEach(p=>p.classList.remove('active'));
+    document.getElementById('p-'+key).classList.add('active');
+    document.getElementById('p-'+key).scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
 </script>
 </body>
 </html>
