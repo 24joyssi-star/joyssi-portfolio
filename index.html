@@ -12,70 +12,91 @@
     --text:#111;
     --muted:#666;
     --border:#e6e6e6;
-    --chip:#0d1ed3;
-    --chipText:#0d1ed3;
+    --bg:#ffffff;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
   a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
   .container{max-width:1120px;margin:0 auto;padding:24px}
-  header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:20}
+  /* HEADER */
+  header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--border)}
   .row{display:flex;align-items:center;gap:16px}
   .grow{flex:1}
-  .brand{font-family:Anton, sans-serif;font-size:22px;letter-spacing:1px;line-height:1;display:inline-block;padding:8px 10px;border-radius:10px;border:2px solid var(--blue);cursor:pointer;user-select:none;animation:pulse 1.3s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(13,30,211,.45)}70%{box-shadow:0 0 0 10px rgba(13,30,211,0)}100%{box-shadow:0 0 0 0 rgba(13,30,211,0)}}
-  nav a{font-weight:800;margin:0 8px;padding:8px 14px;border:2px solid var(--blue);border-radius:999px}
+  .brand{font-family:Anton,sans-serif;letter-spacing:.5px;font-size:22px;line-height:1;
+    padding:8px 10px;border-radius:10px;border:2px solid var(--blue);user-select:none;
+    animation:pulse 1.35s infinite;display:inline-block}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(13,30,211,.45)}
+    70%{box-shadow:0 0 0 12px rgba(13,30,211,0)}100%{box-shadow:0 0 0 0 rgba(13,30,211,0)}}
+  nav a{font-weight:800;margin:0 6px;padding:10px 14px;border:2px solid var(--blue);border-radius:999px;white-space:nowrap}
   nav a.active{background:var(--blue);color:#fff}
-  .hero{padding:60px 24px 32px}
-  .title{font-family:Anton, sans-serif;font-size:88px;line-height:.9;margin:6px 0}
+  #langSwitch{border-color:#bbb !important;color:#444 !important}
+
+  main{min-height:60vh;padding-top:8px}
+
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;border-radius:999px;padding:14px 22px;border:2px solid var(--blue)}
+  .btn.primary{background:var(--blue);color:#fff}
+  .btn.ghost{background:#fff;color:var(--blue)}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{border:2px solid var(--blue);border-radius:999px;padding:6px 12px;font-weight:800;color:var(--blue);background:#fff}
+
+  /* TYPO SECTIONS */
+  .hero{padding:56px 0 24px}
+  .title{font-family:Anton,sans-serif;font-size:88px;line-height:.9;margin:0 0 8px}
   .lead{font-size:18px;color:#222;max-width:820px}
-  .button{display:inline-flex;align-items:center;gap:10px;font-weight:800;padding:14px 22px;border:2px solid var(--blue);border-radius:999px}
-  .button.primary{background:var(--blue);color:#fff}
-  .chips{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}
-  .chip{border:2px solid var(--blue);border-radius:999px;padding:6px 12px;font-weight:800;color:var(--chipText);background:#fff}
-  .section{padding:24px}
-  .section h2{font-family:Anton, sans-serif;font-size:36px;margin:0 0 10px}
+  .section{padding:24px 0}
+  .section h2{font-family:Anton,sans-serif;font-size:36px;margin:0 0 12px}
+  .muted{color:var(--muted)}
+
+  /* GRID PROJECTS */
   .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-  @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.title{font-size:56px}}
+  @media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.title{font-size:56px}}
   @media (max-width:560px){.grid{grid-template-columns:1fr}}
-  .card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fafafa}
+  .card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fafafa;display:flex;flex-direction:column}
   .thumb{width:100%;aspect-ratio:4/3;object-fit:cover;background:#f2f2f2}
   .card-body{padding:12px 14px}
   .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
   .tag{font-size:12px;border:1.5px solid var(--blue);color:var(--blue);padding:3px 8px;border-radius:999px;font-weight:700}
-  .muted{color:var(--muted)}
-  footer{border-top:1px solid var(--border);margin-top:32px}
-  .socials{display:flex;gap:12px;margin-top:10px}
-  .iconBtn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--blue);border-radius:999px;padding:10px 14px;font-weight:800}
-  /* Projet detail */
+
+  /* PROJECT DETAIL */
   .detail-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
   @media (max-width:880px){.detail-hero{grid-template-columns:1fr}}
   .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
-  .gallery img{width:100%;height:260px;object-fit:cover;border-radius:12px;cursor:pointer;border:1px solid var(--border)}
-  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:50}
+  .gallery img{width:100%;height:260px;object-fit:cover;border-radius:12px;border:1px solid var(--border);cursor:pointer}
+
+  /* LIGHTBOX */
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:50}
   .lightbox img{max-width:92vw;max-height:92vh;border-radius:10px}
   .closeX{position:absolute;top:20px;right:24px;font-size:14px;color:#fff;border:2px solid #fff;border-radius:999px;padding:6px 10px;cursor:pointer}
-  /* FILTRES */
+
+  /* FILTER DROPDOWNS */
   .filterBar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
   .dropdown{position:relative}
   .dropBtn{border:2px solid var(--blue);border-radius:999px;padding:10px 14px;font-weight:800;background:#fff}
-  .menu{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid var(--border);border-radius:12px;min-width:260px;padding:8px;display:none;z-index:10;box-shadow:0 10px 30px rgba(0,0,0,.07)}
+  .menu{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid var(--border);
+    border-radius:12px;min-width:270px;padding:8px;display:none;z-index:10;box-shadow:0 10px 30px rgba(0,0,0,.08)}
   .menu.open{display:block}
   .menu .group{padding:6px 8px}
   .menu label{display:flex;align-items:center;gap:10px;padding:6px 4px}
+
   /* SPLASH */
   .splash{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;z-index:100}
-  .splash .big{font-family:Anton, sans-serif;color:var(--blue);font-size:90px;letter-spacing:.5px;cursor:pointer;user-select:none}
+  .splash .big{font-family:Anton,sans-serif;color:var(--blue);font-size:90px;letter-spacing:.5px;cursor:pointer;user-select:none}
   .langPick{display:flex;gap:8px}
   .langPick button{border:2px solid var(--blue);color:var(--blue);background:#000;border-radius:999px;padding:8px 12px;font-weight:800}
+  footer{border-top:1px solid var(--border);margin-top:32px}
+  .socials{display:flex;gap:12px;margin-top:10px}
+  .iconBtn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--blue);border-radius:999px;padding:10px 14px;font-weight:800}
 </style>
 </head>
 <body>
 
-<!-- SPLASH (cliquer JOYSSI pour entrer) -->
-<div id="splash" class="splash">
-  <div id="enterJoyssi" class="big">JOYSSI</div>
-  <div class="langPick">
+<!-- SPLASH (écran d’entrée noir : cliquer JOYSSI) -->
+<div id="splash" class="splash" aria-label="Écran d’entrée">
+  <div id="enterJoyssi" class="big" title="Entrer">JOYSSI</div>
+  <div class="langPick" aria-label="Choisir la langue">
     <button data-lang="fr">FR</button>
     <button data-lang="en">EN</button>
     <button data-lang="es">ES</button>
@@ -83,7 +104,7 @@
 </div>
 
 <header>
-  <div class="container row">
+  <div class="container row" style="min-height:64px">
     <a class="brand" href="#/" id="brandTop">JOYSSI</a>
     <div class="grow"></div>
     <nav id="topNav">
@@ -91,7 +112,7 @@
       <a href="#/projets" data-i="nav.projects">PROJETS</a>
       <a href="#/a-propos" data-i="nav.about">À PROPOS</a>
       <a href="#/contact" data-i="nav.contact">CONTACT</a>
-      <a href="#" id="langSwitch" class="button" style="border-color:#ddd;color:#555">FR</a>
+      <a href="#" id="langSwitch" class="btn">FR</a>
     </nav>
   </div>
 </header>
@@ -119,118 +140,55 @@
 </div>
 
 <script>
-/* ------------- i18n ------------- */
+/* ===================== i18n ===================== */
 const I = {
-  fr:{
-    nav:{home:"ACCUEIL",projects:"PROJETS",about:"À PROPOS",contact:"CONTACT"},
-    heroTitle:"JOYSSI",
-    heroLead:"Directeur artistique — Styliste — Photographe",
-    heroBtn:"Voir les projets",
-    aboutTitle:"À propos",
-    aboutHome:`Je suis Joyssi — directeur artistique, styliste et photographe.
-    J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
-    projets dans la mode et la culture. Ces premières expériences m’ont permis de
-    comprendre le processus créatif dans sa globalité et de me forger une vision précise,
-    sensible et structurée.
-    Aujourd’hui, je développe mes propres projets en tant que créatif indépendant. Je conçois
-    des identités visuelles complètes pour des marques, des artistes ou des événements, en
-    mobilisant la direction artistique, le stylisme et la photographie.`.replace(/\n\s+/g,' '),
-    aboutMore:`J’interviens aussi en tant que directeur artistique musical : je les accompagne dans le choix
-    de leurs morceaux, de leur style musical, de leurs producteurs, et dans la direction globale
-    de leur son. En parallèle, je développe tout l’univers visuel (visuels, storytelling, identité),
-    pour que l’esthétique musicale et l’image soient parfaitement alignées et puissantes.
-    À côté de ça, j’interviens aussi en design d’espace, principalement dans des contextes
-    événementiels. Je réfléchis à l’ambiance, à la scénographie, à la façon dont un lieu devient
-    une extension visuelle de l’univers artistique ou de la marque.
-    Ma démarche est immersive et contemporaine. Elle consiste à créer des univers cohérents, à
-    articuler le fond et la forme, à relier émotion et direction visuelle avec précision et
-    intention.`.replace(/\n\s+/g,' '),
-    projectsTitle:"Projets",
-    filter:"Filtrer",
-    filterByProject:"Par projet",
-    filterByRole:"Par rôle",
-    clear:"Réinitialiser",
-    allProjects:"Tous les projets",
-    roles:{art:"Direction artistique",styling:"Stylisme",photo:"Photographie",ap:"Assistant photo",adm:"Assistant DA"},
-    details:"Détails",
-    team:"Équipe",
-    back:"Retour",
-    contactTitle:"Contact"
-  },
-  en:{
-    nav:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
-    heroTitle:"JOYSSI",
-    heroLead:"Creative Director — Stylist — Photographer",
-    heroBtn:"View projects",
-    aboutTitle:"About",
-    aboutHome:`I'm Joyssi — creative director, stylist and photographer. I started as an assistant in art direction,
-    styling and photography across fashion & culture projects. Those early experiences gave me
-    a full understanding of the creative process and a sharp, structured sensibility. Today I run my own
-    projects as an independent creative, building visual identities for brands, artists and events
-    through art direction, styling and photography.`.replace(/\n\s+/g,' '),
-    aboutMore:`I also work as a music creative director: helping artists choose tracks, sonic direction and collaborators,
-    while building the visual world (artworks, storytelling, identity) so music and image align powerfully.
-    I sometimes design spaces for events — crafting ambience and scenography so a place becomes an
-    extension of an artistic or brand universe. My approach is immersive and precise: connecting feeling
-    and visual direction with intention.`.replace(/\n\s+/g,' '),
-    projectsTitle:"Projects",
-    filter:"Filter",
-    filterByProject:"By project",
-    filterByRole:"By role",
-    clear:"Reset",
-    allProjects:"All projects",
-    roles:{art:"Art direction",styling:"Styling",photo:"Photography",ap:"Photo assistant",adm:"AD assistant"},
-    details:"Details",
-    team:"Team",
-    back:"Back",
-    contactTitle:"Contact"
-  },
-  es:{
-    nav:{home:"INICIO",projects:"PROYECTOS",about:"SOBRE MÍ",contact:"CONTACTO"},
-    heroTitle:"JOYSSI",
-    heroLead:"Director creativo — Estilista — Fotógrafo",
-    heroBtn:"Ver proyectos",
-    aboutTitle:"Sobre mí",
-    aboutHome:`Soy Joyssi — director creativo, estilista y fotógrafo. Empecé como asistente en dirección de arte,
-    estilismo y fotografía en proyectos de moda y cultura. Esas primeras experiencias me dieron una visión
-    completa del proceso creativo y una sensibilidad precisa y estructurada. Hoy desarrollo mis propios proyectos
-    como creativo independiente, construyendo identidades visuales para marcas, artistas y eventos a través de
-    dirección de arte, estilismo y fotografía.`.replace(/\n\s+/g,' '),
-    aboutMore:`También actúo como director creativo musical: acompaño a los artistas en la elección de sus temas,
-    su identidad sonora y colaboradores, y desarrollo todo el universo visual para alinear música e imagen.
-    A veces diseño espacios para eventos. Mi enfoque es inmersivo y preciso: unir emoción y dirección visual con intención.`.replace(/\n\s+/g,' '),
-    projectsTitle:"Proyectos",
-    filter:"Filtrar",
-    filterByProject:"Por proyecto",
-    filterByRole:"Por rol",
-    clear:"Restablecer",
-    allProjects:"Todos los proyectos",
-    roles:{art:"Dirección de arte",styling:"Estilismo",photo:"Fotografía",ap:"Asistente foto",adm:"Asistente DA"},
-    details:"Detalles",
-    team:"Equipo",
-    back:"Volver",
-    contactTitle:"Contacto"
-  }
+  fr:{nav:{home:"ACCUEIL",projects:"PROJETS",about:"À PROPOS",contact:"CONTACT"},
+      heroTitle:"JOYSSI",
+      heroLead:"Directeur artistique — Styliste — Photographe",
+      heroBtn:"Voir les projets",
+      aboutTitle:"À propos",
+      aboutHome:`Je suis Joyssi — directeur artistique, styliste et photographe.
+J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des projets dans la mode et la culture. Ces premières expériences m’ont permis de comprendre le processus créatif dans sa globalité et de me forger une vision précise, sensible et structurée.
+Aujourd’hui, je développe mes propres projets en tant que créatif indépendant. Je conçois des identités visuelles complètes pour des marques, des artistes ou des événements, en mobilisant la direction artistique, le stylisme et la photographie.`,
+      aboutMore:`J’interviens aussi en tant que directeur artistique musical : je les accompagne dans le choix de leurs morceaux, de leur style musical, de leurs producteurs, et dans la direction globale de leur son. En parallèle, je développe tout l’univers visuel (visuels, storytelling, identité), pour que l’esthétique musicale et l’image soient parfaitement alignées et puissantes.
+À côté de ça, j’interviens aussi en design d’espace, principalement dans des contextes événementiels. Je réfléchis à l’ambiance, à la scénographie, à la façon dont un lieu devient une extension visuelle de l’univers artistique ou de la marque.
+Ma démarche est immersive et contemporaine : créer des univers cohérents, relier émotion et direction visuelle avec précision et intention.`,
+      projectsTitle:"Projets", filter:"Filtrer", filterByProject:"Par projet", filterByRole:"Par rôle", clear:"Réinitialiser",
+      allProjects:"Tous les projets", roles:{art:"Direction artistique",styling:"Stylisme",photo:"Photographie",ap:"Assistant photo",adm:"Assistant DA"},
+      team:"Équipe", back:"Retour", contactTitle:"Contact"},
+  en:{nav:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
+      heroTitle:"JOYSSI", heroLead:"Creative Director — Stylist — Photographer", heroBtn:"View projects",
+      aboutTitle:"About",
+      aboutHome:`I'm Joyssi — creative director, stylist and photographer. I started as an assistant across fashion & culture projects, which gave me a full understanding of the creative process and a precise, structured sensibility. Today I build visual identities for brands, artists and events through art direction, styling and photography.`,
+      aboutMore:`I also work as a music creative director, helping artists define sound and collaborators while building the visual world so music and image align. I sometimes design event spaces and scenography. My approach is immersive and precise: connecting emotion and visual direction with intent.`,
+      projectsTitle:"Projects", filter:"Filter", filterByProject:"By project", filterByRole:"By role", clear:"Reset",
+      allProjects:"All projects", roles:{art:"Art direction",styling:"Styling",photo:"Photography",ap:"Photo assistant",adm:"AD assistant"},
+      team:"Team", back:"Back", contactTitle:"Contact"},
+  es:{nav:{home:"INICIO",projects:"PROYECTOS",about:"SOBRE MÍ",contact:"CONTACTO"},
+      heroTitle:"JOYSSI", heroLead:"Director creativo — Estilista — Fotógrafo", heroBtn:"Ver proyectos",
+      aboutTitle:"Sobre mí",
+      aboutHome:`Soy Joyssi — director creativo, estilista y fotógrafo. Empecé como asistente en proyectos de moda y cultura; eso me dio una visión completa del proceso creativo y una sensibilidad precisa y estructurada. Hoy desarrollo identidades visuales para marcas, artistas y eventos mediante dirección de arte, estilismo y fotografía.`,
+      aboutMore:`También actúo como director creativo musical y a veces diseño espacios para eventos. Mi enfoque es inmersivo y preciso: unir emoción y dirección visual con intención.`,
+      projectsTitle:"Proyectos", filter:"Filtrar", filterByProject:"Por proyecto", filterByRole:"Por rol", clear:"Restablecer",
+      allProjects:"Todos los proyectos", roles:{art:"Dirección de arte",styling:"Estilismo",photo:"Fotografía",ap:"Asistente foto",adm:"Asistente DA"},
+      team:"Equipo", back:"Volver", contactTitle:"Contacto"}
 };
 let LANG = localStorage.getItem('joyssi_lang') || 'fr';
 
-/* ---------- Données projets (mets les images dans /images/...) ---------- */
+/* ===================== Données projets ===================== */
+/* Mets tes fichiers à ces emplacements dans ton repo GitHub/Vercel. */
 const projects = [
   {
     id:"blind-no-plan",
     name:"BLIND NO PLAN — Campagne",
-    roles:["styling","photo","art"], // garde comme avant
+    roles:["styling","photo","art"],
     cover:"images/DSC02221.jpg",
     summary:{
       fr:"Campagne mode. Stylisme, photographie et direction artistique.",
       en:"Fashion campaign. Styling, photography & art direction.",
       es:"Campaña de moda. Estilismo, fotografía y dirección de arte."
     },
-    team:{
-      fr:"Équipe : Joyssi",
-      en:"Team: Joyssi",
-      es:"Equipo: Joyssi"
-    },
+    team:{fr:"Équipe : Joyssi", en:"Team: Joyssi", es:"Equipo: Joyssi"},
     images:[
       "images/DSC02221.jpg",
       "images/DSC02224.jpg",
@@ -243,22 +201,22 @@ const projects = [
   {
     id:"milhan-fracture",
     name:"Fracture — Milhan",
-    roles:["styling","art"], // Styliste & Directeur artistique
+    roles:["styling","art"],
     cover:"images/milhan/IMG_7399.jpg",
     summary:{
-      fr:"Série pour Studio Mirage avec Milhan. Direction artistique & stylisme par Joyssi.",
-      en:"Series for Studio Mirage with Milhan. Art direction & styling by Joyssi.",
-      es:"Serie para Studio Mirage con Milhan. Dirección de arte y estilismo por Joyssi."
+      fr:"Série pour Studio Mirage avec Milhan — DA & stylisme par Joyssi.",
+      en:"Series for Studio Mirage with Milhan — art direction & styling by Joyssi.",
+      es:"Serie para Studio Mirage con Milhan — dirección de arte y estilismo por Joyssi."
     },
     team:{
-      fr:`Associés Studio Mirage : Mélie Calamaro (@meliecalamaro), Juliette Cordillot (@juliette_cdt) — Modèle : Milhan (@milhvnhanma / @milhvn_bzd)`,
-      en:`Studio Mirage partners: Mélie Calamaro (@meliecalamaro), Juliette Cordillot (@juliette_cdt) — Model: Milhan (@milhvnhanma / @milhvn_bzd)`,
-      es:`Socios Studio Mirage: Mélie Calamaro, Juliette Cordillot — Modelo: Milhan`
+      fr:`Studio Mirage : Mélie Calamaro (@meliecalamaro), Juliette Cordillot (@juliette_cdt) — Modèle : Milhan (@milhvnhanma / @milhvn_bzd)`,
+      en:`Studio Mirage: Mélie Calamaro, Juliette Cordillot — Model: Milhan`,
+      es:`Studio Mirage: Mélie Calamaro, Juliette Cordillot — Modelo: Milhan`
     },
     statement:{
-      fr:`Portrait d’un homme face à lui-même. Retiré dans un hangar abandonné, il cherche le silence. Une tension intime, brute, mise en scène pour révéler fragilité et force.`,
-      en:`A man facing himself. Hidden in an abandoned warehouse, he seeks silence. Raw, intimate tension revealing both fragility and strength.`,
-      es:`Un hombre frente a sí mismo. En un almacén abandonado busca silencio. Tensión cruda e íntima entre fragilidad y fuerza.`
+      fr:`Portrait d’un homme face à lui-même, retiré dans un hangar. Une tension brute et intime révèle fragilité et force.`,
+      en:`A man facing himself in an abandoned hangar. Raw, intimate tension revealing fragility and strength.`,
+      es:`Un hombre frente a sí mismo en un hangar. Tensión cruda e íntima entre fragilidad y fuerza.`
     },
     images:[
       "images/milhan/IMG_7399.jpg",
@@ -277,9 +235,9 @@ const projects = [
     roles:["styling","photo"],
     cover:"images/mega-sue/339666353_247672421014594_8397278685892781428_n.jpg",
     summary:{
-      fr:"Photographie & stylisme pour la marque Mega Sue — looks colorés dans un cadre minimaliste.",
+      fr:"Photographie & stylisme pour la marque Mega Sue — looks colorés, cadre minimaliste.",
       en:"Photography & styling for Mega Sue — colorful looks in a minimal set.",
-      es:"Fotografía y estilismo para Mega Sue — looks coloridos en un entorno minimalista."
+      es:"Fotografía y estilismo para Mega Sue — looks coloridos en un set minimalista."
     },
     team:{fr:"—",en:"—",es:"—"},
     images:[
@@ -294,12 +252,12 @@ const projects = [
   {
     id:"drole-de-monsieur",
     name:"Drôle de Monsieur — FW24",
-    roles:["adm","ap","design","photo"], // tu as précisé assistant DA & assistant photo + graphisme/mise en page
+    roles:["adm","ap","photo"], /* assistant DA + assistant photo (+ visuels/mise en page inclus dans résumé) */
     cover:"images/ddm/464462279_18467418079001724_4296041362829498819_n.jpg",
     summary:{
-      fr:"Assistant DA & assistant photo. Préparation visuelle, retouches, design graphique et mise en page.",
-      en:"AD assistant & photo assistant. Visual prep, retouching, graphic design & layout.",
-      es:"Asistente de DA y foto. Preparación visual, retoque, diseño gráfico y maquetación."
+      fr:"Assistant DA & assistant photo : préparation visuelle, retouches, design graphique et mise en page.",
+      en:"AD assistant & photo assistant: visual prep, retouching, graphic design & layout.",
+      es:"Asistente de DA y foto: preparación visual, retoque, diseño gráfico y maquetación."
     },
     team:{fr:"—",en:"—",es:"—"},
     images:[
@@ -312,54 +270,43 @@ const projects = [
   }
 ];
 
-/* ---------- mini-router ---------- */
-const el = s=>document.querySelector(s);
-const app = el('#app');
-
-function setLang(l){
-  LANG = l; localStorage.setItem('joyssi_lang', l);
-  // update nav labels
+/* ===================== Router ===================== */
+const $ = s=>document.querySelector(s);
+const app = $("#app");
+function setLang(l){ LANG=l; localStorage.setItem('joyssi_lang',l); updateNav(); render(); }
+function updateNav(){
   const t=I[LANG];
-  const links = el('#topNav').querySelectorAll('a[href^="#/"]');
-  links[0].textContent=t.nav.home;
-  links[1].textContent=t.nav.projects;
-  links[2].textContent=t.nav.about;
-  links[3].textContent=t.nav.contact;
-  el('#langSwitch').textContent=LANG.toUpperCase();
-  render();
+  const n=$("#topNav").querySelectorAll('a[href^="#/"]');
+  n[0].textContent=t.nav.home; n[1].textContent=t.nav.projects; n[2].textContent=t.nav.about; n[3].textContent=t.nav.contact;
+  $("#langSwitch").textContent=LANG.toUpperCase();
 }
-el('#langSwitch').addEventListener('click',(e)=>{
-  e.preventDefault();
-  const order=['fr','en','es']; const n=(order.indexOf(LANG)+1)%order.length; setLang(order[n]);
-});
-document.querySelectorAll('.langPick button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-
-window.addEventListener('hashchange',render);
+$("#langSwitch").addEventListener("click",(e)=>{e.preventDefault();const order=['fr','en','es'];setLang(order[(order.indexOf(LANG)+1)%order.length]);});
+document.querySelectorAll(".langPick button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+window.addEventListener("hashchange",render);
 
 function render(){
-  const hash = location.hash || '#/';
-  el('#topNav').querySelectorAll('a').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===hash));
-  if(hash==='#/'||hash==='#') return renderHome();
-  if(hash.startsWith('#/projets/')) return renderProject(hash.split('/')[2]);
-  if(hash==='#/projets') return renderProjects();
-  if(hash==='#/a-propos') return renderAbout(true);
-  if(hash==='#/contact') return renderContact();
+  const hash=location.hash||"#/";
+  $("#topNav").querySelectorAll("a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")===hash));
+  if(hash==="#/"||hash==="#") return renderHome();
+  if(hash==="#/projets") return renderProjects();
+  if(hash.startsWith("#/projets/")) return renderProject(hash.split("/")[2]);
+  if(hash==="#/a-propos") return renderAbout(true);
+  if(hash==="#/contact") return renderContact();
   renderHome();
 }
 
-/* ---------- pages ---------- */
+/* ===================== Pages ===================== */
 function renderHome(){
   const T=I[LANG];
-  app.innerHTML = `
+  app.innerHTML=`
     <section class="hero">
       <div class="chips"><span class="chip">FR / EN / ES</span></div>
       <h1 class="title">${T.heroTitle}</h1>
       <p class="lead">${T.heroLead}</p>
       <div style="margin-top:18px">
-        <a class="button primary" href="#/projets">${T.heroBtn}</a>
+        <a class="btn primary" href="#/projets">${T.heroBtn}</a>
       </div>
     </section>
-
     <section class="section">
       <h2>${T.aboutTitle}</h2>
       <p class="muted" style="max-width:900px">${T.aboutHome}</p>
@@ -368,86 +315,81 @@ function renderHome(){
 }
 
 function renderProjects(){
-  const T=I[LANG];
-  const rolesMap = I[LANG].roles;
-  app.innerHTML = `
+  const T=I[LANG], rolesMap=T.roles;
+  app.innerHTML=`
     <section class="section">
       <div class="row" style="margin-bottom:12px">
         <h2 class="grow">${T.projectsTitle}</h2>
         <div class="filterBar">
-          <div class="dropdown" id="ddProject">
+          <div class="dropdown" id="dd">
             <button class="dropBtn">⚙️ ${T.filter}</button>
             <div class="menu">
               <div class="group"><strong>${T.filterByProject}</strong></div>
-              <div class="group" id="projectList"></div>
+              <div class="group" id="fProjects"></div>
               <hr style="border:none;border-top:1px solid var(--border)">
               <div class="group"><strong>${T.filterByRole}</strong></div>
-              <div class="group" id="roleList"></div>
-              <div class="group"><button class="button" id="clearBtn">${T.clear}</button></div>
+              <div class="group" id="fRoles"></div>
+              <div class="group"><button class="btn" id="clear">${T.clear}</button></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="grid" id="projectGrid"></div>
+      <div class="grid" id="grid"></div>
     </section>
   `;
-  // open/close dropdown
-  const dd = el('#ddProject');
-  dd.querySelector('.dropBtn').onclick = ()=>dd.querySelector('.menu').classList.toggle('open');
-  document.addEventListener('click',(e)=>{ if(!dd.contains(e.target)) dd.querySelector('.menu').classList.remove('open'); });
+  // dropdown open/close
+  const dd=$("#dd"); const menu=dd.querySelector(".menu");
+  dd.querySelector(".dropBtn").onclick=()=>menu.classList.toggle("open");
+  document.addEventListener("click",(e)=>{ if(!dd.contains(e.target)) menu.classList.remove("open"); });
 
-  // populate filters
-  el('#projectList').innerHTML = projects.map(p=>`<label><input type="checkbox" name="p" value="${p.id}"> ${p.name}</label>`).join('');
-  el('#roleList').innerHTML = [...new Set(projects.flatMap(p=>p.roles))]
-    .map(r=>`<label><input type="checkbox" name="r" value="${r}"> ${rolesMap[r]||r}</label>`).join('');
-  el('#clearBtn').onclick=()=>{ dd.querySelectorAll('input').forEach(i=>i.checked=false); draw(); };
+  $("#fProjects").innerHTML=projects.map(p=>`<label><input type="checkbox" name="p" value="${p.id}"> ${p.name}</label>`).join('');
+  $("#fRoles").innerHTML=[...new Set(projects.flatMap(p=>p.roles))]
+      .map(r=>`<label><input type="checkbox" name="r" value="${r}"> ${rolesMap[r]||r}</label>`).join('');
+  dd.querySelectorAll("input").forEach(i=>i.addEventListener("change",draw));
+  $("#clear").onclick=()=>{dd.querySelectorAll("input").forEach(i=>i.checked=false); draw();};
 
-  dd.querySelectorAll('input').forEach(i=>i.addEventListener('change',draw));
   function draw(){
-    const pid = [...dd.querySelectorAll('input[name="p"]:checked')].map(i=>i.value);
-    const roles = [...dd.querySelectorAll('input[name="r"]:checked')].map(i=>i.value);
-    const list = projects.filter(p=>{
-      const okP = pid.length? pid.includes(p.id): true;
-      const okR = roles.length? roles.some(r=>p.roles.includes(r)): true;
-      return okP && okR;
+    const pid=[...dd.querySelectorAll('input[name="p"]:checked')].map(i=>i.value);
+    const roles=[...dd.querySelectorAll('input[name="r"]:checked')].map(i=>i.value);
+    const list=projects.filter(p=>{
+      const okP=pid.length?pid.includes(p.id):true;
+      const okR=roles.length?roles.some(r=>p.roles.includes(r)):true;
+      return okP&&okR;
     });
-    el('#projectGrid').innerHTML = list.length? list.map(Card).join('') : `<p class="muted">${T.allProjects}</p>`;
+    $("#grid").innerHTML=list.map(Card).join('') || `<p class="muted">${T.allProjects}</p>`;
   }
   function Card(p){
-    return `
-      <a class="card" href="#/projets/${p.id}">
-        <img class="thumb" src="${p.cover}" alt="${p.name}">
-        <div class="card-body">
-          <div style="font-weight:800">${p.name}</div>
-          <div class="meta">${p.roles.map(r=>`<span class="tag">${rolesMap[r]||r}</span>`).join('')}</div>
-          <div class="muted" style="margin-top:6px;font-size:14px">${p.summary[LANG]}</div>
-        </div>
-      </a>
-    `;
+    return `<a class="card" href="#/projets/${p.id}">
+      <img class="thumb" src="${p.cover}" alt="${p.name}">
+      <div class="card-body">
+        <div style="font-weight:800">${p.name}</div>
+        <div class="meta">${p.roles.map(r=>`<span class="tag">${rolesMap[r]||r}</span>`).join('')}</div>
+        <div class="muted" style="margin-top:6px;font-size:14px">${p.summary[LANG]}</div>
+      </div>
+    </a>`;
   }
   draw();
 }
 
 function renderProject(id){
-  const T=I[LANG];
-  const p = projects.find(x=>x.id===id);
-  if(!p){ location.hash = "#/projets"; return; }
-  app.innerHTML = `
+  const T=I[LANG]; const p=projects.find(x=>x.id===id);
+  if(!p){location.hash="#/projets";return;}
+  app.innerHTML=`
     <section class="section">
-      <a class="button" href="#/projets">← ${T.back}</a>
+      <a class="btn" href="#/projets">← ${T.back}</a>
     </section>
     <section class="section detail-hero">
       <div>
-        <img src="${p.cover}" alt="${p.name}" style="width:100%;border-radius:14px;border:1px solid var(--border);object-fit:cover;aspect-ratio:4/3;">
+        <img src="${p.cover}" alt="${p.name}" style="width:100%;border-radius:14px;border:1px solid var(--border);aspect-ratio:4/3;object-fit:cover">
       </div>
       <div>
         <h2>${p.name}</h2>
         <div class="meta" style="margin:10px 0 16px">
-          ${p.roles.map(r=>`<span class="tag">${I[LANG].roles[r]||r}</span>`).join('')}
+          ${p.roles.map(r=>`<span class="tag">${T.roles[r]||r}</span>`).join('')}
         </div>
         <p class="muted">${p.summary[LANG]}</p>
-        ${p.statement? `<p class="muted" style="margin-top:8px">${(p.statement[LANG]||'')}</p>`:''}
-        <h3 style="margin-top:18px">${T.team}</h3>
+        ${p.statement? `<p class="muted" style="margin-top:8px">${p.statement[LANG]||""}</p>`:""}
+        <h3 style="margin:18px 0 6px">${T.team}</h3>
         <p class="muted">${p.team[LANG]}</p>
       </div>
     </section>
@@ -457,30 +399,26 @@ function renderProject(id){
       </div>
     </section>
   `;
-  // Lightbox
-  document.querySelectorAll('.gallery img').forEach(img=>{
-    img.addEventListener('click',()=>{
-      el('#lbImg').src = img.dataset.full;
-      el('#lightbox').style.display='flex';
-    });
+  document.querySelectorAll(".gallery img").forEach(img=>{
+    img.addEventListener("click",()=>{ $("#lbImg").src=img.dataset.full; $("#lightbox").style.display="flex"; });
   });
-  el('#lbClose').onclick = ()=>el('#lightbox').style.display='none';
-  el('#lightbox').addEventListener('click',e=>{ if(e.target.id==='lightbox') el('#lightbox').style.display='none'; });
+  $("#lbClose").onclick=()=>$("#lightbox").style.display="none";
+  $("#lightbox").addEventListener("click",e=>{ if(e.target.id==="lightbox") $("#lightbox").style.display="none"; });
 }
 
 function renderAbout(full=false){
   const T=I[LANG];
-  app.innerHTML = `
+  app.innerHTML=`
     <section class="section">
       <h2>${T.aboutTitle}</h2>
       <p class="muted" style="max-width:900px">${T.aboutHome}</p>
-      ${full? `<p class="muted" style="max-width:900px;margin-top:10px">${T.aboutMore}</p>`:''}
+      ${full? `<p class="muted" style="max-width:900px;margin-top:10px">${T.aboutMore}</p>`:""}
     </section>
   `;
 }
 function renderContact(){
   const T=I[LANG];
-  app.innerHTML = `
+  app.innerHTML=`
     <section class="section">
       <h2>${T.contactTitle}</h2>
       <div class="socials" style="margin-top:14px">
@@ -491,19 +429,13 @@ function renderContact(){
   `;
 }
 
-/* ---------- splash interactions ---------- */
-el('#enterJoyssi').addEventListener('click', ()=>{
-  el('#splash').style.display='none';
-  location.hash = "#/"; // arrive sur la home
-});
-document.querySelectorAll('.langPick button').forEach(b=>b.addEventListener('click', ()=> {
-  // le bouton langue ne ferme pas le splash : on choisit puis on clique JOYSSI
-}));
+/* ===================== Splash ===================== */
+$("#enterJoyssi").addEventListener("click",()=>{ $("#splash").style.display="none"; location.hash="#/"; });
+document.querySelectorAll(".langPick button").forEach(b=>b.addEventListener("click",()=>{}));
 
 /* init */
-document.getElementById('year').textContent = new Date().getFullYear();
-setLang(LANG);
-render();
+document.getElementById("year").textContent=new Date().getFullYear();
+(function init(){ const saved=localStorage.getItem('joyssi_lang'); if(saved) LANG=saved; updateNav(); render();})();
 </script>
 </body>
 </html>
