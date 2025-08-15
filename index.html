@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>JOYSSI — Portfolio</title>
 <style>
-:root{ --blue:#090794; }
+:root{ --blue:#090794 }
 *{ box-sizing:border-box }
 html{ scroll-behavior:smooth }
 body{ margin:0; background:#fff; color:#000; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif }
@@ -30,31 +30,42 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
 .rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
 
-/* Hero */
-.hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center }
-@media(max-width:900px){ .hero{ grid-template-columns:1fr } }
-.hero h1{ margin:0; font:900 min(14vw,120px)/0.9 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:#000; animation:none }
-.sub{ opacity:.9; margin:12px 0 18px }
-.btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
-.thumbs{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
-.thumbs img{ width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:12px; border:1px solid rgba(0,0,0,.12); background:#f2f2f2 }
+/* Hero (Accueil = À propos seulement) */
+.hero-about{ max-width:860px }
+.hero-about h1{ margin:6px 0 14px; font:900 clamp(36px,8vw,64px)/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.03em }
 
-/* Projets (sélecteur) */
-.tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-top:18px }
-.tab{ border:2px solid var(--blue); background:#fff; color:#000; padding:10px 14px; border-radius:999px; font-weight:900; cursor:pointer }
-.tab.active{ background:var(--blue); color:#fff; }
-.project{ margin-top:18px; display:none }
-.project.active{ display:block }
-.project h3{ margin:12px 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+/* Boutons */
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
+
+/* PROJETS — layout split */
+.proj-layout{ display:grid; grid-template-columns:320px 1fr; gap:24px }
+@media(max-width:900px){ .proj-layout{ grid-template-columns:1fr } }
+
+/* Filtres */
+.filters{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 16px }
+.filter{ border:2px solid var(--blue); background:#fff; color:#000; padding:8px 12px; border-radius:999px; font-weight:900; cursor:pointer; font-size:13px }
+.filter.active{ background:var(--blue); color:#fff }
+
+/* Liste projets */
+.list{ display:flex; flex-direction:column; gap:10px; max-height:520px; overflow:auto; padding-right:6px }
+.card{ display:flex; gap:10px; align-items:center; padding:8px; border:1px solid rgba(0,0,0,.12); border-radius:12px; background:#fff; cursor:pointer }
+.card:hover{ outline:2px solid var(--blue) }
+.card img{ width:64px; height:96px; object-fit:cover; border-radius:8px; background:#f2f2f2; border:1px solid rgba(0,0,0,.1) }
+.card h4{ margin:0; font:900 14px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.card small{ display:block; opacity:.7; font-weight:700 }
+
+/* Détail projet (pas de grandes images par défaut) */
+.detail h3{ margin:0 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
 .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
 .chip{ border:2px solid var(--blue); border-radius:999px; padding:4px 10px; font-weight:800; font-size:12px }
-.grid{ display:flex; flex-wrap:wrap; gap:14px }
-.ph{ width:300px; height:600px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:12px; cursor:zoom-in }
-@media (max-width:340px){ .ph{ width:260px; height:520px } }
+.credits{ margin:10px 0 16px; font-weight:700 }
+.thumbs{ display:flex; flex-wrap:wrap; gap:10px }
+.thumb{ width:160px; height:240px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
+@media(max-width:380px){ .thumb{ width:140px; height:210px } }
 
 /* Lightbox */
 .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:100 }
-.lightbox img{ max-width:90vw; max-height:90vh; border-radius:12px }
+.lightbox img{ max-width:92vw; max-height:92vh; border-radius:12px }
 .lightbox:focus{ outline:none }
 
 /* Contact */
@@ -93,7 +104,6 @@ nav a:hover{ opacity:1; text-decoration:underline }
     <nav>
       <a href="#home" data-i18n="menu.home">ACCUEIL</a>
       <a href="#projets" data-i18n="menu.projects">PROJETS</a>
-      <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
       <a href="#contact" data-i18n="menu.contact">CONTACT</a>
       <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
       <span class="lang-top">
@@ -103,99 +113,57 @@ nav a:hover{ opacity:1; text-decoration:underline }
   </div>
 </header>
 
-<!-- ACCUEIL -->
+<!-- ACCUEIL = À PROPOS UNIQUEMENT -->
 <section id="home" class="section" hidden>
-  <span class="label" data-i18n="home.label">ACCUEIL</span>
-  <div class="hero" style="margin-top:18px">
-    <div>
-      <h1>JOYSSI</h1>
-      <p class="sub" data-i18n="hero.sub">Directeur artistique — Styliste — Photographe</p>
+  <span class="label" data-i18n="menu.about">A PROPOS</span>
+  <div class="hero-about">
+    <h1>JOYSSI</h1>
+    <p id="aboutTxt">
+      <!-- ✍️ Remplace ce texte par ta présentation FR.
+           Mets aussi les versions EN/ES plus bas dans l’objet STR. -->
+      Je suis Joyssi — directeur artistique, styliste et photographe.
+      J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
+      cohérents et puissants — du concept à la direction de shooting.
+    </p>
+    <p>
       <a class="btn" href="#projets" data-i18n="hero.cta">Voir les projets</a>
-    </div>
-    <div class="thumbs">
-      <img data-file="DSC02221.jpg" alt="Blind No Plan — aperçu 1" loading="lazy">
-      <img data-file="DSC02224.jpg" alt="Blind No Plan — aperçu 2" loading="lazy">
-    </div>
+    </p>
   </div>
   <div class="rule"></div>
 </section>
 
-<!-- PROJETS -->
+<!-- PROJETS : filtres + liste + détail -->
 <section id="projets" class="section" hidden>
   <span class="label" data-i18n="menu.projects">PROJETS</span>
 
-  <!-- sélecteur -->
-  <div class="tabs" role="tablist" aria-label="Projets">
-    <button class="tab active" data-tab="blind">Blind No Plan</button>
-    <button class="tab" data-tab="mega">Mega Sue</button>
-    <button class="tab" data-tab="ddm">Drôle de Monsieur</button>
-    <button class="tab" data-tab="milhan">Milhan</button>
+  <div class="proj-layout" style="margin-top:12px">
+    <!-- Colonne gauche : filtres + liste -->
+    <aside>
+      <div style="font-weight:900;margin-bottom:6px">Filtres</div>
+      <div class="filters" id="filters">
+        <button class="filter active" data-tag="all">Tous</button>
+        <button class="filter" data-tag="stylist">Stylisme</button>
+        <button class="filter" data-tag="art">Direction artistique</button>
+        <button class="filter" data-tag="photographer">Photographie</button>
+        <button class="filter" data-tag="assistant-photo">Assistant photo</button>
+        <button class="filter" data-tag="assistant-ad">Assistant DA</button>
+        <button class="filter" data-tag="graphic">Design graphique</button>
+      </div>
+
+      <div style="font-weight:900;margin:12px 0 6px">Projets</div>
+      <div class="list" id="projList" role="listbox" aria-label="Liste des projets"></div>
+    </aside>
+
+    <!-- Colonne droite : détail projet -->
+    <div class="detail" id="detail">
+      <h3 id="dTitle">Sélectionne un projet</h3>
+      <p id="dDesc" style="max-width:70ch; opacity:.9"></p>
+      <div class="chips" id="dRoles"></div>
+      <div class="credits" id="dCredits"></div>
+      <div class="thumbs" id="dThumbs"></div>
+    </div>
   </div>
 
-  <!-- BLIND -->
-  <article class="project active" id="p-blind" aria-labelledby="t-blind">
-    <h3>BLIND NO PLAN — <span data-i18n="roles.campaign">Campagne</span></h3>
-    <p data-i18n="blind.desc">Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.</p>
-    <div class="chips"><span class="chip" data-i18n="roles.photographer">Photographe</span><span class="chip" data-i18n="roles.stylist">Styliste</span></div>
-    <div class="grid">
-      <img class="ph" data-file="DSC02221.jpg" alt="Blind No Plan 1" loading="lazy">
-      <img class="ph" data-file="DSC02224.jpg" alt="Blind No Plan 2" loading="lazy">
-      <img class="ph" data-file="DSC02230.jpg" alt="Blind No Plan 3" loading="lazy">
-      <img class="ph" data-file="DSC02234.jpg" alt="Blind No Plan 4" loading="lazy">
-      <img class="ph" data-file="DSC02237.jpg" alt="Blind No Plan 5" loading="lazy">
-      <img class="ph" data-file="DSC03110.jpg" alt="Blind No Plan 6" loading="lazy">
-    </div>
-  </article>
-
-  <!-- MEGA -->
-  <article class="project" id="p-mega">
-    <h3>Mega Sue</h3>
-    <p data-i18n="mega.desc">Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.</p>
-    <div class="chips"><span class="chip" data-i18n="roles.photography">Photographie</span><span class="chip" data-i18n="roles.styling">Stylisme</span></div>
-    <div class="grid">
-      <img class="ph" data-file="339666353_247672421014594_8397278685892781428_n.jpg" alt="Mega Sue 1" loading="lazy">
-      <img class="ph" data-file="340161934_246336221192578_2732525740245454873_n.jpg" alt="Mega Sue 2" loading="lazy">
-      <img class="ph" data-file="340344943_528187286144781_7924168324666929102_n.jpg" alt="Mega Sue 3" loading="lazy">
-      <img class="ph" data-file="340150327_149185328090165_7242448741521794319_n.jpg" alt="Mega Sue 4" loading="lazy">
-      <img class="ph" data-file="339670857_796988891299798_5135637208194398707_n.jpg" alt="Mega Sue 5" loading="lazy">
-      <img class="ph" data-file="340185756_2441590042677026_8394769900836223507_n.jpg" alt="Mega Sue 6" loading="lazy">
-    </div>
-  </article>
-
-  <!-- DDM -->
-  <article class="project" id="p-ddm">
-    <h3>Drôle de Monsieur</h3>
-    <p data-i18n="ddm.desc">Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale.</p>
-    <div class="chips"><span class="chip" data-i18n="roles.assistantAD">Assistant DA</span><span class="chip" data-i18n="roles.assistantPhoto">Assistant Photo</span><span class="chip" data-i18n="roles.graphic">Design graphique</span></div>
-    <div class="grid">
-      <img class="ph" data-file="464462279_18467418079001724_4296041362829498819_n.jpg" alt="DDM 1" loading="lazy">
-      <img class="ph" data-file="464272154_18467418088001724_3840538998036405615_n.jpg" alt="DDM 2" loading="lazy">
-      <img class="ph" data-file="464157675_18467418052001724_4103426957022696783_n.jpg" alt="DDM 3" loading="lazy">
-      <img class="ph" data-file="464167162_18467418043001724_5217675012693912393_n.jpg" alt="DDM 4" loading="lazy">
-      <img class="ph" data-file="464055292_18467418031001724_89644642640605347_n.jpg" alt="DDM 5" loading="lazy">
-    </div>
-  </article>
-
-  <!-- MILHAN -->
-  <article class="project" id="p-milhan">
-    <h3>Milhan</h3>
-    <p data-i18n="milhan.desc">Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)</p>
-    <div class="chips"><span class="chip" data-i18n="roles.stylist">Styliste</span><span class="chip" data-i18n="roles.art">Directeur artistique</span></div>
-    <div class="grid" id="milhanGrid"><!-- Ajoute tes images plus tard --></div>
-  </article>
-
-  <div class="rule"></div>
-</section>
-
-<!-- A PROPOS -->
-<section id="apropos" class="section" hidden>
-  <span class="label" data-i18n="menu.about">A PROPOS</span>
-  <h3 style="margin:12px 0 6px" data-i18n="about.title">À propos</h3>
-  <p id="aboutTxt">
-    Je suis Joyssi — directeur artistique, styliste et photographe.
-    J’allie identité visuelle, stylisme et photographie pour créer des univers précis,
-    cohérents et puissants — du concept à la direction de shooting.
-  </p>
   <div class="rule"></div>
 </section>
 
@@ -229,82 +197,122 @@ nav a:hover{ opacity:1; text-decoration:underline }
 </div>
 
 <script>
+/* ========= Données projets =========
+   Place tes images dans /images (noms EXACTS) */
+const PROJECTS = [
+  {
+    id:"blind", title:"BLIND NO PLAN",
+    roles:["stylist","photographer"],
+    credits: { fr:"Crédits : Stylisme, Photographie", en:"Credits: Styling, Photography", es:"Créditos: Estilismo, Fotografía" },
+    desc:{
+      fr:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.",
+      en:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks.",
+      es:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca. Dirección completa del rodaje y looks."
+    },
+    cover:"DSC02221.jpg",
+    images:["DSC02221.jpg","DSC02224.jpg","DSC02230.jpg","DSC02234.jpg","DSC02237.jpg","DSC03110.jpg"]
+  },
+  {
+    id:"mega", title:"Mega Sue",
+    roles:["stylist","photographer"],
+    credits:{ fr:"Crédits : Photographie & Stylisme", en:"Credits: Photography & Styling", es:"Créditos: Fotografía y Estilismo" },
+    desc:{
+      fr:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.",
+      en:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame.",
+      es:"Fotografía y Estilismo para Mega Sue. Estética colorida y expresiva en un marco minimalista."
+    },
+    cover:"339666353_247672421014594_8397278685892781428_n.jpg",
+    images:[
+      "339666353_247672421014594_8397278685892781428_n.jpg",
+      "340161934_246336221192578_2732525740245454873_n.jpg",
+      "340344943_528187286144781_7924168324666929102_n.jpg",
+      "340150327_149185328090165_7242448741521794319_n.jpg",
+      "339670857_796988891299798_5135637208194398707_n.jpg",
+      "340185756_2441590042677026_8394769900836223507_n.jpg"
+    ]
+  },
+  {
+    id:"ddm", title:"Drôle de Monsieur",
+    roles:["assistant-ad","assistant-photo","graphic"],
+    credits:{
+      fr:"Crédits : Assistant directeur artistique, Assistant photographe, Design graphique",
+      en:"Credits: Assistant Art Director, Assistant Photographer, Graphic Design",
+      es:"Créditos: Asistente de dirección de arte, Asistente de fotografía, Diseño gráfico"
+    },
+    desc:{
+      fr:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale.",
+      en:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout — ensuring overall aesthetic consistency.",
+      es:"Asistente de dirección de arte y de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final — para asegurar la coherencia estética global."
+    },
+    cover:"464462279_18467418079001724_4296041362829498819_n.jpg",
+    images:[
+      "464462279_18467418079001724_4296041362829498819_n.jpg",
+      "464272154_18467418088001724_3840538998036405615_n.jpg",
+      "464157675_18467418052001724_4103426957022696783_n.jpg",
+      "464167162_18467418043001724_5217675012693912393_n.jpg",
+      "464055292_18467418031001724_89644642640605347_n.jpg"
+    ]
+  },
+  {
+    id:"milhan", title:"Milhan",
+    roles:["stylist","art"],
+    credits:{ fr:"Crédits : Styliste & Directeur artistique", en:"Credits: Stylist & Art Director", es:"Créditos: Estilista y Director de arte" },
+    desc:{
+      fr:"Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)",
+      en:"Shoot for Milhan — Roles: Stylist & Art Director. (Images coming soon)",
+      es:"Sesión para Milhan — Roles: Estilista y Director de arte. (Imágenes próximamente)"
+    },
+    cover:"DSC02221.jpg",
+    images:[]
+  }
+];
+
 /* ========= i18n ========= */
 const STR={
-  fr:{menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"},
-      home:{label:"ACCUEIL"}, hero:{sub:"Directeur artistique — Styliste — Photographe",cta:"Voir les projets"},
-      roles:{campaign:"Campagne",photographer:"Photographe",stylist:"Styliste",photography:"Photographie",styling:"Stylisme",art:"Directeur artistique",assistantAD:"Assistant DA",assistantPhoto:"Assistant Photo",graphic:"Design graphique"},
-      blind:{desc:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks."},
-      mega:{desc:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste."},
-      ddm:{desc:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale."},
-      milhan:{desc:"Shooting pour Milhan — Rôles : Styliste & Directeur artistique. (Images à venir)"},
-      about:{title:"À propos",txt:"Ici, version courte FR."},
-      contact:{title:"Contact"},
-      email:{open:"Ouvrir avec",copy:"Copier l’adresse"}
-  },
-  en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"},
-      home:{label:"HOME"}, hero:{sub:"Art Director — Stylist — Photographer",cta:"See projects"},
-      roles:{campaign:"Campaign",photographer:"Photographer",stylist:"Stylist",photography:"Photography",styling:"Styling",art:"Art Director",assistantAD:"Assistant AD",assistantPhoto:"Assistant Photographer",graphic:"Graphic design"},
-      blind:{desc:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks."},
-      mega:{desc:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame."},
-      ddm:{desc:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout — ensuring overall aesthetic consistency."},
-      milhan:{desc:"Shoot for Milhan — Roles: Stylist & Art Director. (Images coming soon)"},
-      about:{title:"About",txt:"Short EN version here."},
-      contact:{title:"Contact"},
-      email:{open:"Open with",copy:"Copy address"}
-  },
-  es:{menu:{home:"INICIO",projects:"PROYECTOS",about:"SOBRE MÍ",contact:"CONTACTO"},
-      home:{label:"INICIO"}, hero:{sub:"Director de arte — Estilista — Fotógrafo",cta:"Ver proyectos"},
-      roles:{campaign:"Campaña",photographer:"Fotógrafo",stylist:"Estilista",photography:"Fotografía",styling:"Estilismo",art:"Director de arte",assistantAD:"Asistente de DA",assistantPhoto:"Asistente de foto",graphic:"Diseño gráfico"},
-      blind:{desc:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca. Dirección completa del rodaje y looks."},
-      mega:{desc:"Fotografía y estilismo para Mega Sue. Estética colorida y expresiva en un marco minimalista."},
-      ddm:{desc:"Asistente de dirección de arte y asistente de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final — para asegurar la coherencia estética global."},
-      milhan:{desc:"Sesión para Milhan — Roles: Estilista y Director de arte. (Imágenes próximamente)"},
-      about:{title:"Sobre mí",txt:"Versión corta ES aquí."},
-      contact:{title:"Contacto"},
-      email:{open:"Abrir con",copy:"Copiar dirección"}
-  }
+  fr:{menu:{home:"ACCUEIL",projects:"PROJETS",contact:"CONTACT"},
+      hero:{cta:"Voir les projets"},
+      roles:{stylist:"Styliste",art:"Directeur artistique",photographer:"Photographe","assistant-photo":"Assistant Photo","assistant-ad":"Assistant DA",graphic:"Design graphique"},
+      email:{open:"Ouvrir avec",copy:"Copier l’adresse"},
+      aboutTxt:"Je suis Joyssi — directeur artistique, styliste et photographe. J’allie identité visuelle, stylisme et photographie pour créer des univers précis, cohérents et puissants — du concept à la direction de shooting."},
+  en:{menu:{home:"HOME",projects:"PROJECTS",contact:"CONTACT"},
+      hero:{cta:"See projects"},
+      roles:{stylist:"Stylist",art:"Art Director",photographer:"Photographer","assistant-photo":"Assistant Photographer","assistant-ad":"Assistant AD",graphic:"Graphic design"},
+      email:{open:"Open with",copy:"Copy address"},
+      aboutTxt:"I’m Joyssi — art director, stylist and photographer. I craft precise, coherent and strong visual worlds — from concept to shoot direction."},
+  es:{menu:{home:"INICIO",projects:"PROYECTOS",contact:"CONTACTO"},
+      hero:{cta:"Ver proyectos"},
+      roles:{stylist:"Estilista",art:"Director de arte",photographer:"Fotógrafo","assistant-photo":"Asistente de foto","assistant-ad":"Asistente de DA",graphic:"Diseño gráfico"},
+      email:{open:"Abrir con",copy:"Copiar dirección"},
+      aboutTxt:"Soy Joyssi — director de arte, estilista y fotógrafo. Creo universos visuales precisos, coherentes y potentes — del concepto a la dirección del rodaje."}
 };
 let lang=(localStorage.getItem("lang")||"fr").toLowerCase();
 const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s);
 
 function applyI18n(){
   const t=STR[lang]; document.documentElement.lang=lang;
-  q('[data-i18n="menu.home"]').textContent=t.menu.home;
-  q('[data-i18n="menu.projects"]').textContent=t.menu.projects;
-  q('[data-i18n="menu.about"]').textContent=t.menu.about;
-  q('[data-i18n="menu.contact"]').textContent=t.menu.contact;
-  q('[data-i18n="home.label"]').textContent=t.home.label;
-  q('[data-i18n="hero.sub"]').textContent=t.hero.sub;
-  q('[data-i18n="hero.cta"]').textContent=t.hero.cta;
+  // menus
+  document.querySelector('a[href="#home"]').textContent=t.menu.home;
+  document.querySelector('a[href="#projets"]').textContent=t.menu.projects;
+  document.querySelector('a[href="#contact"]').textContent=t.menu.contact;
+  // accueil CTA
+  q('#home .btn').textContent=t.hero.cta;
+  // about text (si tu veux, remplace aussi plus haut)
+  q('#aboutTxt').textContent = t.aboutTxt;
 
-  qa('[data-i18n="roles.campaign"]').forEach(n=>n.textContent=t.roles.campaign);
-  qa('[data-i18n="blind.desc"]').forEach(n=>n.textContent=t.blind.desc);
-  qa('[data-i18n="mega.desc"]').forEach(n=>n.textContent=t.mega.desc);
-  qa('[data-i18n="ddm.desc"]').forEach(n=>n.textContent=t.ddm.desc);
-  qa('[data-i18n="milhan.desc"]').forEach(n=>n.textContent=t.milhan.desc);
-
-  qa('[data-i18n="roles.photographer"]').forEach(n=>n.textContent=t.roles.photographer);
-  qa('[data-i18n="roles.stylist"]').forEach(n=>n.textContent=t.roles.stylist);
-  qa('[data-i18n="roles.photography"]').forEach(n=>n.textContent=t.roles.photography);
-  qa('[data-i18n="roles.styling"]').forEach(n=>n.textContent=t.roles.styling);
-  qa('[data-i18n="roles.art"]').forEach(n=>n.textContent=t.roles.art);
-  qa('[data-i18n="roles.assistantAD"]').forEach(n=>n.textContent=t.roles.assistantAD);
-  qa('[data-i18n="roles.assistantPhoto"]').forEach(n=>n.textContent=t.roles.assistantPhoto);
-  qa('[data-i18n="roles.graphic"]').forEach(n=>n.textContent=t.roles.graphic);
-
-  q('[data-i18n="about.title"]').textContent=t.about.title;
-  q('#aboutTxt').textContent=t.about.txt;
-  q('[data-i18n="contact.title"]').textContent=t.contact.title;
-  q('[data-i18n="email.open"]').textContent=t.email.open;
+  // email
+  q('#emailMenu div').textContent=t.email.open;
   q('#copyMail').textContent=t.email.copy;
 
+  // set active lang
   q('#frBtn').classList.toggle('active',lang==='fr');
   q('#enBtn').classList.toggle('active',lang==='en');
   q('#esBtn').classList.toggle('active',lang==='es');
   q('#s-fr').classList.toggle('active',lang==='fr');
   q('#s-en').classList.toggle('active',lang==='en');
   q('#s-es').classList.toggle('active',lang==='es');
+
+  // rafraîchir le détail si un projet est déjà affiché
+  if(current) renderDetail(current);
 }
 
 /* Splash */
@@ -315,7 +323,7 @@ function applyI18n(){
   q('#s-es').onclick=()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); };
   q('#sJoy').addEventListener('click',()=>{
     q('#splash').style.display='none';
-    ['siteHeader','home','projets','apropos','contact'].forEach(id=>q('#'+id).hidden=false);
+    ['siteHeader','home','projets','contact'].forEach(id=>q('#'+id).hidden=false);
     window.scrollTo(0,0);
   });
 })();
@@ -325,21 +333,6 @@ q('#frBtn').onclick=()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18
 q('#enBtn').onclick=()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); };
 q('#esBtn').onclick=()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); };
 
-/* Images depuis /images */
-function setSrc(img,file){
-  img.src="images/"+file;
-  img.onerror=()=>{ console.warn("Introuvable:",img.src); img.style.opacity=.35; img.style.borderStyle='dashed'; };
-}
-qa('img[data-file]').forEach(img=>setSrc(img,img.getAttribute('data-file')));
-
-/* Lightbox */
-const box=q('#lightbox'), big=q('#lightImg');
-document.addEventListener('click',e=>{
-  const img=e.target.closest('.ph'); if(img){ big.src=img.src; big.alt=img.alt; box.style.display='flex'; box.focus(); }
-});
-box.addEventListener('click',()=>{ box.style.display='none'; big.src=''; });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') box.click(); });
-
 /* Email menu */
 (function(){
   const btn=q('#emailBtn'), menu=q('#emailMenu'), addr='24joyssi@gmail.com';
@@ -348,17 +341,75 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') box.click(); });
   q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent=STR[lang].email.copy+' ✓'; setTimeout(()=>ev.target.textContent=STR[lang].email.copy,1200);}catch{ alert(addr); }});
 })();
 
-/* Tabs projets */
-document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-    t.classList.add('active');
-    const key=t.dataset.tab;
-    document.querySelectorAll('.project').forEach(p=>p.classList.remove('active'));
-    document.getElementById('p-'+key).classList.add('active');
-    document.getElementById('p-'+key).scrollIntoView({behavior:'smooth',block:'start'});
+/* Utils images */
+function setSrc(img,file){
+  img.src="images/"+file;
+  img.onerror=()=>{ img.style.opacity=.35; img.style.borderStyle='dashed'; img.title="Image introuvable : "+file; };
+}
+
+/* ----- PROJETS : filtres + liste + détail ----- */
+const list = q('#projList');
+const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
+  "assistant-photo":"Assistant photo", "assistant-ad":"Assistant DA", "graphic":"Design graphique" };
+let activeTag = "all";
+let current = null;
+
+function roleLabel(tag){
+  const T=STR[lang].roles;
+  return T[tag] || rolesMap[tag] || tag;
+}
+
+function renderList(){
+  list.innerHTML='';
+  PROJECTS
+    .filter(p=>activeTag==='all' || p.roles.includes(activeTag))
+    .forEach(p=>{
+      const li=document.createElement('div');
+      li.className='card'; li.setAttribute('role','option'); li.dataset.id=p.id;
+      li.innerHTML = `
+        <img alt="">
+        <div><h4>${p.title}</h4><small>${p.roles.map(roleLabel).join(" • ")}</small></div>
+      `;
+      const img=li.querySelector('img'); setSrc(img,p.cover);
+      li.addEventListener('click',()=>{ current=p; renderDetail(p); });
+      list.appendChild(li);
+    });
+  // si rien sélectionné, nettoyer le panneau
+  if(!current){ q('#dTitle').textContent='Sélectionne un projet'; q('#dDesc').textContent=''; q('#dRoles').innerHTML=''; q('#dCredits').textContent=''; q('#dThumbs').innerHTML=''; }
+}
+
+function renderDetail(p){
+  q('#dTitle').textContent = p.title;
+  q('#dDesc').textContent = p.desc[lang] || p.desc.fr;
+  q('#dCredits').textContent = p.credits?.[lang] || '';
+  const rolesBox=q('#dRoles'); rolesBox.innerHTML='';
+  p.roles.forEach(r=>{ const s=document.createElement('span'); s.className='chip'; s.textContent=roleLabel(r); rolesBox.appendChild(s); });
+  const thumbs=q('#dThumbs'); thumbs.innerHTML='';
+  (p.images||[]).forEach(f=>{
+    const im=document.createElement('img'); im.className='thumb'; im.alt=p.title; setSrc(im,f);
+    im.addEventListener('click',()=>openLightbox("images/"+f,p.title));
+    thumbs.appendChild(im);
+  });
+}
+
+function openLightbox(src,alt){ const box=q('#lightbox'), big=q('#lightImg'); big.src=src; big.alt=alt||''; box.style.display='flex'; box.focus(); }
+q('#lightbox').addEventListener('click',()=>{ q('#lightbox').style.display='none'; q('#lightImg').src=''; });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') q('#lightbox').click(); });
+
+/* Init filters + list */
+qa('.filter').forEach(f=>{
+  f.addEventListener('click',()=>{
+    qa('.filter').forEach(x=>x.classList.remove('active'));
+    f.classList.add('active');
+    activeTag = f.dataset.tag;
+    current = null;
+    renderList();
   });
 });
+renderList();
+
+/* Charger les images de miniatures de l'accueil si tu en remets un jour
+   (ici il n'y en a pas sur la home, donc rien à faire) */
 </script>
 </body>
 </html>
