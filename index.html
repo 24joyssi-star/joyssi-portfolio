@@ -30,31 +30,22 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
 .rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
 
-/* Accueil/About court */
+/* Accueil */
+.home-hero{ margin-top:8px }
+.home-hero .big{ font:900 clamp(48px,14vw,140px)/0.9 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; margin:0 0 10px }
 .hero-about{ max-width:860px }
-.hero-about h1{ margin:6px 0 14px; font:900 clamp(36px,8vw,64px)/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.03em }
 .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
 
-/* PROJETS — layout split */
-.proj-layout{ display:grid; grid-template-columns:320px 1fr; gap:24px }
-@media(max-width:900px){ .proj-layout{ grid-template-columns:1fr } }
-
-/* Filtres */
-.filters{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 8px }
+/* PROJETS — layout */
+.filter-bar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:12px 0 18px }
+.select{ appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  background:#fff; color:#000; border:2px solid var(--blue); border-radius:14px; padding:10px 14px; font-weight:900; cursor:pointer }
+.filters{ display:flex; flex-wrap:wrap; gap:8px }
 .filter{ border:2px solid var(--blue); background:#fff; color:#000; padding:8px 12px; border-radius:999px; font-weight:900; cursor:pointer; font-size:13px }
 .filter[aria-pressed="true"]{ background:var(--blue); color:#fff }
-.filters-head{ display:flex; justify-content:space-between; align-items:center; gap:10px }
-.count{ font-weight:800; opacity:.75 }
+.helper{ font-weight:700; opacity:.7 }
 
-/* Liste projets */
-.list{ display:flex; flex-direction:column; gap:10px; max-height:520px; overflow:auto; padding-right:6px }
-.card{ display:flex; gap:10px; align-items:center; padding:8px; border:1px solid rgba(0,0,0,.12); border-radius:12px; background:#fff; cursor:pointer }
-.card:hover{ outline:2px solid var(--blue) }
-.card img{ width:64px; height:96px; object-fit:cover; border-radius:8px; background:#f2f2f2; border:1px solid rgba(0,0,0,.1) }
-.card h4{ margin:0; font:900 14px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
-.card small{ display:block; opacity:.7; font-weight:700 }
-
-/* Détail projet (miniatures, non étirées) */
+.detail{ margin-top:10px }
 .detail h3{ margin:0 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
 .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
 .chip{ border:2px solid var(--blue); border-radius:999px; padding:4px 10px; font-weight:800; font-size:12px; cursor:pointer }
@@ -116,11 +107,14 @@ nav a:hover{ opacity:1; text-decoration:underline }
   </div>
 </header>
 
-<!-- ACCUEIL = À PROPOS (court) -->
+<!-- ACCUEIL -->
 <section id="home" class="section" hidden>
+  <div class="home-hero">
+    <h1 class="big">JOYSSI</h1>
+  </div>
+
   <span class="label" data-i18n="menu.about">A PROPOS</span>
-  <div class="hero-about">
-    <h1>JOYSSI</h1>
+  <div class="hero-about" style="margin-top:12px">
     <p id="aboutTxtHome">
       Je suis Joyssi, directeur artistique, styliste et photographe.
       J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
@@ -136,39 +130,35 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <div class="rule"></div>
 </section>
 
-<!-- PROJETS : filtres + liste + détail -->
+<!-- PROJETS : filtres (nom + rôles) => puis détail unique -->
 <section id="projets" class="section" hidden>
   <span class="label" data-i18n="menu.projects">PROJETS</span>
 
-  <div class="proj-layout" style="margin-top:12px">
-    <!-- Colonne gauche : filtres + liste -->
-    <aside>
-      <div class="filters-head">
-        <div style="font-weight:900">Filtres</div>
-        <div class="count"><span id="countNum">0</span> projet(s)</div>
-      </div>
-      <div class="filters" id="filters">
-        <button class="filter" data-tag="all" type="button" id="fltAll">Tous</button>
-        <button class="filter" data-tag="stylist" type="button" aria-pressed="false">Stylisme</button>
-        <button class="filter" data-tag="art" type="button" aria-pressed="false">Direction artistique</button>
-        <button class="filter" data-tag="photographer" type="button" aria-pressed="false">Photographie</button>
-        <button class="filter" data-tag="assistant-photo" type="button" aria-pressed="false">Assistant photo</button>
-        <button class="filter" data-tag="assistant-ad" type="button" aria-pressed="false">Assistant DA</button>
-        <button class="filter" data-tag="graphic" type="button" aria-pressed="false">Design graphique</button>
-      </div>
+  <div class="filter-bar">
+    <!-- Sélecteur par nom -->
+    <select id="byName" class="select" aria-label="Filtrer par projet">
+      <option value="" selected>— Choisir un projet —</option>
+    </select>
 
-      <div style="font-weight:900;margin:12px 0 6px">Projets</div>
-      <div class="list" id="projList" role="listbox" aria-label="Liste des projets"></div>
-    </aside>
-
-    <!-- Colonne droite : détail projet -->
-    <div class="detail" id="detail">
-      <h3 id="dTitle">Sélectionne un projet</h3>
-      <p id="dDesc" style="max-width:70ch; opacity:.9"></p>
-      <div class="chips" id="dRoles"></div>
-      <div class="credits" id="dCredits"></div>
-      <div class="thumbs" id="dThumbs"></div>
+    <!-- Filtres par rôles (multi) -->
+    <div class="filters" id="filters" aria-label="Filtrer par rôles">
+      <button class="filter" data-tag="stylist" type="button" aria-pressed="false">Stylisme</button>
+      <button class="filter" data-tag="art" type="button" aria-pressed="false">Direction artistique</button>
+      <button class="filter" data-tag="photographer" type="button" aria-pressed="false">Photographie</button>
+      <button class="filter" data-tag="assistant-photo" type="button" aria-pressed="false">Assistant photo</button>
+      <button class="filter" data-tag="assistant-ad" type="button" aria-pressed="false">Assistant DA</button>
+      <button class="filter" data-tag="graphic" type="button" aria-pressed="false">Design graphique</button>
+      <button class="filter" data-tag="reset" type="button" aria-pressed="false" title="Réinitialiser">Tous</button>
     </div>
+    <span class="helper" id="countInfo">Aucun projet sélectionné</span>
+  </div>
+
+  <div class="detail" id="detail">
+    <h3 id="dTitle">Sélectionne un projet</h3>
+    <p id="dDesc" style="max-width:70ch; opacity:.9"></p>
+    <div class="chips" id="dRoles"></div>
+    <div class="credits" id="dCredits"></div>
+    <div class="thumbs" id="dThumbs"></div>
   </div>
 
   <div class="rule"></div>
@@ -179,28 +169,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <span class="label" data-i18n="menu.about">A PROPOS</span>
   <div class="hero-about">
     <h1>JOYSSI</h1>
-    <div id="aboutTxtFull">
-      <p>Je suis Joyssi, directeur artistique, styliste et photographe.
-      J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
-      projets dans la mode et la culture. Ces premières expériences m’ont permis de
-      comprendre le processus créatif dans sa globalité et de me forger une vision précise,
-      sensible et structurée.
-      Aujourd’hui, je développe mes propres projets en tant que créatif indépendant. Je conçois
-      des identités visuelles complètes pour des marques, des artistes ou des événements, en
-      mobilisant la direction artistique, le stylisme et la photographie.</p>
-
-      <p>J’interviens aussi en tant que directeur artistique musical : je les accompagne dans le choix
-      de leurs morceaux, de leur style musical, de leurs producteurs, et dans la direction globale
-      de leur son. En parallèle, je développe tout l’univers visuel (visuels, storytelling, identité),
-      pour que l’esthétique musicale et l’image soient parfaitement alignées et puissantes.</p>
-
-      <p>À côté de ça, j’interviens aussi en design d’espace, principalement dans des contextes
-      événementiels. Je réfléchis à l’ambiance, à la scénographie, à la façon dont un lieu devient
-      une extension visuelle de l’univers artistique ou de la marque.
-      Ma démarche est immersive et contemporaine. Elle consiste à créer des univers cohérents, à
-      articuler le fond et la forme, à relier émotion et direction visuelle avec précision et
-      intention.</p>
-    </div>
+    <div id="aboutTxtFull"><!-- injecté par i18n --></div>
   </div>
   <div class="rule"></div>
 </section>
@@ -304,7 +273,7 @@ const PROJECTS = [
   }
 ];
 
-/* ========= Lang / i18n (menus + textes) ========= */
+/* ========= Lang / i18n ========= */
 const STR={
   fr:{menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"}, hero:{cta:"Voir les projets"},
       roles:{stylist:"Styliste",art:"Directeur artistique",photographer:"Photographe","assistant-photo":"Assistant Photo","assistant-ad":"Assistant DA",graphic:"Design graphique"},
@@ -365,7 +334,7 @@ function applyI18n(){
   q('#emailMenu div').textContent=t.email.open;
   q('#copyMail').textContent=t.email.copy;
 
-  // Active state lang
+  // Lang on buttons
   q('#frBtn').classList.toggle('active',lang==='fr');
   q('#enBtn').classList.toggle('active',lang==='en');
   q('#esBtn').classList.toggle('active',lang==='es');
@@ -373,7 +342,7 @@ function applyI18n(){
   q('#s-en').classList.toggle('active',lang==='en');
   q('#s-es').classList.toggle('active',lang==='es');
 
-  // Refresh detail if open
+  // refresh detail if open
   if(current) renderDetail(current);
 }
 
@@ -416,11 +385,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjects();
 });
 
-/* ========= Projects (multi-filtres + liste + détail) ========= */
+/* ========= Projects (sélecteur nom + multi-filtres rôles) ========= */
 const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
   "assistant-photo":"Assistant photo", "assistant-ad":"Assistant DA", "graphic":"Design graphique" };
 
-let activeTags = new Set();  // multi-sélection
+let activeTags = new Set();  // multi-sélection rôles
+let selectedByName = "";     // id du projet choisi
 let current = null;
 
 function roleLabel(tag){
@@ -428,37 +398,87 @@ function roleLabel(tag){
   return T[tag] || rolesMap[tag] || tag;
 }
 
-function filterProjects(p){
-  if(activeTags.size===0) return true; // aucun filtre => tout
-  // un projet passe s'il possède TOUS les tags sélectionnés
+// Remplir le select des noms (mais on ne montre pas les noms ailleurs)
+(function fillByName(){
+  const sel=q('#byName');
+  PROJECTS.forEach(p=>{
+    const opt=document.createElement('option');
+    opt.value=p.id; opt.textContent=p.title;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change',()=>{
+    selectedByName = sel.value || "";
+    applyFilters();
+  });
+})();
+
+function refreshFiltersUI(){
+  qa('.filter').forEach(btn=>{
+    const tag=btn.dataset.tag;
+    if(tag==='reset'){ btn.setAttribute('aria-pressed', activeTags.size===0 && !selectedByName ? 'true':'false'); }
+    else{ btn.setAttribute('aria-pressed', activeTags.has(tag) ? 'true':'false'); }
+  });
+}
+
+function toggleTag(tag){
+  if(tag==='reset'){ activeTags.clear(); selectedByName=""; q('#byName').value=""; }
+  else{
+    if(activeTags.has(tag)) activeTags.delete(tag);
+    else activeTags.add(tag);
+  }
+  applyFilters();
+}
+
+qa('#filters .filter').forEach(btn=>{
+  btn.addEventListener('click',()=> toggleTag(btn.dataset.tag));
+});
+
+function matchProject(p){
+  // Si nom choisi, il faut que ce soit CE projet
+  if(selectedByName) { if(p.id!==selectedByName) return false; }
+  // Si des rôles sont actifs, le projet doit tous les contenir
   for(const t of activeTags){ if(!p.roles.includes(t)) return false; }
   return true;
 }
 
-function updateCount(n){ q('#countNum').textContent = n; }
+function applyFilters(){
+  refreshFiltersUI();
+  const matched = PROJECTS.filter(matchProject);
+  const info = q('#countInfo');
 
-function renderList(){
-  const list = q('#projList');
-  list.innerHTML='';
-  const items = PROJECTS.filter(filterProjects);
-  updateCount(items.length);
-
-  items.forEach(p=>{
-    const li=document.createElement('div');
-    li.className='card'; li.setAttribute('role','option'); li.dataset.id=p.id;
-    li.innerHTML = `
-      <img alt="">
-      <div><h4>${p.title}</h4><small>${p.roles.map(roleLabel).join(" • ")}</small></div>
-    `;
-    const img=li.querySelector('img'); setSrc(img,p.cover);
-    li.addEventListener('click',()=>{ current=p; renderDetail(p); });
-    list.appendChild(li);
-  });
-
-  if(!current){
-    q('#dTitle').textContent='Sélectionne un projet';
-    q('#dDesc').textContent=''; q('#dRoles').innerHTML=''; q('#dCredits').textContent=''; q('#dThumbs').innerHTML='';
+  if(matched.length===0){
+    info.textContent = "Aucun projet trouvé";
+    current=null; renderEmpty();
+    return;
   }
+  if(matched.length===1){
+    info.textContent = "1 projet";
+    current = matched[0];
+    renderDetail(current);
+    return;
+  }
+  // Plusieurs résultats (rôles seulement, sans nom) → on propose un petit sélecteur interne
+  info.textContent = matched.length+" projets";
+  renderChooser(matched);
+}
+
+function renderEmpty(){
+  q('#dTitle').textContent='Sélectionne un projet';
+  q('#dDesc').textContent=''; q('#dRoles').innerHTML=''; q('#dCredits').textContent=''; q('#dThumbs').innerHTML='';
+}
+
+function renderChooser(items){
+  q('#dTitle').textContent = "Choisir un projet";
+  q('#dDesc').textContent = "Affiner par nom ou cliquer ci-dessous :";
+  q('#dRoles').innerHTML=''; q('#dCredits').textContent='';
+  const box=q('#dThumbs'); box.innerHTML='';
+  // mini boutons (n'affichent pas les noms ailleurs que dans ce choix)
+  items.forEach(p=>{
+    const b=document.createElement('button');
+    b.className='btn'; b.textContent=p.title; // visible uniquement ici pour choisir
+    b.addEventListener('click',()=>{ current=p; selectedByName=p.id; q('#byName').value=p.id; applyFilters(); });
+    box.appendChild(b);
+  });
 }
 
 function renderDetail(p){
@@ -469,7 +489,7 @@ function renderDetail(p){
   p.roles.forEach(r=>{
     const s=document.createElement('span'); s.className='chip'; s.textContent=roleLabel(r);
     s.title='Filtrer par '+roleLabel(r);
-    s.addEventListener('click',()=>{ toggleTag(r); });
+    s.addEventListener('click',()=>{ activeTags.add(r); applyFilters(); });
     rolesBox.appendChild(s);
   });
   const thumbs=q('#dThumbs'); thumbs.innerHTML='';
@@ -484,37 +504,8 @@ function openLightbox(src,alt){ const box=q('#lightbox'), big=q('#lightImg'); bi
 q('#lightbox').addEventListener('click',()=>{ q('#lightbox').style.display='none'; q('#lightImg').src=''; });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') q('#lightbox').click(); });
 
-function refreshFiltersUI(){
-  qa('.filter').forEach(btn=>{
-    const tag=btn.dataset.tag;
-    if(tag==='all'){
-      btn.setAttribute('aria-pressed', activeTags.size===0 ? 'true':'false');
-    }else{
-      btn.setAttribute('aria-pressed', activeTags.has(tag) ? 'true':'false');
-    }
-  });
-}
-
-function toggleTag(tag){
-  if(tag==='all'){ activeTags.clear(); }
-  else{
-    if(activeTags.has(tag)) activeTags.delete(tag);
-    else activeTags.add(tag);
-  }
-  // si on sélectionne un tag alors "Tous" n'est plus actif
-  refreshFiltersUI();
-  current = null;
-  renderList();
-}
-
-function initProjects(){
-  // boutons filtres
-  qa('#filters .filter').forEach(btn=>{
-    btn.addEventListener('click',()=> toggleTag(btn.dataset.tag));
-  });
-  // "Tous" par défaut
-  q('#fltAll').click();
-}
+// Init état au chargement (rien sélectionné)
+function initProjects(){ refreshFiltersUI(); renderEmpty(); }
 </script>
 </body>
 </html>
