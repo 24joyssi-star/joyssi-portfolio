@@ -12,13 +12,13 @@ body{ margin:0; background:#fff; color:#000; font-family:-apple-system,BlinkMacS
 
 /* Header */
 .header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid rgba(0,0,0,.08) }
-.wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap }
+.wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px }
 .brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer; color:#000; text-decoration:none }
 .dot{ width:6px; height:6px; border-radius:999px; background:var(--blue) }
-nav{ margin-left:auto; display:flex; gap:12px; align-items:center; flex-wrap:wrap }
-nav a{ color:#000; text-decoration:none; font-weight:800; opacity:.9; border:2px solid var(--blue); border-radius:14px; padding:10px 14px; white-space:nowrap; background:#fff }
-nav a.on{ background:var(--blue); color:#fff }
-.lang-top button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65; padding:6px 8px }
+nav{ margin-left:auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap }
+nav a{ color:#000; text-decoration:none; font-weight:800; opacity:.85 }
+nav a:hover{ opacity:1; text-decoration:underline }
+.lang-top button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65 }
 .lang-top button.active{ opacity:1; text-decoration:underline }
 
 @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--blue)}}
@@ -34,8 +34,7 @@ nav a.on{ background:var(--blue); color:#fff }
 .home-hero{ margin-top:8px }
 .home-hero .big{ font:900 clamp(48px,14vw,140px)/0.9 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; margin:0 0 10px }
 .hero-about{ max-width:860px }
-.btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:var(--blue); color:#fff; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
-.btn.ghost{ background:#fff; color:#000 }
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
 
 /* PROJETS (page filtres) */
 .helper{ font-weight:700; opacity:.75; margin-left:10px }
@@ -62,7 +61,7 @@ nav a.on{ background:var(--blue); color:#fff }
 .panelActions{ display:flex; gap:8px; margin-top:8px }
 .smallBtn{ border:2px solid var(--blue); background:#fff; color:#000; padding:8px 12px; border-radius:12px; font-weight:900; cursor:pointer }
 
-/* Détail projet (miniatures) */
+/* Détail projet (miniatures, non étirées) */
 .detail{ margin-top:10px }
 .detail h3{ margin:0 0 6px; font:900 26px/1.1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
 .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
@@ -72,7 +71,7 @@ nav a.on{ background:var(--blue); color:#fff }
 .thumb{ width:160px; height:240px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
 @media(max-width:380px){ .thumb{ width:140px; height:210px } }
 
-/* -------- PAGE TOUS LES PROJETS -------- */
+/* -------- PAGE TOUS LES PROJETS (sans filtres) -------- */
 .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px }
 @media(max-width:1000px){ .grid{ grid-template-columns:repeat(2,1fr) } }
 @media(max-width:640px){ .grid{ grid-template-columns:1fr } }
@@ -83,7 +82,7 @@ nav a.on{ background:var(--blue); color:#fff }
 .card .roles{ display:flex; flex-wrap:wrap; gap:6px }
 .badge{ border:2px solid var(--blue); border-radius:999px; padding:2px 8px; font-weight:800; font-size:11px }
 
-/* MODAL projet ("tous") */
+/* MODAL projet (pour la page "tous") */
 .projectModal{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; z-index:120; overflow:auto }
 .pm-wrap{ max-width:1100px; margin:40px auto; background:#fff; color:#000; border-radius:16px; overflow:hidden }
 .pm-head{ display:flex; justify-content:space-between; align-items:center; padding:16px 18px; border-bottom:1px solid rgba(0,0,0,.08) }
@@ -95,7 +94,7 @@ nav a.on{ background:var(--blue); color:#fff }
 .pm-thumbs{ display:flex; flex-wrap:wrap; gap:10px }
 .pm-thumbs img{ width:160px; height:240px; object-fit:cover; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
 
-/* Lightbox */
+/* Lightbox commun */
 .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:200 }
 .lightbox img{ max-width:92vw; max-height:92vh; border-radius:12px }
 .lightbox:focus{ outline:none }
@@ -112,8 +111,8 @@ nav a.on{ background:var(--blue); color:#fff }
 .splash{ position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; z-index:300 }
 .s-inner{ text-align:center; max-width:900px; padding:24px }
 .s-logo{ font:900 clamp(56px,18vw,180px)/0.85 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:var(--blue); cursor:pointer; user-select:none }
-.lang-chooser{ position:absolute; top:16px; right:16px; display:inline-flex; gap:10px; border:2px solid var(--blue); border-radius:16px; padding:8px 12px; background:#000; color:#fff; font-weight:900 }
-.lang-chooser button{ background:transparent; border:0; font:inherit; cursor:pointer; color:#fff; opacity:.75 }
+.lang-chooser{ display:inline-flex; gap:10px; border:2px solid var(--blue); border-radius:16px; padding:8px 12px; background:#000; color:#fff; font-weight:900; margin-bottom:14px }
+.lang-chooser button{ background:transparent; border:0; font:inherit; cursor:pointer; color:#fff; opacity:.7 }
 .lang-chooser button.active{ opacity:1; text-decoration:underline }
 </style>
 </head>
@@ -123,9 +122,7 @@ nav a.on{ background:var(--blue); color:#fff }
 <div id="splash" class="splash" aria-label="Entrée du site">
   <div class="s-inner">
     <div class="lang-chooser" aria-label="Choisir la langue">
-      <button id="s-fr" type="button">FR</button>
-      <button id="s-en" type="button">EN</button>
-      <button id="s-es" type="button">ES</button>
+      <button id="s-fr" type="button">FR</button>|<button id="s-en" type="button">EN</button>|<button id="s-es" type="button">ES</button>
     </div>
     <div id="sJoy" class="s-logo" title="Entrer">JOYSSI</div>
   </div>
@@ -135,12 +132,11 @@ nav a.on{ background:var(--blue); color:#fff }
 <header class="header" id="siteHeader" hidden>
   <div class="wrap">
     <a class="brand" href="#home" title="Accueil"><span class="blink">JOYSSI</span><span class="dot"></span></a>
-    <nav id="topnav">
-      <a href="#home">ACCUEIL</a>
-      <a href="#projets-tous">PROJETS</a>
-      <a href="#projets">FILTRER</a>
-      <a href="#apropos">A PROPOS</a>
-      <a href="#contact">CONTACT</a>
+    <nav>
+      <a href="#home" data-i18n="menu.home">ACCUEIL</a>
+      <a href="#projets-tous" data-i18n="menu.projects">PROJETS</a>
+      <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
+      <a href="#contact" data-i18n="menu.contact">CONTACT</a>
       <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
       <span class="lang-top">
         <button id="frBtn" type="button" class="active">FR</button> |
@@ -157,7 +153,7 @@ nav a.on{ background:var(--blue); color:#fff }
     <h1 class="big">JOYSSI</h1>
   </div>
 
-  <span class="label" data-i="label.about">A PROPOS</span>
+  <span class="label" data-i18n="menu.about">A PROPOS</span>
   <div class="hero-about" style="margin-top:12px">
     <p id="aboutTxtHome">
       Je suis Joyssi, directeur artistique, styliste et photographe.
@@ -169,25 +165,25 @@ nav a.on{ background:var(--blue); color:#fff }
       des identités visuelles complètes pour des marques, des artistes ou des événements, en
       mobilisant la direction artistique, le stylisme et la photographie.
     </p>
-    <p><a class="btn" href="#projets">Voir les projets</a></p>
+    <p><a class="btn" href="#projets" data-i18n="hero.cta">Voir les projets</a></p>
   </div>
   <div class="rule"></div>
 </section>
 
 <!-- PROJETS (avec filtres/panneau) -->
 <section id="projets" class="section" hidden>
-  <span class="label">PROJETS — Filtres</span>
+  <span class="label" data-i18n="menu.projects">PROJETS</span>
 
   <div class="filterBar">
     <div class="panel" id="filterPanel">
       <button class="filterBtn" type="button" id="openFilter">Filtrer</button>
       <div class="panelBox" id="panelBox" role="dialog" aria-label="Filtres">
         <!-- Par projet -->
-        <details class="drop" id="dropByProject" open>
+        <details class="drop" id="dropByProject">
           <summary>Par projet</summary>
           <div class="inner" id="byProjectBox"></div>
         </details>
-        <!-- Par rôle -->
+        <!-- Par rôle (multi) -->
         <details class="drop" id="dropByRole">
           <summary>Par rôle / poste</summary>
           <div class="inner">
@@ -219,7 +215,7 @@ nav a.on{ background:var(--blue); color:#fff }
   <div class="rule"></div>
 </section>
 
-<!-- PAGE TOUS LES PROJETS -->
+<!-- ✅ PAGE TOUS LES PROJETS (sans filtres) -->
 <section id="projets-tous" class="section" hidden>
   <span class="label">PROJETS</span>
   <h2 style="margin:10px 0 6px; font:900 28px/1 Impact,'Arial Black','Helvetica Neue',Arial,sans-serif; letter-spacing:-.02em">Tous les projets</h2>
@@ -228,12 +224,14 @@ nav a.on{ background:var(--blue); color:#fff }
   <div id="allGrid" class="grid"></div>
 
   <div class="rule"></div>
-  <p><a class="btn ghost" href="#projets">Filtrer les projets</a></p>
+  <p>
+    <a class="btn" href="#projets">Filtrer les projets</a>
+  </p>
 </section>
 
-<!-- A PROPOS (long) -->
+<!-- A PROPOS (onglet) = version longue -->
 <section id="apropos" class="section" hidden>
-  <span class="label">A PROPOS</span>
+  <span class="label" data-i18n="menu.about">A PROPOS</span>
   <div class="hero-about">
     <h1>JOYSSI</h1>
     <div id="aboutTxtFull"></div>
@@ -243,8 +241,8 @@ nav a.on{ background:var(--blue); color:#fff }
 
 <!-- CONTACT -->
 <section id="contact" class="section" hidden>
-  <span class="label">CONTACT</span>
-  <h3 style="margin:12px 0 12px">Contact</h3>
+  <span class="label" data-i18n="menu.contact">CONTACT</span>
+  <h3 style="margin:12px 0 12px" data-i18n="contact.title">Contact</h3>
   <div class="links">
     <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="1"/></svg>
@@ -263,10 +261,9 @@ nav a.on{ background:var(--blue); color:#fff }
     <a href="https://compose.mail.yahoo.com/?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Yahoo Mail</a>
     <button class="copy" id="copyMail" type="button">Copier l’adresse</button>
   </div>
-  <div class="rule"></div>
 </section>
 
-<!-- MODAL "tous les projets" -->
+<!-- MODAL projet (page tous les projets) -->
 <div id="projModal" class="projectModal" aria-modal="true" role="dialog" aria-label="Détail du projet">
   <div class="pm-wrap">
     <div class="pm-head">
@@ -284,73 +281,37 @@ nav a.on{ background:var(--blue); color:#fff }
   </div>
 </div>
 
-<!-- Lightbox -->
+<!-- Lightbox commun -->
 <div class="lightbox" id="lightbox" tabindex="-1" aria-modal="true" role="dialog">
   <img id="lightImg" alt="">
 </div>
 
 <script>
-/* ========= PROJETS (4) ========= */
+/* ========= Données projets ========= */
 const PROJECTS = [
-  /* 1) BLIND NO PLAN */
   {
-    id: "blind",
-    title: "BLIND NO PLAN",
-    roles: ["stylist","photographer"],
-    credits: {
-      fr: "Crédits : Stylisme, Photographie",
-      en: "Credits: Styling, Photography",
-      es: "Créditos: Estilismo, Fotografía"
+    id:"blind", title:"BLIND NO PLAN",
+    roles:["stylist","photographer"],
+    credits: { fr:"Crédits : Stylisme, Photographie", en:"Credits: Styling, Photography", es:"Créditos: Estilismo, Fotografía" },
+    desc:{
+      fr:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.",
+      en:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks.",
+      es:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca. Dirección completa del rodaje y looks."
     },
-    desc: {
-      fr: "Stylisme & Photographie — univers brut, direction du shooting et looks en cohérence avec l’ADN de la marque.",
-      en: "Styling & Photography — raw visual language, shoot direction and looks aligned with the brand DNA.",
-      es: "Estilismo y fotografía — lenguaje visual crudo, dirección del rodaje y looks alineados con el ADN de la marca."
-    },
-    cover: "DSC02221.jpg",
-    images: ["DSC02221.jpg","DSC02224.jpg","DSC02230.jpg","DSC02234.jpg","DSC02237.jpg","DSC03110.jpg"]
+    cover:"DSC02221.jpg",
+    images:["DSC02221.jpg","DSC02224.jpg","DSC02230.jpg","DSC02234.jpg","DSC02237.jpg","DSC03110.jpg"]
   },
-
-  /* 2) MILHAN — FRACTURE */
   {
-    id: "milhan",
-    title: "Milhan — Fracture",
-    roles: ["stylist","art"],
-    credits: {
-      fr: "Crédits : Styliste & Directeur artistique. Studio Mirage — avec Mélie Calamaro (@meliecalamaro) et Juliette Cordillot (@juliette_cdt). Modèle : Milhan (@milhvnhanma / @milhvn_bzd).",
-      en: "Credits: Stylist & Art Director. Studio Mirage — with Mélie Calamaro and Juliette Cordillot. Model: Milhan.",
-      es: "Créditos: Estilista y Director de arte. Studio Mirage — con Mélie Calamaro y Juliette Cordillot. Modelo: Milhan."
+    id:"mega", title:"Mega Sue",
+    roles:["stylist","photographer"],
+    credits:{ fr:"Crédits : Photographie & Stylisme", en:"Credits: Photography & Styling", es:"Créditos: Fotografía y Estilismo" },
+    desc:{
+      fr:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.",
+      en:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame.",
+      es:"Fotografía y Estilismo para Mega Sue. Estética colorida y expresiva en un marco minimalista."
     },
-    desc: {
-      fr: "Un huis clos visuel : un homme face à lui-même, retiré dans un hangar désert. Matières brutes, lumière nerveuse — une tension entre contrôle et abandon.",
-      en: "A visual inner room: a man confronting himself in an empty warehouse. Raw textures, nervous light — a tension between control and surrender.",
-      es: "Un cuarto interior visual: un hombre frente a sí mismo en un almacén vacío. Texturas crudas, luz nerviosa — tensión entre control y abandono."
-    },
-    cover: "IMG_7399.jpeg",
-    images: [
-      "IMG_7399.jpeg","IMG_7398.jpeg","471E8261-C289-48A0-9667-19900EAB7D78.jpeg",
-      "Facetune_02-06-2025-22-00-33.jpeg","Facetune_02-06-2025-21-55-56.jpeg",
-      "Facetune_08-06-2025-20-16-43.jpeg","Facetune_08-06-2025-20-14-16.jpeg","Facetune_08-06-2025-19-48-19.jpeg"
-    ]
-  },
-
-  /* 3) MEGA SUE */
-  {
-    id: "mega",
-    title: "Mega Sue",
-    roles: ["stylist","photographer"],
-    credits: {
-      fr: "Crédits : Photographie & Stylisme",
-      en: "Credits: Photography & Styling",
-      es: "Créditos: Fotografía y Estilismo"
-    },
-    desc: {
-      fr: "Photographie & Stylisme pour la marque Mega Sue — esthétique colorée et expressive dans un cadre minimaliste.",
-      en: "Photography & Styling for Mega Sue — colorful, expressive aesthetics within a minimal frame.",
-      es: "Fotografía y Estilismo para Mega Sue — estética colorida y expresiva en un marco minimalista."
-    },
-    cover: "339666353_247672421014594_8397278685892781428_n.jpg",
-    images: [
+    cover:"339666353_247672421014594_8397278685892781428_n.jpg",
+    images:[
       "339666353_247672421014594_8397278685892781428_n.jpg",
       "340161934_246336221192578_2732525740245454873_n.jpg",
       "340344943_528187286144781_7924168324666929102_n.jpg",
@@ -359,36 +320,58 @@ const PROJECTS = [
       "340185756_2441590042677026_8394769900836223507_n.jpg"
     ]
   },
-
-  /* 4) DRÔLE DE MONSIEUR */
   {
-    id: "ddm",
-    title: "Drôle de Monsieur",
-    roles: ["assistant-ad","assistant-photo","graphic"],
-    credits: {
-      fr: "Crédits : Assistant directeur artistique, Assistant photographe, Design graphique",
-      en: "Credits: Assistant Art Director, Assistant Photographer, Graphic Design",
-      es: "Créditos: Asistente de dirección de arte, Asistente de fotografía, Diseño gráfico"
+    id:"ddm", title:"Drôle de Monsieur",
+    roles:["assistant-ad","assistant-photo","graphic"],
+    credits:{
+      fr:"Crédits : Assistant directeur artistique, Assistant photographe, Design graphique",
+      en:"Credits: Assistant Art Director, Assistant Photographer, Graphic Design",
+      es:"Créditos: Asistente de dirección de arte, Asistente de fotografía, Diseño gráfico"
     },
-    desc: {
-      fr: "Assistant DA & assistant photo — préparation visuelle, retouches, design graphique et mise en page finale pour garantir la cohérence esthétique globale.",
-      en: "Assistant art director & assistant photographer — visual prep, retouching, graphic design and final layout to ensure overall consistency.",
-      es: "Asistente de dirección de arte y de fotografía — preparación visual, retoque, diseño gráfico y maquetación final para asegurar la coherencia."
+    desc:{
+      fr:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale.",
+      en:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout — ensuring overall aesthetic consistency.",
+      es:"Asistente de dirección de arte y de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final — para asegurar la coherencia estética global."
     },
-    cover: "464462279_18467418079001724_4296041362829498819_n.jpg",
-    images: [
+    cover:"464462279_18467418079001724_4296041362829498819_n.jpg",
+    images:[
       "464462279_18467418079001724_4296041362829498819_n.jpg",
       "464272154_18467418088001724_3840538998036405615_n.jpg",
       "464157675_18467418052001724_4103426957022696783_n.jpg",
       "464167162_18467418043001724_5217675012693912393_n.jpg",
       "464055292_18467418031001724_89644642640605347_n.jpg"
     ]
+  },
+  {
+    id:"milhan", title:"Milhan — Fracture",
+    roles:["stylist","art"],
+    credits:{
+      fr:"Crédits : Styliste & Directeur artistique",
+      en:"Credits: Stylist & Art Director",
+      es:"Créditos: Estilista y Director de arte"
+    },
+    desc:{
+      fr:"Portrait en huis clos. Un homme s’isole dans un hangar, entre bruit intérieur et silence. Nous avons dirigé l’image et la silhouette pour construire une tension intime et cinématographique.",
+      en:"Closed-door portrait. A man isolates himself in an empty warehouse, between inner noise and silence. We shaped image and silhouette to build an intimate, cinematic tension.",
+      es:"Retrato a puerta cerrada. Un hombre se aísla en un almacén vacío, entre ruido interior y silencio. Construimos una tensión íntima y cinematográfica."
+    },
+    cover:"IMG_7399.jpeg",
+    images:[
+      "IMG_7399.jpeg",
+      "IMG_7398.jpeg",
+      "Facetune_02-06-2025-21-55-56.jpeg",
+      "Facetune_02-06-2025-22-00-33.jpeg",
+      "Facetune_02-06-2025-22-01-53.jpeg",
+      "Facetune_08-06-2025-19-48-19.jpeg",
+      "Facetune_08-06-2025-20-14-16.jpeg",
+      "Facetune_08-06-2025-20-16-43.jpeg"
+    ]
   }
 ];
 
-/* ========= Textes FR/EN/ES ========= */
+/* ========= Lang / i18n ========= */
 const STR={
-  fr:{menu:{home:"ACCUEIL",projects:"PROJETS",filter:"FILTRER",about:"A PROPOS",contact:"CONTACT"}, hero:{cta:"Voir les projets"},
+  fr:{menu:{home:"ACCUEIL",projects:"PROJETS",about:"A PROPOS",contact:"CONTACT"}, hero:{cta:"Voir les projets"},
       email:{open:"Ouvrir avec",copy:"Copier l’adresse"},
       aboutHome:`Je suis Joyssi, directeur artistique, styliste et photographe.
 J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
@@ -408,46 +391,42 @@ des identités visuelles complètes pour des marques, des artistes ou des évén
 mobilisant la direction artistique, le stylisme et la photographie.
 
 J’interviens aussi en tant que directeur artistique musical : je les accompagne dans le choix
-des morceaux, du style musical, des producteurs, et dans la direction globale du son. En parallèle,
-je développe tout l’univers visuel (visuels, storytelling, identité) afin d’aligner puissamment
-esthétique musicale et image.
+de leurs morceaux, de leur style musical, de leurs producteurs, et dans la direction globale
+de leur son. En parallèle, je développe tout l’univers visuel (visuels, storytelling, identité),
+pour que l’esthétique musicale et l’image soient parfaitement alignées et puissantes.
 
-Je travaille également en design d’espace, principalement dans des contextes événementiels :
-ambiance, scénographie, et transformation des lieux en extensions visuelles d’un univers.
-Ma démarche est immersive et contemporaine : créer des univers cohérents, articuler fond et forme,
-relier émotion et direction visuelle avec précision et intention.`},
-  en:{menu:{home:"HOME",projects:"PROJECTS",filter:"FILTER",about:"ABOUT",contact:"CONTACT"}, hero:{cta:"See projects"},
+À côté de ça, j’interviens aussi en design d’espace, principalement dans des contextes
+événementiels. Je réfléchis à l’ambiance, à la scénographie, à la façon dont un lieu devient
+une extension visuelle de l’univers artistique ou de la marque.
+Ma démarche est immersive et contemporaine. Elle consiste à créer des univers cohérents, à
+articuler le fond et la forme, à relier émotion et direction visuelle avec précision et
+intention.`},
+  en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"}, hero:{cta:"See projects"},
       email:{open:"Open with",copy:"Copy address"},
       aboutHome:"I’m Joyssi — art director, stylist and photographer. I started as an assistant in fashion/culture and now develop full identities, styling and photography.",
-      aboutFull:"I’m Joyssi — art director, stylist and photographer. I began as an assistant across fashion and culture. Today I build identities through art direction, styling and photography; I also work in music art direction and spatial design. My approach is immersive and precise."},
-  es:{menu:{home:"INICIO",projects:"PROYECTOS",filter:"FILTRAR",about:"SOBRE MÍ",contact:"CONTACTO"}, hero:{cta:"Ver proyectos"},
+      aboutFull:"I’m Joyssi — art director, stylist and photographer. I began as an assistant in fashion/culture. Today I run independent projects across art direction, styling and photography. I also act as a music art director and design event spaces. My approach is immersive and contemporary, aligning emotion and visual direction with precision and intent."},
+  es:{menu:{home:"INICIO",projects:"PROYECTOS",about:"SOBRE MÍ",contact:"CONTACTO"}, hero:{cta:"Ver proyectos"},
       email:{open:"Abrir con",copy:"Copiar dirección"},
-      aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo. Empecé como asistente y hoy desarrollo identidades visuales, estilismo y fotografía.",
-      aboutFull:"Soy Joyssi — director de arte, estilista y fotógrafo. Inicié como asistente en moda/cultura. Hoy realizo dirección de arte, estilismo y fotografía; también dirección artística musical y diseño de espacios. Enfoque inmersivo y preciso."}
+      aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo. Empecé como asistente y ahora desarrollo identidades visuales, estilismo y fotografía.",
+      aboutFull:"Soy Joyssi — director de arte, estilista y fotógrafo. Inicié como asistente en moda/cultura. Hoy llevo proyectos independientes en dirección de arte, estilismo y fotografía; también dirección artística musical y diseño de espacios. Enfoque inmersivo y contemporáneo."}
 };
 
-const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
-  "assistant-photo":"Assistant photo", "assistant-ad":"Assistant DA", "graphic":"Design graphique" };
-
-/* ========= Helpers ========= */
-const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s);
 let lang=(localStorage.getItem("lang")||"fr").toLowerCase();
+const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s);
 
+/* ========= i18n apply ========= */
 function applyI18n(){
   const t=STR[lang]; document.documentElement.lang=lang;
-  const nav=q('#topnav').querySelectorAll('a');
-  nav[0].textContent=t.menu.home;
-  nav[1].textContent=t.menu.projects;
-  nav[2].textContent=t.menu.filter;
-  nav[3].textContent=t.menu.about;
-  nav[4].textContent=t.menu.contact;
+  q('a[href="#home"]').textContent=t.menu.home;
+  q('a[href="#projets-tous"]').textContent=t.menu.projects;
+  q('a[href="#apropos"]').textContent=t.menu.about;
+  q('a[href="#contact"]').textContent=t.menu.contact;
   q('#home .btn').textContent=t.hero.cta;
   q('#aboutTxtHome').textContent=t.aboutHome;
   q('#aboutTxtFull').innerHTML = t.aboutFull.split('\n\n').map(p=>`<p>${p.replace(/\n/g,' ').trim()}</p>`).join('');
   q('#emailMenu div').textContent=t.email.open;
   q('#copyMail').textContent=t.email.copy;
 
-  // Lang UI
   q('#frBtn').classList.toggle('active',lang==='fr');
   q('#enBtn').classList.toggle('active',lang==='en');
   q('#esBtn').classList.toggle('active',lang==='es');
@@ -456,82 +435,70 @@ function applyI18n(){
   q('#s-es').classList.toggle('active',lang==='es');
 }
 
+/* ========= Utils ========= */
 function setSrc(img,file){
   img.src="images/"+file;
   img.onerror=()=>{ img.style.opacity=.35; img.style.borderStyle='dashed'; img.title="Image introuvable : "+file; };
 }
 
-/* ========= Splash & nav ========= */
+/* ========= Splash + bindings ========= */
 document.addEventListener('DOMContentLoaded', () => {
   applyI18n();
 
-  // Lang splash
-  q('#s-fr').onclick=()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); };
-  q('#s-en').onclick=()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); };
-  q('#s-es').onclick=()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); };
+  // Splash language
+  q('#s-fr').addEventListener('click',()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); });
+  q('#s-en').addEventListener('click',()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); });
+  q('#s-es').addEventListener('click',()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); });
 
-  // Entrer
-  q('#sJoy').onclick=()=>{
+  // Enter site by clicking JOYSSI
+  q('#sJoy').addEventListener('click',()=>{
     q('#splash').style.display='none';
     ['siteHeader','home','projets','projets-tous','apropos','contact'].forEach(id=>{ const el=q('#'+id); if(el) el.hidden=false; });
-    location.hash='#home';
+    window.location.hash = '#home';
     window.scrollTo(0,0);
-  };
+  });
 
-  // Lang top
-  q('#frBtn').onclick=()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); };
-  q('#enBtn').onclick=()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); };
-  q('#esBtn').onclick=()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); };
+  // Top language
+  q('#frBtn').addEventListener('click',()=>{ lang='fr'; localStorage.setItem('lang','fr'); applyI18n(); });
+  q('#enBtn').addEventListener('click',()=>{ lang='en'; localStorage.setItem('lang','en'); applyI18n(); });
+  q('#esBtn').addEventListener('click',()=>{ lang='es'; localStorage.setItem('lang','es'); applyI18n(); });
 
   // Email menu
   (function(){
     const btn=q('#emailBtn'), menu=q('#emailMenu'), addr='24joyssi@gmail.com';
     btn.addEventListener('click',()=>{ menu.style.display = (menu.style.display==='block'?'none':'block'); });
     document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
-    q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent='Copié ✓'; setTimeout(()=>ev.target.textContent=STR[lang].email.copy,1200);}catch{ alert(addr); }});
+    q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent='Copié ✓'; setTimeout(()=>ev.target.textContent='Copier l’adresse',1200);}catch{ alert(addr); }});
   })();
 
-  // Pages
+  // Projects (page filtres)
   initFilterPanel();
   initProjectsFiltered();
+
+  // Tous les projets (page grille)
   buildAllProjectsGrid();
   initProjectModal();
-
-  window.addEventListener('hashchange', router);
-  router();
 });
 
-function router(){
-  const h=location.hash||'#home';
-  ['home','projets','projets-tous','apropos','contact'].forEach(id=>q('#'+id).hidden=true);
-  if(h==='#projets') q('#projets').hidden=false;
-  else if(h==='#projets-tous') q('#projets-tous').hidden=false;
-  else if(h==='#apropos') q('#apropos').hidden=false;
-  else if(h==='#contact') q('#contact').hidden=false;
-  else q('#home').hidden=false;
+/* ========= Projects — page FILTRES ========= */
+const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
+  "assistant-photo":"Assistant photo", "assistant-ad":"Assistant DA", "graphic":"Design graphique" };
 
-  // Nav active
-  qa('#topnav a').forEach(a=>{
-    a.classList.toggle('on', a.getAttribute('href')===h || (h==='#home' && a.getAttribute('href')==='#home'));
-  });
-}
-
-/* ========= FILTRES ========= */
-const rolesLabel = (r)=>rolesMap[r]||r;
 let selectedByName = "";     // id (radio)
 let activeTags = new Set();  // rôles (checkbox)
 let current = null;
+
+function roleLabel(tag){ return rolesMap[tag] || tag; }
 
 function initFilterPanel(){
   const panel = q('#filterPanel');
   const byProjectBox = q('#byProjectBox');
 
   // open/close
-  q('#openFilter').onclick=()=> panel.classList.toggle('open');
+  q('#openFilter').addEventListener('click',()=> panel.classList.toggle('open'));
   document.addEventListener('click',e=>{ if(!panel.contains(e.target)) panel.classList.remove('open'); });
 
   // radios projets
-  byProjectBox.innerHTML='';
   PROJECTS.forEach(p=>{
     const id = 'by_'+p.id;
     const line = document.createElement('label');
@@ -551,15 +518,15 @@ function initFilterPanel(){
   });
 
   // actions
-  q('#applyFilters').onclick=()=>{ panel.classList.remove('open'); applyFilters(); };
-  q('#resetFilters').onclick=()=>{
+  q('#applyFilters').addEventListener('click',()=>{ panel.classList.remove('open'); applyFilters(); });
+  q('#resetFilters').addEventListener('click',()=>{
     byProjectBox.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
     selectedByName="";
     activeTags.clear();
     q('#dropByRole .inner').querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
     panel.classList.remove('open');
     applyFilters();
-  };
+  });
 }
 
 function matchProject(p){
@@ -599,7 +566,7 @@ function renderFilteredChooser(items){
   const box=q('#dThumbs'); box.innerHTML='';
   items.forEach(p=>{
     const b=document.createElement('button');
-    b.className='btn ghost'; b.textContent=p.title;
+    b.className='btn'; b.textContent=p.title;
     b.addEventListener('click',()=>{
       current=p;
       selectedByName=p.id;
@@ -616,26 +583,26 @@ function renderFilteredDetail(p){
   q('#dCredits').textContent = (p.credits && (p.credits[lang]||p.credits.fr)) || '';
   const rolesBox=q('#dRoles'); rolesBox.innerHTML='';
   p.roles.forEach(r=>{
-    const s=document.createElement('span'); s.className='chip'; s.textContent=rolesLabel(r);
-    s.title='Filtrer par '+rolesLabel(r);
-    s.onclick=()=>{
+    const s=document.createElement('span'); s.className='chip'; s.textContent=roleLabel(r);
+    s.title='Filtrer par '+roleLabel(r);
+    s.addEventListener('click',()=>{
       const cb = q(`#dropByRole input[type="checkbox"][value="${r}"]`);
       if(cb){ cb.checked = !cb.checked; cb.dispatchEvent(new Event('change',{bubbles:true})); }
       applyFilters();
-    };
+    });
     rolesBox.appendChild(s);
   });
   const thumbs=q('#dThumbs'); thumbs.innerHTML='';
   (p.images||[]).forEach(f=>{
     const im=document.createElement('img'); im.className='thumb'; im.alt=p.title; setSrc(im,f);
-    im.onclick=()=>openLightbox("images/"+f,p.title);
+    im.addEventListener('click',()=>openLightbox("images/"+f,p.title));
     thumbs.appendChild(im);
   });
 }
 
 function initProjectsFiltered(){ renderFilteredEmpty(); }
 
-/* ========= PAGE “TOUS LES PROJETS” ========= */
+/* ========= PAGE “TOUS LES PROJETS” (grille + modal) ========= */
 function buildAllProjectsGrid(){
   const grid = q('#allGrid'); grid.innerHTML='';
   PROJECTS.forEach(p=>{
@@ -644,31 +611,30 @@ function buildAllProjectsGrid(){
       <img class="cover" alt="">
       <div class="body">
         <div class="title">${p.title}</div>
-        <div class="roles">${p.roles.map(r=>`<span class="badge">${rolesLabel(r)}</span>`).join(' ')}</div>
+        <div class="roles">${p.roles.map(r=>`<span class="badge">${roleLabel(r)}</span>`).join(' ')}</div>
       </div>`;
     const cover=card.querySelector('.cover'); setSrc(cover,p.cover);
-    card.onclick=()=>openProjectModal(p);
+    card.addEventListener('click',()=>openProjectModal(p));
     grid.appendChild(card);
   });
 }
 
 function openProjectModal(p){
   q('#pmTitle').textContent=p.title;
-  const roles=q('#pmRoles'); roles.innerHTML='';
-  p.roles.forEach(r=>{ const x=document.createElement('span'); x.className='chip'; x.textContent=rolesLabel(r); roles.appendChild(x); });
+  const roles=q('#pmRoles'); roles.innerHTML=''; p.roles.forEach(r=>{ const x=document.createElement('span'); x.className='chip'; x.textContent=roleLabel(r); roles.appendChild(x); });
   q('#pmCredits').textContent=(p.credits && (p.credits[lang]||p.credits.fr)) || '';
   q('#pmDesc').textContent=p.desc[lang] || p.desc.fr || '';
   const box=q('#pmThumbs'); box.innerHTML='';
   (p.images||[]).forEach(f=>{
     const im=document.createElement('img'); im.alt=p.title; im.src=''; setSrc(im,f);
-    im.onclick=()=>openLightbox("images/"+f,p.title);
+    im.addEventListener('click',()=>openLightbox("images/"+f,p.title));
     box.appendChild(im);
   });
   q('#projModal').style.display='block';
 }
 
 function initProjectModal(){
-  q('#pmClose').onclick=()=>{ q('#projModal').style.display='none'; };
+  q('#pmClose').addEventListener('click',()=>{ q('#projModal').style.display='none'; });
   q('#projModal').addEventListener('click',e=>{ if(e.target.id==='projModal') q('#projModal').style.display='none'; });
 }
 
