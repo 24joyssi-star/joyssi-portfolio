@@ -12,13 +12,13 @@ body{ margin:0; background:#fff; color:#000; font-family:-apple-system,BlinkMacS
 
 /* Header */
 .header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid rgba(0,0,0,.08) }
-.wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px }
+.wrap{ max-width:1200px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap }
 .brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer; color:#000; text-decoration:none }
 .dot{ width:6px; height:6px; border-radius:999px; background:var(--blue) }
-nav{ margin-left:auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap }
-nav a{ color:#000; text-decoration:none; font-weight:800; opacity:.85 }
-nav a:hover{ opacity:1; text-decoration:underline }
-.lang-top button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65 }
+nav{ margin-left:auto; display:flex; gap:12px; align-items:center; flex-wrap:wrap }
+.btn-pill{ display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; border-radius:20px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer; min-width:150px; text-align:center }
+.btn-pill.active{ background:var(--blue); color:#fff }
+.lang-top button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65; padding:10px 8px }
 .lang-top button.active{ opacity:1; text-decoration:underline }
 
 @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--blue)}}
@@ -26,7 +26,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
 @media (prefers-reduced-motion:reduce){ .blink{ animation:none } }
 
 /* Sections */
-.section{ max-width:1200px; margin:0 auto; padding:56px 20px }
+.section{ max-width:1200px; margin:0 auto; padding:32px 20px }
 .label{ display:inline-block; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; padding:6px 10px; border-radius:16px; border:2px solid var(--blue); background:#fff }
 .rule{ height:1px; background:rgba(0,0,0,.08); margin:36px 0 }
 
@@ -99,14 +99,6 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .lightbox img{ max-width:92vw; max-height:92vh; border-radius:12px }
 .lightbox:focus{ outline:none }
 
-/* Contact */
-.links{ display:flex; gap:12px; flex-wrap:wrap }
-.links button,.links a{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:16px; border:2px solid var(--blue); color:#000; text-decoration:none; font-weight:800; background:#fff; cursor:pointer }
-.links svg{ width:18px; height:18px }
-.menu{ position:fixed; right:20px; bottom:90px; background:#fff; color:#000; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:10px; box-shadow:0 8px 30px rgba(0,0,0,.12); display:none; z-index:60 }
-.menu a{ color:#000; text-decoration:none; font-weight:700; padding:6px 0; display:block }
-.menu .copy{ margin-top:6px; border:2px solid var(--blue); border-radius:10px; padding:8px 10px; background:#fff; color:#000; font-weight:800; cursor:pointer }
-
 /* -------- Splash (NOIR + JOYSSI bleu + langues) -------- */
 .splash{ position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; z-index:300 }
 .s-inner{ text-align:center; max-width:900px; padding:24px }
@@ -133,10 +125,10 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <div class="wrap">
     <a class="brand" href="#home" title="Accueil"><span class="blink">JOYSSI</span><span class="dot"></span></a>
     <nav>
-      <a href="#home" data-i18n="menu.home">ACCUEIL</a>
-      <a href="#projets-tous" data-i18n="menu.projects">PROJETS</a>
-      <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
-      <a href="#contact" data-i18n="menu.contact">CONTACT</a>
+      <a href="#home" class="btn-pill" data-i18n="menu.home">ACCUEIL</a>
+      <a href="#projets-tous" class="btn-pill" data-i18n="menu.projects">PROJETS</a>
+      <a href="#apropos" class="btn-pill" data-i18n="menu.about">A PROPOS</a>
+      <a href="#contact" class="btn-pill" data-i18n="menu.contact">CONTACT</a>
       <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
       <span class="lang-top">
         <button id="frBtn" type="button" class="active">FR</button> |
@@ -155,16 +147,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
 
   <span class="label" data-i18n="menu.about">A PROPOS</span>
   <div class="hero-about" style="margin-top:12px">
-    <p id="aboutTxtHome">
-      Je suis Joyssi, directeur artistique, styliste et photographe.
-      J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
-      projets dans la mode et la culture. Ces premières expériences m’ont permis de
-      comprendre le processus créatif dans sa globalité et de me forger une vision précise,
-      sensible et structurée.
-      Aujourd’hui, je développe mes propres projets en tant que créatif indépendant. Je conçois
-      des identités visuelles complètes pour des marques, des artistes ou des événements, en
-      mobilisant la direction artistique, le stylisme et la photographie.
-    </p>
+    <p id="aboutTxtHome"></p>
     <p><a class="btn" href="#projets" data-i18n="hero.cta">Voir les projets</a></p>
   </div>
   <div class="rule"></div>
@@ -172,14 +155,13 @@ nav a:hover{ opacity:1; text-decoration:underline }
 
 <!-- PROJETS (avec filtres/panneau) -->
 <section id="projets" class="section" hidden>
-  <span class="label" data-i18n="menu.projects">PROJETS</span>
-
-  <div class="filterBar">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <span class="label" data-i18n="menu.projects">PROJETS</span>
     <div class="panel" id="filterPanel">
       <button class="filterBtn" type="button" id="openFilter">Filtrer</button>
       <div class="panelBox" id="panelBox" role="dialog" aria-label="Filtres">
         <!-- Par projet -->
-        <details class="drop" id="dropByProject">
+        <details class="drop" id="dropByProject" open>
           <summary>Par projet</summary>
           <div class="inner" id="byProjectBox"></div>
         </details>
@@ -224,9 +206,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <div id="allGrid" class="grid"></div>
 
   <div class="rule"></div>
-  <p>
-    <a class="btn" href="#projets">Filtrer les projets</a>
-  </p>
+  <p><a class="btn" href="#projets">Filtrer les projets</a></p>
 </section>
 
 <!-- A PROPOS (onglet) = version longue -->
@@ -343,22 +323,20 @@ const PROJECTS = [
     ]
   },
   {
-    id:"milhan", title:"Milhan — Fracture",
+    id:"milhan", title:"Milhan — « Fracture »",
     roles:["stylist","art"],
-    credits:{
-      fr:"Crédits : Styliste & Directeur artistique",
-      en:"Credits: Stylist & Art Director",
-      es:"Créditos: Estilista y Director de arte"
-    },
+    credits:{ fr:"Crédits : Styliste & Directeur artistique", en:"Credits: Stylist & Art Director", es:"Créditos: Estilista y Director de arte" },
     desc:{
-      fr:"Portrait en huis clos. Un homme s’isole dans un hangar, entre bruit intérieur et silence. Nous avons dirigé l’image et la silhouette pour construire une tension intime et cinématographique.",
-      en:"Closed-door portrait. A man isolates himself in an empty warehouse, between inner noise and silence. We shaped image and silhouette to build an intimate, cinematic tension.",
-      es:"Retrato a puerta cerrada. Un hombre se aísla en un almacén vacío, entre ruido interior y silencio. Construimos una tensión íntima y cinematográfica."
+      fr:`Shooting pour Milhan (Studio Mirage). Avec Mélie Calamaro & Juliette Cordillot. 
+      Un homme face à lui-même, isolé dans un hangar suspendu — une introspection entre tension, silence et éclats de lumière.`,
+      en:"Shoot for Milhan (Studio Mirage). A solitary introspection in a suspended warehouse — tension, silence and light bursts.",
+      es:"Sesión para Milhan (Studio Mirage). Una introspección solitaria en un almacén suspendido: tensión, silencio y destellos de luz."
     },
     cover:"IMG_7399.jpeg",
     images:[
       "IMG_7399.jpeg",
       "IMG_7398.jpeg",
+      "471E8261-C289-48A0-9667-19900EAB7D78.jpeg",
       "Facetune_02-06-2025-21-55-56.jpeg",
       "Facetune_02-06-2025-22-00-33.jpeg",
       "Facetune_02-06-2025-22-01-53.jpeg",
@@ -401,14 +379,14 @@ une extension visuelle de l’univers artistique ou de la marque.
 Ma démarche est immersive et contemporaine. Elle consiste à créer des univers cohérents, à
 articuler le fond et la forme, à relier émotion et direction visuelle avec précision et
 intention.`},
-  en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"}, hero:{cta:"See projects"},
+  en:{menu:{home:"HOME",projects:"PROJECTS",about:"ABOUT",contact:"CONTACT"}, hero:{cta:"View projects"},
       email:{open:"Open with",copy:"Copy address"},
-      aboutHome:"I’m Joyssi — art director, stylist and photographer. I started as an assistant in fashion/culture and now develop full identities, styling and photography.",
-      aboutFull:"I’m Joyssi — art director, stylist and photographer. I began as an assistant in fashion/culture. Today I run independent projects across art direction, styling and photography. I also act as a music art director and design event spaces. My approach is immersive and contemporary, aligning emotion and visual direction with precision and intent."},
+      aboutHome:"I’m Joyssi — creative director, stylist and photographer. I started as an assistant in fashion & culture, which gave me a full vision of the process. Today I develop independent projects across art direction, styling and photography.",
+      aboutFull:"I’m Joyssi — creative director, stylist and photographer. I began as an assistant in fashion/culture. Today I build full visual identities for brands, artists and events. I also act as a music art director and design event spaces. My approach is immersive and contemporary, aligning emotion and visual direction with precision and intent."},
   es:{menu:{home:"INICIO",projects:"PROYECTOS",about:"SOBRE MÍ",contact:"CONTACTO"}, hero:{cta:"Ver proyectos"},
       email:{open:"Abrir con",copy:"Copiar dirección"},
-      aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo. Empecé como asistente y ahora desarrollo identidades visuales, estilismo y fotografía.",
-      aboutFull:"Soy Joyssi — director de arte, estilista y fotógrafo. Inicié como asistente en moda/cultura. Hoy llevo proyectos independientes en dirección de arte, estilismo y fotografía; también dirección artística musical y diseño de espacios. Enfoque inmersivo y contemporáneo."}
+      aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo. Empecé como asistente en moda/cultura y hoy desarrollo identidades visuales, estilismo y fotografía.",
+      aboutFull:"Soy Joyssi — director de arte, estilista y fotógrafo. Inicié como asistente en moda/cultura. Hoy llevo proyectos independientes (dirección de arte, estilismo y fotografía), también dirección artística musical y diseño de espacios. Enfoque inmersivo y contemporáneo."}
 };
 
 let lang=(localStorage.getItem("lang")||"fr").toLowerCase();
@@ -427,6 +405,7 @@ function applyI18n(){
   q('#emailMenu div').textContent=t.email.open;
   q('#copyMail').textContent=t.email.copy;
 
+  // Lang active
   q('#frBtn').classList.toggle('active',lang==='fr');
   q('#enBtn').classList.toggle('active',lang==='en');
   q('#esBtn').classList.toggle('active',lang==='es');
@@ -456,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ['siteHeader','home','projets','projets-tous','apropos','contact'].forEach(id=>{ const el=q('#'+id); if(el) el.hidden=false; });
     window.location.hash = '#home';
     window.scrollTo(0,0);
+    highlightMenu('#home');
   });
 
   // Top language
@@ -468,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn=q('#emailBtn'), menu=q('#emailMenu'), addr='24joyssi@gmail.com';
     btn.addEventListener('click',()=>{ menu.style.display = (menu.style.display==='block'?'none':'block'); });
     document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
-    q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent='Copié ✓'; setTimeout(()=>ev.target.textContent='Copier l’adresse',1200);}catch{ alert(addr); }});
+    q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent='Copié ✓'; setTimeout(()=>{ev.target.textContent=STR[lang].email.copy;},1200);}catch{ alert(addr); }});
   })();
 
   // Projects (page filtres)
@@ -478,7 +458,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tous les projets (page grille)
   buildAllProjectsGrid();
   initProjectModal();
+
+  // Activer style actif dans le header selon hash
+  window.addEventListener('hashchange',()=>highlightMenu(location.hash||'#home'));
 });
+
+function highlightMenu(hash){
+  qa('.btn-pill').forEach(b=>b.classList.remove('active'));
+  const map={'#home':'a[href="#home"]','#projets-tous':'a[href="#projets-tous"]','#apropos':'a[href="#apropos"]','#contact':'a[href="#contact"]','#projets':'a[href="#projets"]'};
+  const a=q(map[hash]); if(a) a.classList.add('active');
+}
 
 /* ========= Projects — page FILTRES ========= */
 const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
