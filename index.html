@@ -29,7 +29,8 @@ a{ color:inherit; text-decoration:none }
 /* ---------- Splash (entrée) ---------- */
 .splash{ position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; z-index:300 }
 .s-inner{ text-align:center; max-width:900px; padding:24px }
-.s-logo{ font:900 clamp(56px,18vw,180px)/0.85 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:var(--blue); cursor:pointer; user-select:none }
+.s-logo{ font:900 clamp(56px,18vw,180px)/0.85 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; color:var(--blue); cursor:pointer; user-select:none; outline:0 }
+.s-logo:focus{ outline:2px solid var(--blue) }
 .lang-chooser{ display:inline-flex; gap:10px; border:2px solid var(--blue); border-radius:16px; padding:8px 12px; background:#000; color:#fff; font-weight:900; margin-bottom:14px }
 .lang-chooser button{ background:transparent; border:0; font:inherit; cursor:pointer; color:#fff; opacity:.7 }
 .lang-chooser button.active{ opacity:1; text-decoration:underline }
@@ -101,7 +102,8 @@ a{ color:inherit; text-decoration:none }
     <div class="lang-chooser" aria-label="Choisir la langue">
       <button id="s-fr" type="button">FR</button>|<button id="s-en" type="button">EN</button>|<button id="s-es" type="button">ES</button>
     </div>
-    <div id="sJoy" class="s-logo" title="Entrer">JOYSSI</div>
+    <!-- 1) onclick inline (sécurité) -->
+    <div id="sJoy" class="s-logo" tabindex="0" onclick="enterSite()" title="Entrer">JOYSSI</div>
   </div>
 </div>
 
@@ -120,7 +122,7 @@ a{ color:inherit; text-decoration:none }
   <section id="page-projects" class="page">
     <div class="projects-head">
       <span class="label" data-i18n="menu.projects">PROJETS</span>
-      <!-- Filtre : UNIQUEMENT ici -->
+      <!-- Filtre UNIQUEMENT ici -->
       <div class="panel" id="filterPanel">
         <button class="filterBtn" type="button" id="openFilter" data-i18n="filter.btn">Filtrer</button>
         <div class="panelBox" id="panelBox" role="dialog" aria-label="Filtres">
@@ -213,7 +215,20 @@ a{ color:inherit; text-decoration:none }
 </div>
 
 <script>
-/* ========= Données ========= */
+/* ===== Helpers ===== */
+const $=(id)=>document.getElementById(id);
+const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s);
+
+function placeholder(w=800,h=1000){
+  return `https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=${w}&auto=format&fit=crop`;
+}
+function setSrc(img,file){
+  if(!file){ img.src=placeholder(); return; }
+  img.src="images/"+file;
+  img.onerror=()=>{ img.src=placeholder(); img.title="Image introuvable : "+file; };
+}
+
+/* ===== Données ===== */
 const PROJECTS = [
   {
     id:"blind", title:"BLIND NO PLAN",
@@ -221,8 +236,8 @@ const PROJECTS = [
     credits: { fr:"Crédits : Stylisme, Photographie", en:"Credits: Styling, Photography", es:"Créditos: Estilismo, Fotografía" },
     desc:{
       fr:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.",
-      en:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks.",
-      es:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca. Dirección completa del rodaje y looks."
+      en:"Styling & Photography — raw visual language aligned with the brand DNA.",
+      es:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca."
     },
     cover:"DSC02221.jpg",
     images:["DSC02221.jpg","DSC02224.jpg","DSC02230.jpg","DSC02234.jpg","DSC02237.jpg","DSC03110.jpg"]
@@ -232,9 +247,9 @@ const PROJECTS = [
     roles:["stylist","photographer"],
     credits:{ fr:"Crédits : Photographie & Stylisme", en:"Credits: Photography & Styling", es:"Créditos: Fotografía y Estilismo" },
     desc:{
-      fr:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.",
-      en:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame.",
-      es:"Fotografía y Estilismo para Mega Sue. Estética colorida y expresiva en un marco minimalista."
+      fr:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive.",
+      en:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics.",
+      es:"Fotografía y Estilismo para Mega Sue. Estética colorida y expresiva."
     },
     cover:"339666353_247672421014594_8397278685892781428_n.jpg",
     images:[
@@ -255,9 +270,9 @@ const PROJECTS = [
       es:"Créditos: Asistente de dirección de arte, Asistente de fotografía, Diseño gráfico"
     },
     desc:{
-      fr:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale.",
-      en:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout — ensuring overall aesthetic consistency.",
-      es:"Asistente de dirección de arte y de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final — para asegurar la coherencia estética global."
+      fr:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale.",
+      en:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout.",
+      es:"Asistente de dirección de arte y de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final."
     },
     cover:"464462279_18467418079001724_4296041362829498819_n.jpg",
     images:[
@@ -274,9 +289,9 @@ const PROJECTS = [
     credits:{ fr:"Crédits : Styliste & Directeur artistique", en:"Credits: Stylist & Art Director", es:"Créditos: Estilista y Director de arte" },
     desc:{
       fr:`Shooting pour Milhan (Studio Mirage). Avec Mélie Calamaro & Juliette Cordillot.
-Un homme face à lui-même, isolé dans un hangar suspendu — une introspection entre tension, silence et éclats de lumière.`,
-      en:"Shoot for Milhan (Studio Mirage). A solitary introspection in a suspended warehouse — tension, silence and light bursts.",
-      es:"Sesión para Milhan (Studio Mirage). Una introspección solitaria en un almacén suspendido: tensión, silencio y destellos de luz."
+Un homme face à lui-même, isolé dans un hangar suspendu — tension, silence et éclats de lumière.`,
+      en:"Shoot for Milhan (Studio Mirage). Solitary introspection in a suspended warehouse.",
+      es:"Sesión para Milhan (Studio Mirage). Introspección solitaria en un almacén suspendido."
     },
     cover:"IMG_7399.jpeg",
     images:[
@@ -287,11 +302,11 @@ Un homme face à lui-même, isolé dans un hangar suspendu — une introspection
   }
 ];
 
-/* ========= i18n ========= */
+/* ===== i18n ===== */
 const STR={
   fr:{menu:{home:"accueil",projects:"projets",about:"à propos",contact:"contact"},
       hero:{cta:"Voir les projets"},
-      email:{open:"Ouvrir avec",copy:"Copier l’adresse"},
+      email:{copy:"Copier l’adresse"},
       aboutHome:`Je suis Joyssi, directeur artistique, styliste et photographe.
 J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
 projets dans la mode et la culture. Ces premières expériences m’ont permis de
@@ -302,78 +317,67 @@ des identités visuelles complètes pour des marques, des artistes ou des évén
 mobilisant la direction artistique, le stylisme et la photographie.`,
       aboutFull:`Je suis Joyssi, directeur artistique, styliste et photographe.
 J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
-projets dans la mode et la culture. Ces premières expériences m’ont permis de
-comprendre le processus créatif dans sa globalité et de me forger une vision précise,
-sensible et structurée.
-Aujourd’hui, je développe mes propres projets en tant que créatif indépendant. Je conçois
-des identités visuelles complètes pour des marques, des artistes ou des événements, en
-mobilisant la direction artistique, le stylisme et la photographie.
+projets dans la mode et la culture. Aujourd’hui, je conçois des identités visuelles complètes
+et j’interviens aussi en direction artistique musicale et en design d’espace.`,
 
-J’interviens aussi en tant que directeur artistique musical : je les accompagne dans le choix
-de leurs morceaux, de leur style musical, de leurs producteurs, et dans la direction globale
-de leur son. En parallèle, je développe tout l’univers visuel (visuels, storytelling, identité),
-pour que l’esthétique musicale et l’image soient parfaitement alignées et puissantes.
-
-À côté de ça, j’interviens aussi en design d’espace, principalement dans des contextes
-événementiels. Je réfléchis à l’ambiance, à la scénographie, à la façon dont un lieu devient
-une extension visuelle de l’univers artistique ou de la marque.
-Ma démarche est immersive et contemporaine. Elle consiste à créer des univers cohérents, à
-articuler le fond et la forme, à relier émotion et direction visuelle avec précision et
-intention.`,
       filter:{btn:"Filtrer",byProject:"Par projet",byRole:"Par rôle / poste",apply:"Appliquer",reset:"Réinitialiser"},
       roles:{stylist:"Stylisme",art:"Direction artistique",photographer:"Photographie","assistant-photo":"Assistant photo","assistant-ad":"Assistant DA",graphic:"Design graphique"}
   },
   en:{menu:{home:"home",projects:"projects",about:"about",contact:"contact"},
-      hero:{cta:"View projects"},
-      email:{open:"Open with",copy:"Copy address"},
+      hero:{cta:"View projects"}, email:{copy:"Copy address"},
       aboutHome:"I’m Joyssi — creative director, stylist and photographer. I started as an assistant in fashion & culture; today I develop independent projects across art direction, styling and photography.",
-      aboutFull:"I build full visual identities for brands, artists and events. I also act as a music art director and design event spaces. My approach is immersive and contemporary, aligning emotion and visual direction with precision and intent.",
+      aboutFull:"I build full visual identities; I also work in music art direction and spatial design.",
       filter:{btn:"Filter",byProject:"By project",byRole:"By role",apply:"Apply",reset:"Reset"},
       roles:{stylist:"Styling",art:"Art Direction",photographer:"Photography","assistant-photo":"Photo Assistant","assistant-ad":"AD Assistant",graphic:"Graphic Design"}
   },
   es:{menu:{home:"inicio",projects:"proyectos",about:"sobre mí",contact:"contacto"},
-      hero:{cta:"Ver proyectos"},
-      email:{open:"Abrir con",copy:"Copiar dirección"},
-      aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo. Empecé como asistente; hoy desarrollo proyectos independientes en dirección de arte, estilismo y fotografía.",
-      aboutFull:"Desarrollo identidades visuales completas; también dirección artística musical y diseño de espacios. Enfoque inmersivo y contemporáneo.",
+      hero:{cta:"Ver proyectos"}, email:{copy:"Copiar dirección"},
+      aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo.",
+      aboutFull:"Desarrollo identidades visuales completas; también dirección artística musical y diseño de espacios.",
       filter:{btn:"Filtrar",byProject:"Por proyecto",byRole:"Por rol",apply:"Aplicar",reset:"Restablecer"},
       roles:{stylist:"Estilismo",art:"Dirección de arte",photographer:"Fotografía","assistant-photo":"Asistente de foto","assistant-ad":"Asistente de DA",graphic:"Diseño gráfico"}
   }
 };
-
 let lang=(localStorage.getItem("lang")||"fr").toLowerCase();
-const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s); const $=(id)=>document.getElementById(id);
 
-/* ========= Utils ========= */
-function setSrc(img,file){
-  img.src="images/"+file;
-  img.onerror=()=>{ img.style.opacity=.35; img.style.borderStyle='dashed'; img.title="Image introuvable : "+file; };
-}
-
-/* ========= Router ========= */
+/* ===== Router ===== */
 const routes={'#/home':'page-home','#/projets':'page-projects','#/apropos':'page-about','#/contact':'page-contact'};
-function go(hash){
-  if(hash.startsWith('#/projets/')){ show('page-project'); loadProject(hash.split('/')[2]); highlight('#/projets'); return; }
-  show(routes[hash]||'page-home'); highlight(hash||'#/home');
-}
-function show(id){ qa('.page').forEach(p=>p.classList.remove('active')); const el=$(`${id}`); if(el) el.classList.add('active'); }
+function show(id){ qa('.page').forEach(p=>p.classList.remove('active')); const el=$(id); if(el) el.classList.add('active'); }
 function highlight(hash){ qa('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===hash)); }
+function go(hash){
+  if(hash && hash.startsWith('#/projets/')){ show('page-project'); loadProject(hash.split('/')[2]); highlight('#/projets'); return; }
+  const id = routes[hash] || 'page-home';
+  show(id); highlight(hash || '#/home');
+}
 
-/* ========= Build Projects (index) + Filter ========= */
-let selectedByName = new Set();   // multi select projects
-let activeRoles = new Set();
+/* ===== Build ===== */
+function applyLang(){
+  document.documentElement.lang=lang;
+  const t=STR[lang];
+  const map={'#/home':'home','#/projets':'projects','#/apropos':'about','#/contact':'contact'};
+  qa('.nav-link').forEach(a=>{ const k=map[a.getAttribute('href')]; if(k) a.textContent=t.menu[k]; });
+  q('#page-home .btn').textContent=t.hero.cta;
+  $('aboutTxtHome').innerHTML=`<p>${t.aboutHome.replace(/\n/g,' ').trim()}</p>`;
+  $('aboutTxtFull').innerHTML=`<p>${t.aboutFull.replace(/\n/g,' ').trim()}</p>`;
+  $('copyMail') && ($('copyMail').textContent=t.email.copy);
+
+  // i18n filtres
+  q('[data-i18n="filter.btn"]').textContent=t.filter.btn;
+  q('#dropByProject summary').textContent=t.filter.byProject;
+  q('#dropByRole summary').textContent=t.filter.byRole;
+  q('#applyFilters').textContent=t.filter.apply;
+  q('#resetFilters').textContent=t.filter.reset;
+}
+function setLang(l){ lang=l; localStorage.setItem('lang',l); applyLang(); if(location.hash.startsWith('#/projets/')) loadProject(location.hash.split('/')[2]); }
 
 function buildProjectsGrid(){
   const grid=$('projectsGrid'); grid.innerHTML='';
   const list = PROJECTS.filter(p=>{
-    if(activeRoles.size>0){
-      for(const r of activeRoles){ if(!p.roles.includes(r)) return false; }
-    }
+    if(activeRoles.size>0){ for(const r of activeRoles){ if(!p.roles.includes(r)) return false; } }
     if(selectedByName.size>0 && !selectedByName.has(p.id)) return false;
     return true;
   });
   $('countInfo').textContent = list.length ? `${list.length} projet(s)` : (lang==='fr'?'Aucun projet':'No project');
-
   list.forEach(p=>{
     const a=document.createElement('a'); a.href=`#/projets/${p.id}`; a.className='tile';
     a.innerHTML=`<img class="cover" alt=""><div class="cap">${p.title}</div>`;
@@ -381,63 +385,9 @@ function buildProjectsGrid(){
     grid.appendChild(a);
   });
 }
-
-function initFilterPanel(){
-  const panel=$('filterPanel'); const box=$('panelBox');
-  const t=STR[lang];
-  // i18n labels
-  q('[data-i18n="filter.btn"]').textContent=t.filter.btn;
-  q('#dropByProject summary').textContent=t.filter.byProject;
-  q('#dropByRole summary').textContent=t.filter.byRole;
-  q('#applyFilters').textContent=t.filter.apply;
-  q('#resetFilters').textContent=t.filter.reset;
-
-  // open/close
-  $('openFilter').onclick=()=>panel.classList.toggle('open');
-  document.addEventListener('click',e=>{ if(!panel.contains(e.target)) panel.classList.remove('open'); });
-
-  // projects list (checkbox)
-  const byProjectBox=$('byProjectBox'); byProjectBox.innerHTML='';
-  PROJECTS.forEach(p=>{
-    const id='chk_'+p.id;
-    const line=document.createElement('label');
-    line.innerHTML=`<input type="checkbox" id="${id}" value="${p.id}"> ${p.title}`;
-    byProjectBox.appendChild(line);
-  });
-  byProjectBox.addEventListener('change',e=>{
-    if(e.target && e.target.type==='checkbox'){
-      const v=e.target.value; if(e.target.checked) selectedByName.add(v); else selectedByName.delete(v);
-    }
-  });
-
-  // roles list (checkbox)
-  const rolesMap=STR[lang].roles;
-  const byRoleBox=$('byRoleBox'); byRoleBox.innerHTML='';
-  Object.keys(rolesMap).forEach(key=>{
-    const id='role_'+key;
-    const line=document.createElement('label');
-    line.innerHTML=`<input type="checkbox" id="${id}" value="${key}"> ${rolesMap[key]}`;
-    byRoleBox.appendChild(line);
-  });
-  byRoleBox.addEventListener('change',e=>{
-    if(e.target && e.target.type==='checkbox'){
-      const v=e.target.value; if(e.target.checked) activeRoles.add(v); else activeRoles.delete(v);
-    }
-  });
-
-  // actions
-  $('applyFilters').onclick=()=>{ panel.classList.remove('open'); buildProjectsGrid(); };
-  $('resetFilters').onclick=()=>{
-    selectedByName.clear(); activeRoles.clear();
-    byProjectBox.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
-    byRoleBox.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
-    panel.classList.remove('open'); buildProjectsGrid();
-  };
-}
-
-/* ========= Project detail ========= */
 function loadProject(id){
-  const p=PROJECTS.find(x=>x.id===id); if(!p){ $('projTitle').textContent='Projet introuvable'; $('projThumbs').innerHTML=''; return; }
+  const p=PROJECTS.find(x=>x.id===id);
+  if(!p){ $('projTitle').textContent='Projet introuvable'; $('projThumbs').innerHTML=''; return; }
   $('projTitle').textContent=p.title;
   const rolesBox=$('projRoles'); rolesBox.innerHTML='';
   (p.roles||[]).forEach(r=>{ const s=document.createElement('span'); s.className='chip'; s.textContent=(STR[lang].roles[r]||r); rolesBox.appendChild(s); });
@@ -447,24 +397,45 @@ function loadProject(id){
   (p.images||[]).forEach(f=>{ const im=document.createElement('img'); im.alt=p.title; setSrc(im,f); im.addEventListener('click',()=>openLightbox("images/"+f,p.title)); box.appendChild(im); });
 }
 
-/* ========= i18n ========= */
-function setLang(l){ lang=l; localStorage.setItem('lang',l); applyLang(); if(location.hash.startsWith('#/projets/')) loadProject(location.hash.split('/')[2]); initFilterPanel(); }
-function applyLang(){
-  document.documentElement.lang=lang;
-  const t=STR[lang];
-  // nav
-  const map={'#/home':'home','#/projets':'projects','#/apropos':'about','#/contact':'contact'};
-  qa('.nav-link').forEach(a=>{ const k=map[a.getAttribute('href')]; if(k) a.textContent=t.menu[k]; });
-  // home
-  q('#page-home .btn').textContent=t.hero.cta;
-  $('aboutTxtHome').innerHTML=`<p>${t.aboutHome.replace(/\n/g,' ').trim()}</p>`;
-  // about
-  $('aboutTxtFull').innerHTML=t.aboutFull.split('\n\n').map(p=>`<p>${p.replace(/\n/g,' ').trim()}</p>`).join('');
-  // email
-  $('copyMail') && ($('copyMail').textContent=t.email.copy);
+/* ===== Filtres (uniquement sur /projets) ===== */
+let selectedByName = new Set();
+let activeRoles = new Set();
+
+function initFilterPanel(){
+  const panel=$('filterPanel');
+  $('openFilter').onclick=()=>panel.classList.toggle('open');
+  document.addEventListener('click',e=>{ if(!panel.contains(e.target)) panel.classList.remove('open'); });
+
+  const byProjectBox=$('byProjectBox'); byProjectBox.innerHTML='';
+  PROJECTS.forEach(p=>{
+    const id='chk_'+p.id; const line=document.createElement('label');
+    line.innerHTML=`<input type="checkbox" id="${id}" value="${p.id}"> ${p.title}`;
+    byProjectBox.appendChild(line);
+  });
+  byProjectBox.addEventListener('change',e=>{
+    if(e.target && e.target.type==='checkbox'){ const v=e.target.value; if(e.target.checked) selectedByName.add(v); else selectedByName.delete(v); }
+  });
+
+  const byRoleBox=$('byRoleBox'); byRoleBox.innerHTML='';
+  Object.keys(STR[lang].roles).forEach(key=>{
+    const id='role_'+key; const line=document.createElement('label');
+    line.innerHTML=`<input type="checkbox" id="${id}" value="${key}"> ${STR[lang].roles[key]}`;
+    byRoleBox.appendChild(line);
+  });
+  byRoleBox.addEventListener('change',e=>{
+    if(e.target && e.target.type==='checkbox'){ const v=e.target.value; if(e.target.checked) activeRoles.add(v); else activeRoles.delete(v); }
+  });
+
+  $('applyFilters').onclick=()=>{ panel.classList.remove('open'); buildProjectsGrid(); };
+  $('resetFilters').onclick=()=>{
+    selectedByName.clear(); activeRoles.clear();
+    byProjectBox.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
+    byRoleBox.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false);
+    panel.classList.remove('open'); buildProjectsGrid();
+  };
 }
 
-/* ========= Email chooser & Lightbox ========= */
+/* ===== Email + Lightbox ===== */
 function bindEmailMenu(){
   const btn=$('emailBtn'), menu=$('emailMenu'), addr='24joyssi@gmail.com';
   btn.addEventListener('click',()=>{ menu.style.display=(menu.style.display==='block'?'none':'block'); });
@@ -474,25 +445,35 @@ function bindEmailMenu(){
 function openLightbox(src,alt){ const box=$('lightbox'), im=$('lightImg'); im.src=src; im.alt=alt||''; box.style.display='flex'; box.focus(); }
 $('lightbox').addEventListener('click',()=>{ $('lightbox').style.display='none'; $('lightImg').src=''; });
 
-/* ========= Boot ========= */
-document.addEventListener('DOMContentLoaded',()=>{
-  // Splash lang
-  $('#s-fr').addEventListener('click',()=>setLang('fr'));
-  $('#s-en').addEventListener('click',()=>setLang('en'));
-  $('#s-es').addEventListener('click',()=>setLang('es'));
+/* ===== Entrée (3 sécurités) ===== */
+function enterSite(){
+  const sp=$('splash'); if(sp) sp.style.display='none';
+  $('app').hidden=false; $('siteFooter').hidden=false;
+  applyLang(); initFilterPanel(); buildProjectsGrid(); bindEmailMenu();
+  if(!location.hash) location.hash = '#/home';
+  go(location.hash);
+}
+window.enterSite = enterSite; // 2) dispo pour l'onclick inline
 
-  // Enter site
-  $('#sJoy').addEventListener('click',()=>{
-    $('#splash').style.display='none'; $('#app').hidden=false; $('#siteFooter').hidden=false;
-    applyLang(); initFilterPanel(); buildProjectsGrid(); bindEmailMenu();
-    if(!location.hash) location.hash='#/home'; go(location.hash);
+document.addEventListener('DOMContentLoaded',()=>{
+  // 3) binding JS classique
+  const sJoy=$('sJoy'); if(sJoy) sJoy.addEventListener('click', enterSite);
+  sJoy && sJoy.addEventListener('keydown',(e)=>{ if(e.key==='Enter' || e.key===' ') enterSite(); });
+
+  // Langues (top + splash)
+  $('s-fr').addEventListener('click',()=>setLang('fr'));
+  $('s-en').addEventListener('click',()=>setLang('en'));
+  $('s-es').addEventListener('click',()=>setLang('es'));
+  $('frBtn').addEventListener('click',()=>setLang('fr'));
+  $('enBtn').addEventListener('click',()=>setLang('en'));
+  $('esBtn').addEventListener('click',()=>setLang('es'));
+
+  // Secours clavier global
+  document.addEventListener('keydown',(e)=>{
+    if($('splash').style.display!== 'none' && (e.key==='Enter'||e.key===' ')){ enterSite(); }
   });
 
-  // Bottom lang
-  $('#frBtn').addEventListener('click',()=>setLang('fr'));
-  $('#enBtn').addEventListener('click',()=>setLang('en'));
-  $('#esBtn').addEventListener('click',()=>setLang('es'));
-
+  // Router
   window.addEventListener('hashchange',()=>go(location.hash||'#/home'));
 });
 </script>
