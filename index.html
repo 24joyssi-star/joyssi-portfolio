@@ -21,9 +21,36 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .lang-top button{ background:transparent; border:0; font-weight:900; cursor:pointer; opacity:.65 }
 .lang-top button.active{ opacity:1; text-decoration:underline }
 
+/* Clignote léger sur la marque de gauche (inchangé) */
 @keyframes joyssiBlink{0%,40%{color:#000}50%,100%{color:var(--blue)}}
 .blink{ animation:joyssiBlink 1s steps(1,end) infinite }
 @media (prefers-reduced-motion:reduce){ .blink{ animation:none } }
+
+/* -------- Badge JOYSSI animé qui remplace ACCUEIL -------- */
+.joyssiBadge{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:12px 16px; border-radius:16px; border:2px solid var(--blue);
+  font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif;
+  letter-spacing:-.02em; text-decoration:none; user-select:none;
+  background:#fff; color:#fff;                 /* texte blanc */
+  -webkit-text-stroke:1px var(--blue);         /* contour bleu lisible */
+  animation:joyssiPill 1.8s ease-in-out infinite;
+}
+@keyframes joyssiPill{
+  /* Blanc + contour bleu (texte blanc lisible) */
+  0%,42%{
+    background:#fff; color:#fff; -webkit-text-stroke:1px var(--blue);
+    box-shadow:none;
+  }
+  /* Bleu plein + texte blanc */
+  50%,100%{
+    background:var(--blue); color:#fff; -webkit-text-stroke:0 transparent;
+    box-shadow:0 4px 14px rgba(9,7,148,.18);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .joyssiBadge{ animation:none }
+}
 
 /* Sections */
 .section{ max-width:1200px; margin:0 auto; padding:56px 20px }
@@ -36,39 +63,12 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .hero-about{ max-width:860px }
 .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:16px; border:2px solid var(--blue); background:#fff; color:#000; font:900 14px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; text-decoration:none; cursor:pointer }
 
-/* ==== PAGE PROJETS — LISTE PLEIN ÉCRAN (style Dépendant) ==== */
-.fullList{ display:flex; flex-direction:column; gap:18px; padding-top:8px }
-.fullList .item{
-  position:relative;
-  width:100vw;            /* déborde pour prendre la largeur totale */
-  left:50%;
-  right:50%;
-  margin-left:-50vw;
-  margin-right:-50vw;
-  height:min(80vh,820px); /* “plein écran” mais raisonnable sur desktop */
-  overflow:hidden;
-  cursor:pointer;
-  border-top:1px solid rgba(0,0,0,.06);
-  border-bottom:1px solid rgba(0,0,0,.06);
-}
-.fullList .item img{
-  width:100%; height:100%; object-fit:cover; display:block; background:#f2f2f2;
-  transform:scale(1); transition:transform .5s ease;
-}
-.fullList .item:hover img{ transform:scale(1.02) }
-.fullList .title{
-  position:absolute; left:20px; bottom:18px;
-  color:#fff; text-shadow:0 10px 30px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.6);
-  font:900 clamp(18px,3.6vw,32px)/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif;
-  letter-spacing:.02em; padding:8px 12px; border-radius:12px;
-  background:rgba(0,0,0,.28); backdrop-filter:blur(1.5px)
-}
-
-/* ==== PAGE PROJETS (panneau filtres + détail) ==== */
+/* PROJETS (page filtres) */
 .helper{ font-weight:700; opacity:.75; margin-left:10px }
 .filterBar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:12px 0 16px }
 .filterBtn{ border:2px solid var(--blue); background:#fff; color:#000; padding:10px 14px; border-radius:14px; font-weight:900; cursor:pointer }
 
+/* Panneau filtre */
 .panel{ position:relative; display:inline-block }
 .panelBox{
   position:absolute; left:0; top:calc(100% + 8px); min-width:280px; background:#fff; border:1px solid rgba(0,0,0,.12);
@@ -98,7 +98,18 @@ nav a:hover{ opacity:1; text-decoration:underline }
 .thumb{ width:160px; height:240px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
 @media(max-width:380px){ .thumb{ width:140px; height:210px } }
 
-/* MODAL projet (utilisé aussi depuis la liste plein écran) */
+/* -------- PAGE TOUS LES PROJETS (sans filtres) -------- */
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px }
+@media(max-width:1000px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+@media(max-width:640px){ .grid{ grid-template-columns:1fr } }
+.card{ border:1px solid rgba(0,0,0,.12); border-radius:14px; overflow:hidden; background:#fff; cursor:pointer }
+.card .cover{ aspect-ratio:4/5; width:100%; object-fit:cover; display:block; background:#f2f2f2 }
+.card .body{ padding:10px 12px }
+.card .title{ margin:0 0 4px; font:900 16px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.card .roles{ display:flex; flex-wrap:wrap; gap:6px }
+.badge{ border:2px solid var(--blue); border-radius:999px; padding:2px 8px; font-weight:800; font-size:11px }
+
+/* MODAL projet (pour la page "tous") */
 .projectModal{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; z-index:120; overflow:auto }
 .pm-wrap{ max-width:1100px; margin:40px auto; background:#fff; color:#000; border-radius:16px; overflow:hidden }
 .pm-head{ display:flex; justify-content:space-between; align-items:center; padding:16px 18px; border-bottom:1px solid rgba(0,0,0,.08) }
@@ -147,13 +158,18 @@ nav a:hover{ opacity:1; text-decoration:underline }
 <!-- ========= SITE ========= -->
 <header class="header" id="siteHeader" hidden>
   <div class="wrap">
+    <!-- Marque à gauche (inchangé) -->
     <a class="brand" href="#home" title="Accueil"><span class="blink">JOYSSI</span><span class="dot"></span></a>
+
     <nav>
-      <a href="#home" data-i18n="menu.home">ACCUEIL</a>
-      <!-- PROJETS → page “liste plein écran” -->
+      <!-- ✅ Remplace "ACCUEIL" par le badge JOYSSI animé -->
+      <a class="joyssiBadge" href="#home" aria-label="Accueil">JOYSSI</a>
+
+      <!-- le reste du menu est identique -->
       <a href="#projets-tous" data-i18n="menu.projects">PROJETS</a>
       <a href="#apropos" data-i18n="menu.about">A PROPOS</a>
       <a href="#contact" data-i18n="menu.contact">CONTACT</a>
+
       <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
       <span class="lang-top">
         <button id="frBtn" type="button" class="active">FR</button> |
@@ -187,7 +203,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
   <div class="rule"></div>
 </section>
 
-<!-- PROJETS (avec filtres/panneau + détail) -->
+<!-- PROJETS (avec filtres/panneau) -->
 <section id="projets" class="section" hidden>
   <span class="label" data-i18n="menu.projects">PROJETS</span>
 
@@ -230,15 +246,20 @@ nav a:hover{ opacity:1; text-decoration:underline }
   </div>
 
   <div class="rule"></div>
-  <p class="helper">Tu veux voir la présentation plein écran ? <a class="btn" href="#projets-tous">Tous les projets</a></p>
 </section>
 
-<!-- PAGE “TOUS LES PROJETS” (liste plein écran + overlay titre) -->
+<!-- ✅ PAGE TOUS LES PROJETS (sans filtres) -->
 <section id="projets-tous" class="section" hidden>
   <span class="label">PROJETS</span>
-  <div id="fullList" class="fullList"></div>
+  <h2 style="margin:10px 0 6px; font:900 28px/1 Impact,'Arial Black','Helvetica Neue',Arial,sans-serif; letter-spacing:-.02em">Tous les projets</h2>
+  <p class="helper">Clique sur un projet pour voir les images et les infos.</p>
+
+  <div id="allGrid" class="grid"></div>
+
   <div class="rule"></div>
-  <p><a class="btn" href="#projets">Filtrer les projets</a></p>
+  <p>
+    <a class="btn" href="#projets">Filtrer les projets</a>
+  </p>
 </section>
 
 <!-- A PROPOS (onglet) = version longue -->
@@ -261,7 +282,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
       Instagram
     </a>
     <button id="emailBtn" type="button" aria-label="Email">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
       Email
     </button>
   </div>
@@ -275,7 +296,7 @@ nav a:hover{ opacity:1; text-decoration:underline }
   </div>
 </section>
 
-<!-- MODAL projet -->
+<!-- MODAL projet (page tous les projets) -->
 <div id="projModal" class="projectModal" aria-modal="true" role="dialog" aria-label="Détail du projet">
   <div class="pm-wrap">
     <div class="pm-head">
@@ -293,52 +314,44 @@ nav a:hover{ opacity:1; text-decoration:underline }
   </div>
 </div>
 
-<!-- Lightbox -->
+<!-- Lightbox commun -->
 <div class="lightbox" id="lightbox" tabindex="-1" aria-modal="true" role="dialog">
   <img id="lightImg" alt="">
 </div>
 
 <script>
-/* ========= Données projets =========
-   Ajout de "date" pour trier (nouveau → ancien).
-   MILHAN : suppression de "Facetune_02-06-2025-22-01-53.jpeg" comme demandé.
-*/
+/* ========= Données projets ========= */
 const PROJECTS = [
+  /* ordre = du plus récent au plus ancien (dernier en 1er visuel) */
   {
-    id:"milhan", title:"Milhan — « Fracture »",
-    date:"2025-06-08",
+    id:"milhan", title:"Milhan",
+    date:"2025-06-10",
     roles:["stylist","art"],
     credits:{ fr:"Crédits : Styliste & Directeur artistique", en:"Credits: Stylist & Art Director", es:"Créditos: Estilista y Director de arte" },
     desc:{
-      fr:"Portrait sensible et tendu — « Fracture ». Stylisme & direction artistique.",
-      en:"Sensitive, tense portrait series — “Fracture”. Styling & art direction.",
-      es:"Serie sensible y tensa — “Fracture”. Estilismo y dirección de arte."
+      fr:"Shooting pour Milhan — Rôles : Styliste & Directeur artistique.",
+      en:"Shoot for Milhan — Roles: Stylist & Art Director.",
+      es:"Sesión para Milhan — Roles: Estilista y Director de arte."
     },
     cover:"IMG_7399.jpeg",
     images:[
-      "IMG_7399.jpeg",
-      "IMG_7398.jpeg",
-      "471E8261-C289-48A0-9667-19900EAB7D78.jpeg",
-      "Facetune_02-06-2025-21-55-56.jpeg",
-      "Facetune_02-06-2025-22-00-33.jpeg",
-      "Facetune_08-06-2025-19-48-19.jpeg",
-      "Facetune_08-06-2025-20-14-16.jpeg",
-      "Facetune_08-06-2025-20-16-43.jpeg"
+      "IMG_7399.jpeg","IMG_7398.jpeg","Facetune_02-06-2025-22-00-33.jpeg",
+      "Facetune_08-06-2025-20-16-43.jpeg","Facetune_08-06-2025-19-48-19.jpeg","Facetune_08-06-2025-20-14-16.jpeg"
     ]
   },
   {
-    id:"ddm", title:"Drôle de Monsieur — FW24",
-    date:"2024-10-01",
+    id:"ddm", title:"Drôle de Monsieur",
+    date:"2025-02-01",
     roles:["assistant-ad","assistant-photo","graphic"],
     credits:{
-      fr:"Assistant directeur artistique, assistant photographe & design graphique.",
-      en:"Assistant art director, assistant photographer & graphic design.",
-      es:"Asistente de dirección de arte, asistente de fotografía y diseño gráfico."
+      fr:"Crédits : Assistant directeur artistique, Assistant photographe, Design graphique",
+      en:"Credits: Assistant Art Director, Assistant Photographer, Graphic Design",
+      es:"Créditos: Asistente de dirección de arte, Asistente de fotografía, Diseño gráfico"
     },
     desc:{
-      fr:"Préparation visuelle, retouches, design graphique et mise en page finale — cohérence esthétique globale.",
-      en:"Visual prep, retouching, graphic design and final layout — consistent aesthetics.",
-      es:"Preparación visual, retoque, diseño gráfico y maquetación final — coherencia estética."
+      fr:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — cohérence esthétique globale.",
+      en:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout — overall aesthetic consistency.",
+      es:"Asistente de dirección de arte y de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final."
     },
     cover:"464462279_18467418079001724_4296041362829498819_n.jpg",
     images:[
@@ -351,13 +364,13 @@ const PROJECTS = [
   },
   {
     id:"mega", title:"Mega Sue",
-    date:"2023-04-01",
+    date:"2024-06-01",
     roles:["stylist","photographer"],
-    credits:{ fr:"Photographie & Stylisme", en:"Photography & Styling", es:"Fotografía y Estilismo" },
+    credits:{ fr:"Crédits : Photographie & Stylisme", en:"Credits: Photography & Styling", es:"Créditos: Fotografía y Estilismo" },
     desc:{
-      fr:"Esthétique colorée et expressive dans un cadre minimaliste.",
-      en:"Colorful and expressive aesthetics in a minimalist frame.",
-      es:"Estética colorida y expresiva en un marco minimalista."
+      fr:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.",
+      en:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame.",
+      es:"Fotografía y Estilismo para Mega Sue. Estética colorida y expresiva en un marco minimalista."
     },
     cover:"339666353_247672421014594_8397278685892781428_n.jpg",
     images:[
@@ -371,13 +384,13 @@ const PROJECTS = [
   },
   {
     id:"blind", title:"BLIND NO PLAN",
-    date:"2023-02-01",
+    date:"2023-11-01",
     roles:["stylist","photographer"],
-    credits: { fr:"Stylisme & Photographie", en:"Styling & Photography", es:"Estilismo & Fotografía" },
+    credits: { fr:"Crédits : Stylisme, Photographie", en:"Credits: Styling, Photography", es:"Créditos: Estilismo, Fotografía" },
     desc:{
-      fr:"Univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.",
-      en:"Raw visual language aligned with brand DNA. Shoot direction & looks.",
-      es:"Lenguaje visual crudo alineado con el ADN de la marca. Dirección del rodaje & looks."
+      fr:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.",
+      en:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks.",
+      es:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca. Dirección completa del rodaje y looks."
     },
     cover:"DSC02221.jpg",
     images:["DSC02221.jpg","DSC02224.jpg","DSC02230.jpg","DSC02234.jpg","DSC02237.jpg","DSC03110.jpg"]
@@ -432,16 +445,23 @@ const q=(s)=>document.querySelector(s), qa=(s)=>document.querySelectorAll(s);
 /* ========= i18n apply ========= */
 function applyI18n(){
   const t=STR[lang]; document.documentElement.lang=lang;
-  q('a[href="#home"]').textContent=t.menu.home;
-  q('a[href="#projets-tous"]').textContent=t.menu.projects;
-  q('a[href="#apropos"]').textContent=t.menu.about;
-  q('a[href="#contact"]').textContent=t.menu.contact;
+
+  /* ⚠️ On ne touche pas au badge JOYSSI animé : on met à jour
+     UNIQUEMENT les liens qui portent data-i18n */
+  const homeLink = q('a[href="#home"][data-i18n="menu.home"]');
+  if(homeLink) homeLink.textContent=t.menu.home;
+
+  q('a[href="#projets-tous"][data-i18n="menu.projects"]').textContent=t.menu.projects;
+  q('a[href="#apropos"][data-i18n="menu.about"]').textContent=t.menu.about;
+  q('a[href="#contact"][data-i18n="menu.contact"]').textContent=t.menu.contact;
+
   q('#home .btn').textContent=t.hero.cta;
   q('#aboutTxtHome').textContent=t.aboutHome;
   q('#aboutTxtFull').innerHTML = t.aboutFull.split('\n\n').map(p=>`<p>${p.replace(/\n/g,' ').trim()}</p>`).join('');
   q('#emailMenu div').textContent=t.email.open;
   q('#copyMail').textContent=t.email.copy;
 
+  // Lang active
   q('#frBtn').classList.toggle('active',lang==='fr');
   q('#enBtn').classList.toggle('active',lang==='en');
   q('#esBtn').classList.toggle('active',lang==='es');
@@ -458,6 +478,9 @@ function setSrc(img,file){
 
 /* ========= Splash + bindings ========= */
 document.addEventListener('DOMContentLoaded', () => {
+  // tri projets (derniers d'abord)
+  PROJECTS.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+
   applyI18n();
 
   // Splash language
@@ -486,21 +509,21 @@ document.addEventListener('DOMContentLoaded', () => {
     q('#copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent='Copié ✓'; setTimeout(()=>ev.target.textContent='Copier l’adresse',1200);}catch{ alert(addr); }});
   })();
 
-  // Projets : page filtres
+  // Projects (page filtres)
   initFilterPanel();
   initProjectsFiltered();
 
-  // Projets : liste plein écran
-  buildFullList();
+  // Tous les projets (page grille)
+  buildAllProjectsGrid();
   initProjectModal();
 });
 
-/* ========= Page FILTRES ========= */
+/* ========= Projects — page FILTRES ========= */
 const rolesMap = { "stylist":"Stylisme", "art":"Direction artistique", "photographer":"Photographie",
   "assistant-photo":"Assistant photo", "assistant-ad":"Assistant DA", "graphic":"Design graphique" };
 
-let selectedByName = "";
-let activeTags = new Set();
+let selectedByName = "";     // id (radio)
+let activeTags = new Set();  // rôles (checkbox)
 let current = null;
 
 function roleLabel(tag){ return rolesMap[tag] || tag; }
@@ -509,9 +532,11 @@ function initFilterPanel(){
   const panel = q('#filterPanel');
   const byProjectBox = q('#byProjectBox');
 
+  // open/close
   q('#openFilter').addEventListener('click',()=> panel.classList.toggle('open'));
   document.addEventListener('click',e=>{ if(!panel.contains(e.target)) panel.classList.remove('open'); });
 
+  // radios projets
   PROJECTS.forEach(p=>{
     const id = 'by_'+p.id;
     const line = document.createElement('label');
@@ -522,6 +547,7 @@ function initFilterPanel(){
     if(e.target && e.target.name==='byProject'){ selectedByName = e.target.value; }
   });
 
+  // checkboxes rôles
   q('#dropByRole .inner').addEventListener('change',(e)=>{
     if(e.target && e.target.type==='checkbox'){
       const v = e.target.value;
@@ -529,6 +555,7 @@ function initFilterPanel(){
     }
   });
 
+  // actions
   q('#applyFilters').addEventListener('click',()=>{ panel.classList.remove('open'); applyFilters(); });
   q('#resetFilters').addEventListener('click',()=>{
     byProjectBox.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
@@ -613,25 +640,23 @@ function renderFilteredDetail(p){
 
 function initProjectsFiltered(){ renderFilteredEmpty(); }
 
-/* ========= PAGE “TOUS LES PROJETS” — LISTE PLEIN ÉCRAN ========= */
-function buildFullList(){
-  const list = q('#fullList'); list.innerHTML='';
-  const ordered = [...PROJECTS].sort((a,b)=> (b.date||'').localeCompare(a.date||''));
-  ordered.forEach(p=>{
-    const first = (p.images && p.images.length)? p.images[0] : p.cover;
-    const item = document.createElement('div');
-    item.className='item';
-    item.innerHTML = `
-      <img alt="${p.title}">
-      <div class="title">${p.title}</div>
-    `;
-    const img = item.querySelector('img'); setSrc(img, first || p.cover);
-    item.addEventListener('click',()=>openProjectModal(p)); // clic ouvre la fiche
-    list.appendChild(item);
+/* ========= PAGE “TOUS LES PROJETS” (grille + modal) ========= */
+function buildAllProjectsGrid(){
+  const grid = q('#allGrid'); grid.innerHTML='';
+  PROJECTS.forEach(p=>{
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <img class="cover" alt="">
+      <div class="body">
+        <div class="title">${p.title}</div>
+        <div class="roles">${p.roles.map(r=>`<span class="badge">${roleLabel(r)}</span>`).join(' ')}</div>
+      </div>`;
+    const cover=card.querySelector('.cover'); setSrc(cover,p.cover);
+    card.addEventListener('click',()=>openProjectModal(p));
+    grid.appendChild(card);
   });
 }
 
-/* ========= MODAL ========= */
 function openProjectModal(p){
   q('#pmTitle').textContent=p.title;
   const roles=q('#pmRoles'); roles.innerHTML=''; p.roles.forEach(r=>{ const x=document.createElement('span'); x.className='chip'; x.textContent=roleLabel(r); roles.appendChild(x); });
@@ -645,6 +670,7 @@ function openProjectModal(p){
   });
   q('#projModal').style.display='block';
 }
+
 function initProjectModal(){
   q('#pmClose').addEventListener('click',()=>{ q('#projModal').style.display='none'; });
   q('#projModal').addEventListener('click',e=>{ if(e.target.id==='projModal') q('#projModal').style.display='none'; });
