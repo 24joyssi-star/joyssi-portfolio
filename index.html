@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>JOYSSI — Portfolio</title>
+<title>Joyssi Portfolio</title>
 <style>
 :root{ --blue:#090794 }
 *{ box-sizing:border-box }
@@ -11,7 +11,7 @@ html{ scroll-behavior:smooth }
 body{ margin:0; background:#fff; color:#000; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif }
 a{ color:inherit; text-decoration:none }
 
-/* ---------- Footer-nav (sobre, collée en bas) ---------- */
+/* ---------- Footer-nav (sobre) ---------- */
 .footer-nav{ position:sticky; bottom:0; z-index:30; background:#fff; border-top:1px solid rgba(0,0,0,.08) }
 .footer-wrap{ max-width:1200px; margin:0 auto; padding:10px 16px; display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap }
 .brand{ display:flex; align-items:center; gap:8px; font:900 13px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.04em; cursor:pointer }
@@ -78,10 +78,34 @@ a{ color:inherit; text-decoration:none }
 .detail-head h1{ margin:0 0 8px; font:900 clamp(26px,4vw,40px)/1.05 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em }
 .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 }
 .chip{ border:2px solid var(--blue); border-radius:999px; padding:4px 10px; font-weight:800; font-size:12px }
-.credits{ margin:8px 0 16px; font-weight:700 }
+.credits{ margin:8px 0 8px; font-weight:700 }
+.people{ margin:4px 0 16px; font-weight:700 }
 .detail-thumbs{ display:flex; flex-wrap:wrap; gap:10px }
 .detail-thumbs img{ width:160px; height:240px; object-fit:cover; background:#f2f2f2; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
 @media(max-width:380px){ .detail-thumbs img{ width:140px; height:210px } }
+
+/* ---------- Page Tous les projets + Modal ---------- */
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px }
+@media(max-width:1000px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+@media(max-width:640px){ .grid{ grid-template-columns:1fr } }
+.card{ border:1px solid rgba(0,0,0,.12); border-radius:14px; overflow:hidden; background:#fff; cursor:pointer }
+.card .cover{ aspect-ratio:4/5; width:100%; object-fit:cover; display:block; background:#f2f2f2 }
+.card .body{ padding:10px 12px }
+.card .title{ margin:0 0 4px; font:900 16px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.card .roles{ display:flex; flex-wrap:wrap; gap:6px }
+.badge{ border:2px solid var(--blue); border-radius:999px; padding:2px 8px; font-weight:800; font-size:11px }
+
+/* modal */
+.projectModal{ position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; z-index:120; overflow:auto }
+.pm-wrap{ max-width:1100px; margin:40px auto; background:#fff; color:#000; border-radius:16px; overflow:hidden }
+.pm-head{ display:flex; justify-content:space-between; align-items:center; padding:16px 18px; border-bottom:1px solid rgba(0,0,0,.08) }
+.pm-head h3{ margin:0; font:900 22px/1 Impact,"Arial Black","Helvetica Neue",Arial,sans-serif; letter-spacing:-.01em }
+.pm-close{ background:#fff; border:2px solid var(--blue); border-radius:10px; padding:6px 10px; font-weight:900; cursor:pointer }
+.pm-body{ display:grid; grid-template-columns:1fr 1fr; gap:18px; padding:18px }
+@media(max-width:900px){ .pm-body{ grid-template-columns:1fr } }
+.pm-info .chips{ margin:6px 0 }
+.pm-thumbs{ display:flex; flex-wrap:wrap; gap:10px }
+.pm-thumbs img{ width:160px; height:240px; object-fit:cover; border:1px solid rgba(0,0,0,.12); border-radius:10px; cursor:zoom-in }
 
 /* ---------- Lightbox ---------- */
 .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:500 }
@@ -102,23 +126,23 @@ a{ color:inherit; text-decoration:none }
     <div class="lang-chooser" aria-label="Choisir la langue">
       <button id="s-fr" type="button">FR</button>|<button id="s-en" type="button">EN</button>|<button id="s-es" type="button">ES</button>
     </div>
-    <!-- 1) onclick inline (sécurité) -->
     <div id="sJoy" class="s-logo" tabindex="0" onclick="enterSite()" title="Entrer">JOYSSI</div>
   </div>
 </div>
 
 <!-- ========= APP ========= -->
 <main id="app" hidden>
-  <!-- Home -->
+  <!-- Accueil -->
   <section id="page-home" class="page">
     <h1 class="hero-title">JOYSSI</h1>
     <div class="label" data-i18n="menu.about">A PROPOS</div>
     <div class="rule" style="margin:12px 0"></div>
     <div id="aboutTxtHome" style="max-width:860px"></div>
     <p style="margin-top:12px"><a class="btn" href="#/projets" data-i18n="hero.cta">Voir les projets</a></p>
+    <div class="rule"></div>
   </section>
 
-  <!-- Projects (index) -->
+  <!-- Projets avec filtres -->
   <section id="page-projects" class="page">
     <div class="projects-head">
       <span class="label" data-i18n="menu.projects">PROJETS</span>
@@ -143,22 +167,45 @@ a{ color:inherit; text-decoration:none }
       <span class="helper" id="countInfo"></span>
     </div>
 
-    <div id="projectsGrid" class="projects-grid"></div>
+    <div id="detail" class="detail">
+      <h3 id="dTitle">Sélectionne un projet</h3>
+      <p id="dDesc" style="max-width:70ch; opacity:.9"></p>
+      <div class="chips" id="dRoles"></div>
+      <div class="credits" id="dCredits"></div>
+      <div class="people" id="dPeople"></div>
+      <div class="detail-thumbs" id="dThumbs"></div>
+    </div>
+
+    <div class="rule"></div>
+    <p><a class="btn" href="#/projets-tous" id="allBtn">Voir tous les projets</a></p>
   </section>
 
-  <!-- Project detail -->
+  <!-- Page Tous les projets (sans filtres) -->
+  <section id="page-projects-all" class="page">
+    <span class="label" data-i18n="menu.projects">PROJETS</span>
+    <h2 style="margin:10px 0 6px; font:900 28px/1 Impact,'Arial Black','Helvetica Neue',Arial,sans-serif; letter-spacing:-.02em">Tous les projets</h2>
+    <p class="helper" id="allHelp">Clique sur un projet pour voir les images et les infos.</p>
+
+    <div id="allGrid" class="grid"></div>
+
+    <div class="rule"></div>
+    <p><a class="btn" href="#/projets" id="filterBtn2">Filtrer les projets</a></p>
+  </section>
+
+  <!-- Détail projet (route directe) -->
   <section id="page-project" class="page">
     <a href="#/projets" class="btn" style="margin-bottom:12px">← <span data-i18n="menu.projects">PROJETS</span></a>
     <div class="detail-head">
       <h1 id="projTitle">Projet</h1>
       <div class="chips" id="projRoles"></div>
       <div class="credits" id="projCredits"></div>
+      <div class="people" id="projPeople"></div>
       <p id="projDesc" style="max-width:70ch"></p>
     </div>
     <div class="detail-thumbs" id="projThumbs"></div>
   </section>
 
-  <!-- About -->
+  <!-- À propos (long) -->
   <section id="page-about" class="page">
     <span class="label" data-i18n="menu.about">A PROPOS</span>
     <div class="rule" style="margin:12px 0"></div>
@@ -170,17 +217,17 @@ a{ color:inherit; text-decoration:none }
     <span class="label" data-i18n="menu.contact">CONTACT</span>
     <div class="rule" style="margin:12px 0"></div>
     <div class="links" style="display:flex; gap:12px; flex-wrap:wrap">
-      <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" class="btn">
+      <a href="https://www.instagram.com/joyssi.b/" target="_blank" rel="noreferrer" class="btn" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.5" cy="6.5" r="1"/></svg>
         Instagram
       </a>
-      <button id="emailBtn" type="button" class="btn">
+      <button id="emailBtn" type="button" class="btn" aria-haspopup="dialog" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
         Email
       </button>
     </div>
     <div id="emailMenu" class="menu" role="dialog" aria-label="Choisir un service email">
-      <div style="font-weight:800; margin-bottom:8px;">Ouvrir avec</div>
+      <div style="font-weight:800; margin-bottom:8px;" id="mailOpenWith">Ouvrir avec</div>
       <a href="mailto:24joyssi@gmail.com">Client installé (mailto)</a>
       <a href="https://mail.google.com/mail/?view=cm&to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Gmail</a>
       <a href="https://outlook.live.com/mail/0/deeplink/compose?to=24joyssi@gmail.com" target="_blank" rel="noreferrer">Outlook Web</a>
@@ -196,7 +243,7 @@ a{ color:inherit; text-decoration:none }
     <a class="brand" href="#/home" title="Accueil"><span class="blink">JOYSSI</span><span class="dot"></span></a>
     <div class="nav">
       <a href="#/home" class="nav-link">accueil</a>
-      <a href="#/projets" class="nav-link">projets</a>
+      <a href="#/projets-tous" class="nav-link">projets</a>
       <a href="#/apropos" class="nav-link">à propos</a>
       <a href="#/contact" class="nav-link">contact</a>
       <span style="width:1px;height:18px;background:rgba(0,0,0,.18)"></span>
@@ -208,6 +255,25 @@ a{ color:inherit; text-decoration:none }
     </div>
   </div>
 </footer>
+
+<!-- Modal “Tous les projets” -->
+<div id="projModal" class="projectModal" aria-modal="true" role="dialog" aria-label="Détail du projet">
+  <div class="pm-wrap">
+    <div class="pm-head">
+      <h3 id="pmTitle">Projet</h3>
+      <button class="pm-close" id="pmClose" type="button">Fermer</button>
+    </div>
+    <div class="pm-body">
+      <div class="pm-info">
+        <div class="chips" id="pmRoles"></div>
+        <div class="credits" id="pmCredits"></div>
+        <div class="people" id="pmPeople"></div>
+        <p id="pmDesc" style="max-width:65ch"></p>
+      </div>
+      <div class="pm-thumbs" id="pmThumbs"></div>
+    </div>
+  </div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" tabindex="-1" aria-modal="true" role="dialog">
@@ -233,11 +299,15 @@ const PROJECTS = [
   {
     id:"blind", title:"BLIND NO PLAN",
     roles:["stylist","photographer"],
-    credits: { fr:"Crédits : Stylisme, Photographie", en:"Credits: Styling, Photography", es:"Créditos: Estilismo, Fotografía" },
+    credits: {
+      fr:"Crédits : Stylisme, Photographie",
+      en:"Credits: Styling, Photography",
+      es:"Créditos: Estilismo, Fotografía"
+    },
     desc:{
       fr:"Stylisme & Photographie — univers visuel brut, aligné avec l’ADN de la marque. Direction du shooting & looks.",
-      en:"Styling & Photography — raw visual language aligned with the brand DNA.",
-      es:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca."
+      en:"Styling & Photography — raw visual language aligned with the brand DNA. Full shoot direction & looks.",
+      es:"Estilismo y fotografía — lenguaje visual crudo alineado con el ADN de la marca. Dirección completa del rodaje y looks."
     },
     cover:"DSC02221.jpg",
     images:["DSC02221.jpg","DSC02224.jpg","DSC02230.jpg","DSC02234.jpg","DSC02237.jpg","DSC03110.jpg"]
@@ -245,11 +315,15 @@ const PROJECTS = [
   {
     id:"mega", title:"Mega Sue",
     roles:["stylist","photographer"],
-    credits:{ fr:"Crédits : Photographie & Stylisme", en:"Credits: Photography & Styling", es:"Créditos: Fotografía y Estilismo" },
+    credits:{
+      fr:"Crédits : Photographie & Stylisme",
+      en:"Credits: Photography & Styling",
+      es:"Créditos: Fotografía y Estilismo"
+    },
     desc:{
-      fr:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive.",
-      en:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics.",
-      es:"Fotografía y Estilismo para Mega Sue. Estética colorida y expresiva."
+      fr:"Photographie & Stylisme pour la marque Mega Sue. Esthétique colorée et expressive dans un cadre minimaliste.",
+      en:"Photography & Styling for Mega Sue. Colorful and expressive aesthetics in a minimalist frame.",
+      es:"Fotografía y Estilismo para Mega Sue. Estética colorida y expresiva en un marco minimalista."
     },
     cover:"339666353_247672421014594_8397278685892781428_n.jpg",
     images:[
@@ -270,9 +344,9 @@ const PROJECTS = [
       es:"Créditos: Asistente de dirección de arte, Asistente de fotografía, Diseño gráfico"
     },
     desc:{
-      fr:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale.",
-      en:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout.",
-      es:"Asistente de dirección de arte y de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final."
+      fr:"Assistant directeur artistique & assistant photographe. Préparation visuelle, retouches, design graphique et mise en page finale — pour garantir la cohérence esthétique globale.",
+      en:"Assistant art director & assistant photographer. Visual prep, retouching, graphic design and final layout — ensuring overall aesthetic consistency.",
+      es:"Asistente de dirección de arte y de fotografía. Preparación visual, retoque, diseño gráfico y maquetación final — para asegurar la coherencia estética global."
     },
     cover:"464462279_18467418079001724_4296041362829498819_n.jpg",
     images:[
@@ -286,14 +360,23 @@ const PROJECTS = [
   {
     id:"milhan", title:"Milhan — « Fracture »",
     roles:["stylist","art"],
-    credits:{ fr:"Crédits : Styliste & Directeur artistique", en:"Credits: Stylist & Art Director", es:"Créditos: Estilista y Director de arte" },
+    credits:{
+      fr:"Crédits : Styliste & Directeur artistique",
+      en:"Credits: Stylist & Art Director",
+      es:"Créditos: Estilista y Director de arte"
+    },
     desc:{
       fr:`Shooting pour Milhan (Studio Mirage). Avec Mélie Calamaro & Juliette Cordillot.
 Un homme face à lui-même, isolé dans un hangar suspendu — tension, silence et éclats de lumière.`,
-      en:"Shoot for Milhan (Studio Mirage). Solitary introspection in a suspended warehouse.",
-      es:"Sesión para Milhan (Studio Mirage). Introspección solitaria en un almacén suspendido."
+      en:"Shoot for Milhan (Studio Mirage). A solitary introspection in a suspended warehouse — tension, silence and light bursts.",
+      es:"Sesión para Milhan (Studio Mirage). Introspección solitaria en un almacén suspendido: tensión, silencio y destellos de luz."
     },
     cover:"IMG_7399.jpeg",
+    people:[
+      { name:"Studio Mirage", role:{fr:"Production créative",en:"Creative production",es:"Producción creativa"} },
+      { name:"Mélie Calamaro", handle:"@meliecalamaro", role:{fr:"Collaboration",en:"Collaboration",es:"Colaboración"} },
+      { name:"Juliette Cordillot", handle:"@juliette_cdt", role:{fr:"Collaboration",en:"Collaboration",es:"Colaboración"} }
+    ],
     images:[
       "IMG_7399.jpeg","IMG_7398.jpeg","471E8261-C289-48A0-9667-19900EAB7D78.jpeg",
       "Facetune_02-06-2025-21-55-56.jpeg","Facetune_02-06-2025-22-00-33.jpeg","Facetune_02-06-2025-22-01-53.jpeg",
@@ -304,10 +387,11 @@ Un homme face à lui-même, isolé dans un hangar suspendu — tension, silence 
 
 /* ===== i18n ===== */
 const STR={
-  fr:{menu:{home:"accueil",projects:"projets",about:"à propos",contact:"contact"},
-      hero:{cta:"Voir les projets"},
-      email:{copy:"Copier l’adresse"},
-      aboutHome:`Je suis Joyssi, directeur artistique, styliste et photographe.
+  fr:{
+    menu:{home:"accueil",projects:"projets",about:"à propos",contact:"contact"},
+    hero:{cta:"Voir les projets"},
+    email:{open:"Ouvrir avec",copy:"Copier l’adresse"},
+    aboutHome:`Je suis Joyssi, directeur artistique, styliste et photographe.
 J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
 projets dans la mode et la culture. Ces premières expériences m’ont permis de
 comprendre le processus créatif dans sa globalité et de me forger une vision précise,
@@ -315,97 +399,118 @@ sensible et structurée.
 Aujourd’hui, je développe mes propres projets en tant que créatif indépendant. Je conçois
 des identités visuelles complètes pour des marques, des artistes ou des événements, en
 mobilisant la direction artistique, le stylisme et la photographie.`,
-      aboutFull:`Je suis Joyssi, directeur artistique, styliste et photographe.
+    aboutFull:`Je suis Joyssi, directeur artistique, styliste et photographe.
 J’ai commencé en tant qu’assistant directeur artistique, styliste et photographe sur des
-projets dans la mode et la culture. Aujourd’hui, je conçois des identités visuelles complètes
-et j’interviens aussi en direction artistique musicale et en design d’espace.`,
+projets dans la mode et la culture. Ces premières expériences m’ont permis de
+comprendre le processus créatif dans sa globalité et de me forger une vision précise,
+sensible et structurée.
+Aujourd’hui, je développe mes propres projets en tant que créatif indépendant. Je conçois
+des identités visuelles complètes pour des marques, des artistes ou des événements, en
+mobilisant la direction artistique, le stylisme et la photographie.
 
-      filter:{btn:"Filtrer",byProject:"Par projet",byRole:"Par rôle / poste",apply:"Appliquer",reset:"Réinitialiser"},
-      roles:{stylist:"Stylisme",art:"Direction artistique",photographer:"Photographie","assistant-photo":"Assistant photo","assistant-ad":"Assistant DA",graphic:"Design graphique"}
+J’interviens aussi en tant que directeur artistique musical : je les accompagne dans le choix
+de leurs morceaux, de leur style musical, de leurs producteurs, et dans la direction globale
+de leur son. En parallèle, je développe tout l’univers visuel (visuels, storytelling, identité),
+pour que l’esthétique musicale et l’image soient parfaitement alignées et puissantes.
+À côté de ça, j’interviens aussi en design d’espace, principalement dans des contextes
+événementiels. Je réfléchis à l’ambiance, à la scénographie, à la façon dont un lieu devient
+une extension visuelle de l’univers artistique ou de la marque.
+Ma démarche est immersive et contemporaine. Elle consiste à créer des univers cohérents, à
+articuler le fond et la forme, à relier émotion et direction visuelle avec précision et
+intention.`,
+    filter:{btn:"Filtrer",byProject:"Par projet",byRole:"Par rôle / poste",apply:"Appliquer",reset:"Réinitialiser"},
+    roles:{stylist:"Stylisme",art:"Direction artistique",photographer:"Photographie","assistant-photo":"Assistant photo","assistant-ad":"Assistant DA",graphic:"Design graphique"},
+    people:"Collaborateurs"
   },
-  en:{menu:{home:"home",projects:"projects",about:"about",contact:"contact"},
-      hero:{cta:"View projects"}, email:{copy:"Copy address"},
-      aboutHome:"I’m Joyssi — creative director, stylist and photographer. I started as an assistant in fashion & culture; today I develop independent projects across art direction, styling and photography.",
-      aboutFull:"I build full visual identities; I also work in music art direction and spatial design.",
-      filter:{btn:"Filter",byProject:"By project",byRole:"By role",apply:"Apply",reset:"Reset"},
-      roles:{stylist:"Styling",art:"Art Direction",photographer:"Photography","assistant-photo":"Photo Assistant","assistant-ad":"AD Assistant",graphic:"Graphic Design"}
+  en:{
+    menu:{home:"home",projects:"projects",about:"about",contact:"contact"},
+    hero:{cta:"View projects"},
+    email:{open:"Open with",copy:"Copy address"},
+    aboutHome:"I’m Joyssi — creative director, stylist and photographer. I started as an assistant in fashion & culture; today I develop independent projects across art direction, styling and photography.",
+    aboutFull:"I’m Joyssi — art director, stylist and photographer. I began as an assistant in fashion/culture. Today I run independent projects across art direction, styling and photography. I also act as a music art director and design event spaces. My approach is immersive and contemporary, aligning emotion and visual direction with precision and intent.",
+    filter:{btn:"Filter",byProject:"By project",byRole:"By role",apply:"Apply",reset:"Reset"},
+    roles:{stylist:"Styling",art:"Art Direction",photographer:"Photography","assistant-photo":"Photo Assistant","assistant-ad":"AD Assistant",graphic:"Graphic Design"},
+    people:"Collaborators"
   },
-  es:{menu:{home:"inicio",projects:"proyectos",about:"sobre mí",contact:"contacto"},
-      hero:{cta:"Ver proyectos"}, email:{copy:"Copiar dirección"},
-      aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo.",
-      aboutFull:"Desarrollo identidades visuales completas; también dirección artística musical y diseño de espacios.",
-      filter:{btn:"Filtrar",byProject:"Por proyecto",byRole:"Por rol",apply:"Aplicar",reset:"Restablecer"},
-      roles:{stylist:"Estilismo",art:"Dirección de arte",photographer:"Fotografía","assistant-photo":"Asistente de foto","assistant-ad":"Asistente de DA",graphic:"Diseño gráfico"}
+  es:{
+    menu:{home:"inicio",projects:"proyectos",about:"sobre mí",contact:"contacto"},
+    hero:{cta:"Ver proyectos"},
+    email:{open:"Abrir con",copy:"Copiar dirección"},
+    aboutHome:"Soy Joyssi — director de arte, estilista y fotógrafo. Empecé como asistente; hoy desarrollo proyectos independientes en dirección de arte, estilismo y fotografía.",
+    aboutFull:"Soy Joyssi — director de arte, estilista y fotógrafo. Inicié como asistente. Hoy llevo proyectos independientes; también dirección artística musical y diseño de espacios. Enfoque inmersivo y contemporáneo.",
+    filter:{btn:"Filtrar",byProject:"Por proyecto",byRole:"Por rol",apply:"Aplicar",reset:"Restablecer"},
+    roles:{stylist:"Estilismo",art:"Dirección de arte",photographer:"Fotografía","assistant-photo":"Asistente de foto","assistant-ad":"Asistente de DA",graphic:"Diseño gráfico"},
+    people:"Colaboradores"
   }
 };
+
 let lang=(localStorage.getItem("lang")||"fr").toLowerCase();
 
 /* ===== Router ===== */
-const routes={'#/home':'page-home','#/projets':'page-projects','#/apropos':'page-about','#/contact':'page-contact'};
+const routes={
+  '#/home':'page-home',
+  '#/projets':'page-projects',
+  '#/projets-tous':'page-projects-all',
+  '#/apropos':'page-about',
+  '#/contact':'page-contact'
+};
 function show(id){ qa('.page').forEach(p=>p.classList.remove('active')); const el=$(id); if(el) el.classList.add('active'); }
 function highlight(hash){ qa('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===hash)); }
 function go(hash){
-  if(hash && hash.startsWith('#/projets/')){ show('page-project'); loadProject(hash.split('/')[2]); highlight('#/projets'); return; }
+  if(hash && hash.startsWith('#/projets/')){ show('page-project'); loadProject(hash.split('/')[2]); highlight('#/projets-tous'); return; }
   const id = routes[hash] || 'page-home';
   show(id); highlight(hash || '#/home');
 }
 
-/* ===== Build ===== */
+/* ===== i18n ===== */
 function applyLang(){
   document.documentElement.lang=lang;
   const t=STR[lang];
-  const map={'#/home':'home','#/projets':'projects','#/apropos':'about','#/contact':'contact'};
+  // footer nav
+  const map={'#/home':'home','#/projets-tous':'projects','#/apropos':'about','#/contact':'contact'};
   qa('.nav-link').forEach(a=>{ const k=map[a.getAttribute('href')]; if(k) a.textContent=t.menu[k]; });
+  // home
   q('#page-home .btn').textContent=t.hero.cta;
   $('aboutTxtHome').innerHTML=`<p>${t.aboutHome.replace(/\n/g,' ').trim()}</p>`;
-  $('aboutTxtFull').innerHTML=`<p>${t.aboutFull.replace(/\n/g,' ').trim()}</p>`;
-  $('copyMail') && ($('copyMail').textContent=t.email.copy);
-
-  // i18n filtres
+  // about
+  $('aboutTxtFull').innerHTML=t.aboutFull.split('\n\n').map(p=>`<p>${p.replace(/\n/g,' ').trim()}</p>`).join('');
+  // email
+  $('mailOpenWith').textContent=t.email.open;
+  $('copyMail').textContent=t.email.copy;
+  // filtres labels dynamiques
   q('[data-i18n="filter.btn"]').textContent=t.filter.btn;
   q('#dropByProject summary').textContent=t.filter.byProject;
   q('#dropByRole summary').textContent=t.filter.byRole;
   q('#applyFilters').textContent=t.filter.apply;
   q('#resetFilters').textContent=t.filter.reset;
+  // helpers
+  $('allHelp').textContent = (lang==='fr'?'Clique sur un projet pour voir les images et les infos.':
+                             lang==='en'?'Click a project to see images and info.':'Haz clic en un proyecto para ver imágenes e info.');
+  $('allBtn').textContent = (lang==='fr'?'Voir tous les projets': lang==='en'?'See all projects':'Ver todos los proyectos');
+  $('filterBtn2').textContent = (lang==='fr'?'Filtrer les projets': lang==='en'?'Filter projects':'Filtrar proyectos');
 }
-function setLang(l){ lang=l; localStorage.setItem('lang',l); applyLang(); if(location.hash.startsWith('#/projets/')) loadProject(location.hash.split('/')[2]); }
+function setLang(l){ lang=l; localStorage.setItem('lang',l); applyLang(); if(location.hash.startsWith('#/projets/')) loadProject(location.hash.split('/')[2]); buildAllProjectsGrid(); initFilterPanel(); buildProjectsGrid(); }
 
-function buildProjectsGrid(){
-  const grid=$('projectsGrid'); grid.innerHTML='';
-  const list = PROJECTS.filter(p=>{
-    if(activeRoles.size>0){ for(const r of activeRoles){ if(!p.roles.includes(r)) return false; } }
-    if(selectedByName.size>0 && !selectedByName.has(p.id)) return false;
-    return true;
-  });
-  $('countInfo').textContent = list.length ? `${list.length} projet(s)` : (lang==='fr'?'Aucun projet':'No project');
-  list.forEach(p=>{
-    const a=document.createElement('a'); a.href=`#/projets/${p.id}`; a.className='tile';
-    a.innerHTML=`<img class="cover" alt=""><div class="cap">${p.title}</div>`;
-    const im=a.querySelector('.cover'); setSrc(im,p.cover);
-    grid.appendChild(a);
-  });
+/* ===== Email & Lightbox ===== */
+function bindEmailMenu(){
+  const btn=$('emailBtn'), menu=$('emailMenu'), addr='24joyssi@gmail.com';
+  btn.addEventListener('click',()=>{ const s=menu.style.display==='block'?'none':'block'; menu.style.display=s; btn.setAttribute('aria-expanded',s==='block'); });
+  document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
+  $('copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent=(lang==='fr'?'Copié ✓':lang==='en'?'Copied ✓':'Copiado ✓'); setTimeout(()=>{ev.target.textContent=STR[lang].email.copy;},1200);}catch{ alert(addr); }});
 }
-function loadProject(id){
-  const p=PROJECTS.find(x=>x.id===id);
-  if(!p){ $('projTitle').textContent='Projet introuvable'; $('projThumbs').innerHTML=''; return; }
-  $('projTitle').textContent=p.title;
-  const rolesBox=$('projRoles'); rolesBox.innerHTML='';
-  (p.roles||[]).forEach(r=>{ const s=document.createElement('span'); s.className='chip'; s.textContent=(STR[lang].roles[r]||r); rolesBox.appendChild(s); });
-  $('projCredits').textContent=(p.credits && (p.credits[lang]||p.credits.fr)) || '';
-  $('projDesc').textContent=(p.desc && (p.desc[lang]||p.desc.fr)) || '';
-  const box=$('projThumbs'); box.innerHTML='';
-  (p.images||[]).forEach(f=>{ const im=document.createElement('img'); im.alt=p.title; setSrc(im,f); im.addEventListener('click',()=>openLightbox("images/"+f,p.title)); box.appendChild(im); });
-}
+function openLightbox(src,alt){ const box=$('lightbox'), im=$('lightImg'); im.src=src; im.alt=alt||''; box.style.display='flex'; box.focus(); }
+$('lightbox').addEventListener('click',()=>{ $('lightbox').style.display='none'; $('lightImg').src=''; });
 
-/* ===== Filtres (uniquement sur /projets) ===== */
+/* ===== Projets — FILTRES ===== */
 let selectedByName = new Set();
 let activeRoles = new Set();
 
 function initFilterPanel(){
-  const panel=$('filterPanel');
+  const panel=$('filterPanel'); if(!panel) return;
   $('openFilter').onclick=()=>panel.classList.toggle('open');
   document.addEventListener('click',e=>{ if(!panel.contains(e.target)) panel.classList.remove('open'); });
 
+  // Projets (checkbox)
   const byProjectBox=$('byProjectBox'); byProjectBox.innerHTML='';
   PROJECTS.forEach(p=>{
     const id='chk_'+p.id; const line=document.createElement('label');
@@ -416,6 +521,7 @@ function initFilterPanel(){
     if(e.target && e.target.type==='checkbox'){ const v=e.target.value; if(e.target.checked) selectedByName.add(v); else selectedByName.delete(v); }
   });
 
+  // Rôles (checkbox)
   const byRoleBox=$('byRoleBox'); byRoleBox.innerHTML='';
   Object.keys(STR[lang].roles).forEach(key=>{
     const id='role_'+key; const line=document.createElement('label');
@@ -435,46 +541,133 @@ function initFilterPanel(){
   };
 }
 
-/* ===== Email + Lightbox ===== */
-function bindEmailMenu(){
-  const btn=$('emailBtn'), menu=$('emailMenu'), addr='24joyssi@gmail.com';
-  btn.addEventListener('click',()=>{ menu.style.display=(menu.style.display==='block'?'none':'block'); });
-  document.addEventListener('click',e=>{ if(!menu.contains(e.target) && e.target!==btn) menu.style.display='none'; });
-  $('copyMail').addEventListener('click',async(ev)=>{ try{ await navigator.clipboard.writeText(addr); ev.target.textContent='Copié ✓'; setTimeout(()=>{ev.target.textContent=STR[lang].email.copy;},1200);}catch{ alert(addr); }});
+function matchProject(p){
+  if(activeRoles.size>0){ for(const r of activeRoles){ if(!p.roles.includes(r)) return false; } }
+  if(selectedByName.size>0 && !selectedByName.has(p.id)) return false;
+  return true;
 }
-function openLightbox(src,alt){ const box=$('lightbox'), im=$('lightImg'); im.src=src; im.alt=alt||''; box.style.display='flex'; box.focus(); }
-$('lightbox').addEventListener('click',()=>{ $('lightbox').style.display='none'; $('lightImg').src=''; });
+function buildProjectsGrid(){
+  const box=$('detail'); if(!box) return;
+  const matched = PROJECTS.filter(matchProject);
+  $('countInfo').textContent = matched.length ? `${matched.length} projet(s)` : (lang==='fr'?'Aucun projet':'No project');
 
-/* ===== Entrée (3 sécurités) ===== */
+  if(matched.length===1){ renderFilteredDetail(matched[0]); return; }
+  if(matched.length===0){ renderFilteredEmpty(); return; }
+  renderFilteredChooser(matched);
+}
+function renderFilteredEmpty(){
+  $('dTitle').textContent = (lang==='fr'?'Sélectionne un projet':'Select a project');
+  $('dDesc').textContent=''; $('dRoles').innerHTML=''; $('dCredits').textContent=''; $('dPeople').innerHTML=''; $('dThumbs').innerHTML='';
+}
+function renderFilteredChooser(items){
+  $('dTitle').textContent = (lang==='fr'?'Choisir un projet':'Choose a project');
+  $('dDesc').textContent = (lang==='fr'?'Affiner par nom ou cliquer ci-dessous :':'Filter by name or click below:');
+  $('dRoles').innerHTML=''; $('dCredits').textContent=''; $('dPeople').innerHTML='';
+  const box=$('dThumbs'); box.innerHTML='';
+  items.forEach(p=>{
+    const b=document.createElement('a'); b.href=`#/projets/${p.id}`; b.className='btn'; b.textContent=p.title;
+    box.appendChild(b);
+  });
+}
+function roleLabel(tag){ return (STR[lang].roles[tag]||tag); }
+function renderPeople(list){
+  if(!list || !list.length) return '';
+  const title = STR[lang].people + ' : ';
+  return `<strong>${title}</strong> ${list.map(x=>{
+    const r=(x.role && (x.role[lang]||x.role.fr))||'';
+    const name = x.handle ? `${x.name} (${x.handle})` : x.name;
+    return `${name}${r? ' — '+r:''}`;
+  }).join(' · ')}`;
+}
+function renderFilteredDetail(p){
+  $('dTitle').textContent = p.title;
+  $('dDesc').textContent = (p.desc && (p.desc[lang]||p.desc.fr)) || '';
+  $('dCredits').textContent = (p.credits && (p.credits[lang]||p.credits.fr)) || '';
+  $('dPeople').innerHTML = renderPeople(p.people || []);
+  const rolesBox=$('dRoles'); rolesBox.innerHTML='';
+  (p.roles||[]).forEach(r=>{ const s=document.createElement('span'); s.className='chip'; s.textContent=roleLabel(r); rolesBox.appendChild(s); });
+  const thumbs=$('dThumbs'); thumbs.innerHTML='';
+  (p.images||[]).forEach(f=>{ const im=document.createElement('img'); im.className='thumb'; im.alt=p.title; setSrc(im,f); im.addEventListener('click',()=>openLightbox("images/"+f,p.title)); thumbs.appendChild(im); });
+}
+
+/* ===== Page TOUS LES PROJETS ===== */
+function buildAllProjectsGrid(){
+  const grid=$('allGrid'); if(!grid) return; grid.innerHTML='';
+  PROJECTS.forEach(p=>{
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <img class="cover" alt="">
+      <div class="body">
+        <div class="title">${p.title}</div>
+        <div class="roles">${p.roles.map(r=>`<span class="badge">${roleLabel(r)}</span>`).join(' ')}</div>
+      </div>`;
+    const cover=card.querySelector('.cover'); setSrc(cover,p.cover);
+    card.addEventListener('click',()=>openProjectModal(p));
+    grid.appendChild(card);
+  });
+}
+function openProjectModal(p){
+  $('pmTitle').textContent=p.title;
+  const roles=$('pmRoles'); roles.innerHTML=''; (p.roles||[]).forEach(r=>{ const x=document.createElement('span'); x.className='chip'; x.textContent=roleLabel(r); roles.appendChild(x); });
+  $('pmCredits').textContent=(p.credits && (p.credits[lang]||p.credits.fr)) || '';
+  $('pmDesc').textContent=(p.desc && (p.desc[lang]||p.desc.fr)) || '';
+  $('pmPeople').innerHTML = renderPeople(p.people || []);
+  const box=$('pmThumbs'); box.innerHTML='';
+  (p.images||[]).forEach(f=>{
+    const im=document.createElement('img'); im.alt=p.title; setSrc(im,f);
+    im.addEventListener('click',()=>openLightbox("images/"+f,p.title));
+    box.appendChild(im);
+  });
+  $('projModal').style.display='block';
+}
+function initProjectModal(){
+  $('pmClose').addEventListener('click',()=>{ $('projModal').style.display='none'; });
+  $('projModal').addEventListener('click',e=>{ if(e.target.id==='projModal') $('projModal').style.display='none'; });
+}
+
+/* ===== Détail route directe ===== */
+function loadProject(id){
+  const p=PROJECTS.find(x=>x.id===id); if(!p){ $('projTitle').textContent='Projet introuvable'; $('projThumbs').innerHTML=''; return; }
+  $('projTitle').textContent=p.title;
+  const roles=$('projRoles'); roles.innerHTML=''; (p.roles||[]).forEach(r=>{ const x=document.createElement('span'); x.className='chip'; x.textContent=roleLabel(r); roles.appendChild(x); });
+  $('projCredits').textContent=(p.credits && (p.credits[lang]||p.credits.fr)) || '';
+  $('projDesc').textContent=(p.desc && (p.desc[lang]||p.desc.fr)) || '';
+  $('projPeople').innerHTML = renderPeople(p.people || []);
+  const box=$('projThumbs'); box.innerHTML='';
+  (p.images||[]).forEach(f=>{ const im=document.createElement('img'); im.alt=p.title; setSrc(im,f); im.addEventListener('click',()=>openLightbox("images/"+f,p.title)); box.appendChild(im); });
+}
+
+/* ===== Entrée (sécurisée) ===== */
 function enterSite(){
   const sp=$('splash'); if(sp) sp.style.display='none';
   $('app').hidden=false; $('siteFooter').hidden=false;
-  applyLang(); initFilterPanel(); buildProjectsGrid(); bindEmailMenu();
-  if(!location.hash) location.hash = '#/home';
+  applyLang(); // textes
+  buildAllProjectsGrid();
+  initFilterPanel(); buildProjectsGrid();
+  bindEmailMenu();
+  if(!location.hash) location.hash='#/home';
   go(location.hash);
 }
-window.enterSite = enterSite; // 2) dispo pour l'onclick inline
+window.enterSite = enterSite;
 
 document.addEventListener('DOMContentLoaded',()=>{
-  // 3) binding JS classique
-  const sJoy=$('sJoy'); if(sJoy) sJoy.addEventListener('click', enterSite);
-  sJoy && sJoy.addEventListener('keydown',(e)=>{ if(e.key==='Enter' || e.key===' ') enterSite(); });
-
-  // Langues (top + splash)
+  // Splash lang + entrée
   $('s-fr').addEventListener('click',()=>setLang('fr'));
   $('s-en').addEventListener('click',()=>setLang('en'));
   $('s-es').addEventListener('click',()=>setLang('es'));
+  $('sJoy').addEventListener('click', enterSite);
+  $('sJoy').addEventListener('keydown',(e)=>{ if(e.key==='Enter' || e.key===' ') enterSite(); });
+
+  // Footer lang
   $('frBtn').addEventListener('click',()=>setLang('fr'));
   $('enBtn').addEventListener('click',()=>setLang('en'));
   $('esBtn').addEventListener('click',()=>setLang('es'));
 
-  // Secours clavier global
-  document.addEventListener('keydown',(e)=>{
-    if($('splash').style.display!== 'none' && (e.key==='Enter'||e.key===' ')){ enterSite(); }
-  });
-
   // Router
   window.addEventListener('hashchange',()=>go(location.hash||'#/home'));
+
+  // Modal close
+  initProjectModal();
 });
 </script>
 </body>
